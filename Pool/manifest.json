@@ -1,0 +1,10 @@
+{
+    "namespace": "allo",
+    "name": "Pool",
+    "version": "0.0.1",
+    "displayName": "Allo Pools",
+    "description": "All Pools created on Allo",
+    "chains": [
+        5
+    ]
+}
