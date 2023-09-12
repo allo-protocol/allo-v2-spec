@@ -1,88 +1,93 @@
-import { LiveObject, Spec, Property, Event, OnEvent, Address, BigInt, Json, Timestamp } from '@spec.dev/core'
+import {
+  Address,
+  BeforeAll,
+  Event,
+  LiveObject,
+  OnEvent,
+  Property,
+  Spec,
+  Timestamp,
+} from "@spec.dev/core";
 
 /**
  * All Profiles created on Registry
  */
-@Spec({ 
-    uniqueBy: ['profileId', 'chainId'] 
+@Spec({
+  uniqueBy: ["profileId", "chainId"],
 })
 class Profile extends LiveObject {
-    
-    @Property()
-    profileId: Address
+  @Property()
+  profileId: Address;
 
-    // TODO: int256
-    // TODO: what are the supported datatypes?
-    @Property()
-    nonce: number
+  @Property()
+  nonce: number;
 
-    @Property()
-    name: string
+  @Property()
+  name: string;
 
-    @Property()
-    metadata: Json
+  @Property()
+  metadataProtocol: number;
 
-    @Property()
-    owner: Address  
+  @Property()
+  metadataPointer: string;
 
-    @Property()
-    anchor: Address
+  @Property()
+  owner: Address;
 
-    @Property()
-    createdAt: Timestamp
+  @Property()
+  anchor: Address;
 
-    @Property()
-    updatedAt: Timestamp
+  @Property()
+  createdAt: Timestamp;
 
-    // TODO: would this be a new object Account, new object Role and then create a join  of sorts?
-    // Reference : https://github.com/allo-protocol/allo-v2-graph/blob/main/schema.graphql
-    @Property()
-    members: Address[]
-    
+  @Property()
+  updatedAt: Timestamp;
 
-    // ==== Event Handlers ===================
+  // TODO: would this be a new object Account, new object Role and then create a join  of sorts?
+  // Reference : https://github.com/allo-protocol/allo-v2-graph/blob/main/schema.graphql
+  @Property()
+  members: Address[];
 
-    @OnEvent('allov2.Profile.ProfileCreated')
-    onSomeEvent(event: Event) {
-        this.profileId = event.data.profileId
-        this.nonce = event.data.nonce
-    
-        this.name = event.data.name
-        this.metadata = event.data.metadata
-        // TODO: i can use resolveMetadata to fetch the metadata to add more information ?
-        // Do i pass the ipfs pinning service ?
-        this.owner = event.data.owner
-        this.anchor = event.data.anchor
+  // ====================
+  // =  Event Handlers  =
+  // ====================
 
-        this.createdAt = this.blockTimestamp
-        this.updatedAt = this.blockTimestamp
-    }
+  @BeforeAll()
+  setCommonProperties(event: Event) {
+    this.updatedAt = this.blockTimestamp;
+  }
 
-    @OnEvent('allov2.Profile.ProfileNameUpdated')
-    onProfileNameUpdated(event: Event) {
+  @OnEvent("allov2.Profile.ProfileCreated")
+  onSomeEvent(event: Event) {
+    this.profileId = event.data.profileId;
+    this.nonce = event.data.nonce;
 
-        this.name = event.data.name
-        this.anchor = event.data.anchor
+    this.name = event.data.name;
+    [this.metadataPointer, this.metadataProtocol] = event.data.metadata;
+    this.owner = event.data.owner;
+    this.anchor = event.data.anchor;
 
-        this.updatedAt = this.blockTimestamp
-    }
+    this.createdAt = this.blockTimestamp;
+  }
 
-    @OnEvent('allov2.Profile.ProfileMetadataUpdated')
-    onProfileMetadataUpdated(event: Event) { 
+  @OnEvent("allov2.Profile.ProfileNameUpdated")
+  onProfileNameUpdated(event: Event) {
+    this.name = event.data.name;
+    this.anchor = event.data.anchor;
+  }
 
-        this.metadata = event.data.metadata
-        this.updatedAt = this.blockTimestamp
-    }
+  @OnEvent("allov2.Profile.ProfileMetadataUpdated")
+  onProfileMetadataUpdated(event: Event) {
+    [this.metadataPointer, this.metadataProtocol] = event.data.metadata;
+  }
 
-    @OnEvent('allov2.Profile.ProfileOwnerUpdated')
-    onProfileOwnerUpdated(event: Event) {
-        this.owner = event.data.owner
+  @OnEvent("allov2.Profile.ProfileOwnerUpdated")
+  onProfileOwnerUpdated(event: Event) {
+    this.owner = event.data.owner;
+  }
 
-        this.updatedAt = this.blockTimestamp
-    }
-
-    // _revokeRole
-    // _grantRole
+  // _revokeRole
+  // _grantRole
 }
 
-export default Profile
+export default Profile;

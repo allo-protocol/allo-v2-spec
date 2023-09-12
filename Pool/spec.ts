@@ -1,73 +1,98 @@
-import { LiveObject, Spec, Property, Event, OnEvent, BigInt, Address, Json, Timestamp } from '@spec.dev/core'
+import {
+  Address,
+  BeforeAll,
+  BigInt,
+  Event,
+  Json,
+  LiveObject,
+  OnEvent,
+  Property,
+  Spec,
+  Timestamp,
+} from "@spec.dev/core";
 
 /**
  * All Pools created on Allo
  */
-@Spec({ 
-    uniqueBy: ['poolId', 'chainId'] 
+@Spec({
+  uniqueBy: ["poolId", "chainId"],
 })
 class Pool extends LiveObject {
-    // TODO
-    @Property()
-    poolId: number
+  @Property()
+  poolId: number;
 
-    // TODO: how do i link this to profileId ?
+  // @dev: Links to Profile.profileId
+  @Property()
+  profileId: Address;
 
-    @Property()
-    strategy: Address
+  @Property()
+  strategy: Address;
 
-    @Property()
-    token: Address
+  @Property()
+  token: Address;
 
-    @Property()
-    amount: BigInt
+  @Property()
+  amount: BigInt;
 
-    @Property()
-    feePaid: BigInt
+  @Property()
+  feePaid: BigInt;
 
-    @Property()
-    baseFeePaid: BigInt
+  @Property()
+  baseFeePaid: BigInt;
 
-    @Property()
-    metadata: Json
+  @Property()
+  metadataProtocol: number;
 
-    @Property()
-    createdAt: Timestamp
+  @Property()
+  metadataPointer: string;
 
-    @Property()
-    updatedAt: Timestamp
+  @Property()
+  createdAt: Timestamp;
 
-    // ==== Event Handlers ===================
+  @Property()
+  updatedAt: Timestamp;
 
-    @OnEvent('allov2.Allo.PoolCreated')
-    onPoolCreated(event: Event) {
-        this.poolId = event.data.poolId
-        this.strategy = event.data.strategy
-        this.token = event.data.token
-        // TODO: how to link to Profile.profileId
-        this.metadata = event.data.metadata
+  // ====================
+  // =  Event Handlers  =
+  // ====================
 
-        this.createdAt = this.blockTimestamp
-        this.updatedAt = this.blockTimestamp
-    }
+  @BeforeAll()
+  setCommonProperties(event: Event) {
+    this.updatedAt = this.blockTimestamp;
+  }
 
-    @OnEvent('allov2.Allo.PoolMetadataUpdated')
-    onPoolMetadataUpdated(event: Event) {
-        this.metadata = event.data.metadata
+  @OnEvent("allov2.Allo.PoolCreated")
+  onPoolCreated(event: Event) {
+    this.poolId = event.data.poolId;
+    this.strategy = event.data.strategy;
+    this.token = event.data.token;
+    this.profileId = event.data.profileId;
+    [
+      this.metadataPointer,
+      this.metadataProtocol
+    ] = event.data.metadata;
 
-        this.updatedAt = this.blockTimestamp
-    }
+    this.createdAt = this.blockTimestamp;
+  }
 
-    @OnEvent('allov2.Allo.PoolFunded')
-    onPoolFunded(event: Event) {
-        this.amount += event.data.amount
-        this.feePaid += event.data.feePaid
-    }
+  @OnEvent("allov2.Allo.PoolMetadataUpdated")
+  onPoolMetadataUpdated(event: Event) {
+    [
+      this.metadataPointer,
+      this.metadataProtocol
+    ] = event.data.metadata;
+  }
 
-    @OnEvent('allov2.Allo.BaseFeePaid')
-    onBaseFeePaid(event: Event) {
-        this.baseFeePaid += event.data.baseFeePaid
-    }
+  @OnEvent("allov2.Allo.PoolFunded")
+  onPoolFunded(event: Event) {
+    this.amount += event.data.amount;
+    this.feePaid += event.data.feePaid;
+  }
+
+  @OnEvent("allov2.Allo.BaseFeePaid")
+  onBaseFeePaid(event: Event) {
+    this.baseFeePaid += event.data.baseFeePaid;
+  }
 }
 
-export default Pool
+export default Pool;
