@@ -9,6 +9,7 @@ import {
     Spec,
     Timestamp,
 } from "@spec.dev/core";
+
 import { generatePoolRoleIds } from "../shared/roles";
 
 /**
@@ -61,7 +62,6 @@ class Pool extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        // TODO: Ask why this is needed
         this.poolId = event.data.poolId.toString();
     }
 

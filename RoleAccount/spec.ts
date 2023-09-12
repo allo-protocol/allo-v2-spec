@@ -1,21 +1,43 @@
-import { LiveObject, Spec, Property, Event, OnEvent, Address } from '@spec.dev/core'
+import { Address, BeforeAll,Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
 
 /**
- * Relationship between Role and Account in allo v2
+ * The accounts associated with an Allo role.
  */
-@Spec({ 
-    uniqueBy: ['someProperty', 'chainId'] 
+@Spec({
+    uniqueBy: ['roleId', 'accountId', 'chainId']
 })
 class RoleAccount extends LiveObject {
-    // TODO
+
     @Property()
-    someProperty: Address
+    roleId: string
 
-    // ==== Event Handlers ===================
+    @Property()
+    accountId: Address
 
-    @OnEvent('namespace.ContractName.EventName')
-    onSomeEvent(event: Event) {
-        this.someProperty = event.data.someProperty
+    @Property()
+    isActive: boolean
+
+    // ====================
+    // =  Event Handlers  =
+    // ====================
+
+    @BeforeAll()
+    setCommonProperties(event: Event) {
+        this.roleId = event.data.role
+        this.accountId = event.data.account
+    }
+
+    @OnEvent('allov2.Allo.RoleGranted')
+    @OnEvent('allov2.Registry.RoleGranted')
+    grant() {
+        this.isActive = true
+    }
+
+    @OnEvent('allov2.Allo.RoleRevoked')
+    @OnEvent('allov2.Registry.RoleRevoked')
+    revoke() {
+        // TODO: Is this cause we cannot delete data?
+        this.isActive = false
     }
 }
 

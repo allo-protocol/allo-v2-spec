@@ -1,21 +1,42 @@
-import { LiveObject, Spec, Property, Event, OnEvent, Address } from '@spec.dev/core'
+import { Event, LiveObject, OnEvent, Property, saveAll,Spec } from '@spec.dev/core'
+
+import { generatePoolRoleIds } from '../shared/roles.ts'
 
 /**
- * Role which are used in allo v2 core
+ * A role on Allo.
  */
-@Spec({ 
-    uniqueBy: ['someProperty', 'chainId'] 
+@Spec({
+    uniqueBy: ['roleId', 'chainId']
 })
 class Role extends LiveObject {
-    // TODO
+
     @Property()
-    someProperty: Address
+    roleId: string
 
-    // ==== Event Handlers ===================
+    // ====================
+    // =  Event Handlers  =
+    // ====================
 
-    @OnEvent('namespace.ContractName.EventName')
-    onSomeEvent(event: Event) {
-        this.someProperty = event.data.someProperty
+    // @dev: This is cause Profile.owner is not set via OZ roles
+    @OnEvent('allov2.Registry.ProfileCreated')
+    createProfileRole(event: Event) {
+        this.roleId = event.data.profileId
+    }
+
+    @OnEvent('allov2.Allo.RoleGranted')
+    @OnEvent('allov2.Allo.RoleRevoked')
+    @OnEvent('allov2.Registry.RoleRevoked')
+    @OnEvent('allov2.Registry.RoleGranted')
+    createAccountRole(event: Event) {
+        // TODO: why do we need this for RoleRevoked?
+        this.roleId = event.data.role
+    }
+
+    @OnEvent('allov2.Allo.PoolCreated', { autoSave: false })
+    async createPoolRoles(event: Event) {
+        await saveAll(...generatePoolRoleIds(event.data.poolId).map(
+            roleId => this.new(Role, { roleId })
+        ))
     }
 }
 

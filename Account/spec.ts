@@ -1,21 +1,32 @@
-import { LiveObject, Spec, Property, Event, OnEvent, Address } from '@spec.dev/core'
+import { Address,Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
 
 /**
- * Account which have roles associated with it on allo v2
+ * All accounts on Allo V2.
  */
-@Spec({ 
-    uniqueBy: ['someProperty', 'chainId'] 
+@Spec({
+    uniqueBy: ['accountId', 'chainId']
 })
 class Account extends LiveObject {
-    // TODO
+
     @Property()
-    someProperty: Address
+    accountId: Address
 
-    // ==== Event Handlers ===================
+    // ====================
+    // =  Event Handlers  =
+    // ====================
 
-    @OnEvent('namespace.ContractName.EventName')
-    onSomeEvent(event: Event) {
-        this.someProperty = event.data.someProperty
+    // @dev: This is cause Profile.owner is not set via OZ roles
+    @OnEvent('allov2.Registry.ProfileCreated')
+    createForProfileOwner(event: Event) {
+        this.accountId = event.data.owner
+    }
+
+    @OnEvent('allov2.Allo.RoleGranted')
+    @OnEvent('allov2.Allo.RoleRevoked')
+    @OnEvent('allov2.Registry.RoleRevoked')
+    @OnEvent('allov2.Registry.RoleGranted')
+    createForRole(event: Event) {
+        this.accountId = event.data.account
     }
 }
 

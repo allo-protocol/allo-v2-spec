@@ -35,9 +35,6 @@ class Allo extends LiveObject {
     // =  Event Handlers  =
     // ====================
 
-    @BeforeAll()
-    setCommonProperties(event: Event) { }
-
     @OnEvent("allov2.Allo.RegistryUpdated")
     onSomeEvent(event: Event) {
         this.registry = event.data.registry;
