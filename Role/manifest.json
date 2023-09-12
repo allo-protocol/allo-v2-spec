@@ -1,0 +1,10 @@
+{
+    "namespace": "allo",
+    "name": "Role",
+    "version": "0.0.1",
+    "displayName": "Allo Roles",
+    "description": "Role which are used in allo v2 core",
+    "chains": [
+        5
+    ]
+}
