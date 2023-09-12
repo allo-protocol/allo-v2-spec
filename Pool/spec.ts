@@ -9,6 +9,7 @@ import {
     Spec,
     Timestamp,
 } from "@spec.dev/core";
+import { generatePoolRoleIds } from "../shared/roles";
 
 /**
  * All Pools created on Allo

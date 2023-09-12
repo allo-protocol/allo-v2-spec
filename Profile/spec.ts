@@ -40,50 +40,49 @@ class Profile extends LiveObject {
     @Property()
     createdAt: Timestamp;
 
-    // TODO: would this be a new object Account, new object Role and then create a join  of sorts?
-    // Reference : https://github.com/allo-protocol/allo-v2-graph/blob/main/schema.graphql
-    @Property()
-    members: Address[];
-
     // ====================
     // =  Event Handlers  =
     // ====================
 
     @BeforeAll()
     setCommonProperties(event: Event) {
+        this.profileId = event.data.profileId
     }
 
-    @OnEvent("allov2.Profile.ProfileCreated")
+    @OnEvent("allov2.Registry.ProfileCreated")
     onSomeEvent(event: Event) {
         this.profileId = event.data.profileId;
-        this.nonce = event.data.nonce;
+        this.nonce = event.data.nonce
+        this.name = event.data.name
 
-        this.name = event.data.name;
-        [this.metadataPointer, this.metadataProtocol] = event.data.metadata;
-        this.owner = event.data.owner;
-        this.anchor = event.data.anchor;
+        const [protocol, pointer] = event.data.metadata
+        this.metadataPointer = pointer
+        this.metadataProtocol = protocol
 
-        this.createdAt = this.blockTimestamp;
+        this.owner = event.data.owner
+        this.anchor = event.data.anchor
+
+        this.createdAt = this.blockTimestamp
     }
 
-    @OnEvent("allov2.Profile.ProfileNameUpdated")
+    @OnEvent("allov2.Registry.ProfileNameUpdated")
     onProfileNameUpdated(event: Event) {
         this.name = event.data.name;
         this.anchor = event.data.anchor;
     }
 
-    @OnEvent("allov2.Profile.ProfileMetadataUpdated")
+    @OnEvent("allov2.Registry.ProfileMetadataUpdated")
     onProfileMetadataUpdated(event: Event) {
-        [this.metadataPointer, this.metadataProtocol] = event.data.metadata;
+        const [protocol, pointer] = event.data.metadata
+        this.metadataPointer = pointer
+        this.metadataProtocol = protocol
     }
 
-    @OnEvent("allov2.Profile.ProfileOwnerUpdated")
+    @OnEvent("allov2.Registry.ProfileOwnerUpdated")
     onProfileOwnerUpdated(event: Event) {
         this.owner = event.data.owner;
     }
 
-    // _revokeRole
-    // _grantRole
 }
 
 export default Profile;
