@@ -1,0 +1,10 @@
+{
+    "namespace": "allo",
+    "name": "MerkleDistribution_Merkle",
+    "version": "0.0.1",
+    "displayName": "MerkleDistribution Merkle",
+    "description": "Index global on DonationVotingMerkleDistribution QF strategy",
+    "chains": [
+        5
+    ]
+}

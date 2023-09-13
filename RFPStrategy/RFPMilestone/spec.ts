@@ -6,7 +6,7 @@ import { getStatusFromInt } from '../../shared/status'
  * RFP Milestone details
  */
 @Spec({
-    uniqueBy: ['strategyId', 'id', 'chainId']
+    uniqueBy: ['strategyId', 'milestoneId', 'chainId']
 })
 class RFPMilestone extends LiveObject {
 
@@ -20,7 +20,7 @@ class RFPMilestone extends LiveObject {
     metadataProtocol: number
 
     @Property()
-    metadataPointer: stringg
+    metadataPointer: string
 
     @Property()
     status: string
@@ -35,26 +35,30 @@ class RFPMilestone extends LiveObject {
         this.milestoneId = event.data.milestoneId;
     }
 
-    @OnEvent('allov2.RFPSimple.MilestonesSet')
+    @OnEvent('allov2.RFPSimple.MilestonesSet', { autoSave: false })
     async onMilestonesSet(event: Event) {
-        // TODO-SPEC: figure out fetch all milestones from strategyId and mark them as deleted state in status
-        // when invoked the second time
-        // this is for soft delete ^
+        const existingMilestones = await this.find(RFPMilestone, {
+            strategyId: this.strategyId
+        })
+        existingMilestones.forEach(milestone => {
+            milestone.status = 'deleted-or-something' // TODO-SPEC:
+        })
+        await saveAll(...existingMilestones)
 
-        const strategyContract = this.bind(this.address, 'allov2.RFPSimple')
         // TODO-ALLO: implement getMilestoneLength external function 
-        const milestoneLength = await strategyContract.getMilestoneCount()
+        const milestoneLength = await this.contract.getMilestoneCount()
         
+        // deno-lint-ignore no-explicit-any
         const rfpMilestones: any = [];
 
         for(let i = 0; i < milestoneLength; i++) {
-            const milestone = await strategyContract.getMilestone(i)
+            const milestone = await this.contract.getMilestone(i)
             
             const [protocol, pointer] = milestone.metadata
 
-            const rfpMilestone = await this.new(RFPMilestone, {
+            const rfpMilestone = this.new(RFPMilestone, {
                 milestoneId: i,
-                strategyId: event.origin.contractAddress,
+                strategyId: this.strategyId,
                 metadataProtocol: protocol,
                 metadataPointer: pointer,
                 status: getStatusFromInt(0)
@@ -64,14 +68,15 @@ class RFPMilestone extends LiveObject {
         await saveAll(...rfpMilestones)
     }
 
+    // TODO-SPEC: should we reomove the async/await here? are we awaiting anyghing under the hood?
     @OnEvent('allov2.RFPSimple.MilstoneSubmitted')
-    async onMilstoneSubmitted(event: Event) {
-        this.status = getStatusFromInt(1)
+    async onMilstoneSubmitted() {
+        this.status = await getStatusFromInt(1)
     }
 
     @OnEvent('allov2.RFPSimple.MilestoneStatusChanged')
     async onMilestoneStatusChanged(event: Event) {
-        this.status = getStatusFromInt(event.data.status)
+        this.status = await getStatusFromInt(event.data.status)
     }
 }
 

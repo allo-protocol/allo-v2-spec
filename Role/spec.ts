@@ -1,40 +1,48 @@
-import { Event, LiveObject, OnEvent, Property, saveAll,Spec } from '@spec.dev/core'
+import {
+  Event,
+  LiveObject,
+  OnEvent,
+  Property,
+  saveAll,
+  Spec,
+} from "@spec.dev/core";
 
-import { generatePoolRoleIds } from '../shared/roles.ts'
+import { generatePoolRoleIds } from "../shared/roles";
 
 /**
  * A role on Allo.
  */
 @Spec({
-    uniqueBy: ['roleId', 'chainId']
+  uniqueBy: ["roleId", "chainId"],
 })
 class Role extends LiveObject {
+  @Property()
+  roleId: string;
 
-    @Property()
-    roleId: string
+  // ====================
+  // =  Event Handlers  =
+  // ====================
 
-    // ====================
-    // =  Event Handlers  =
-    // ====================
+  // @dev: This is cause Profile.owner is not set via OZ roles
+  @OnEvent("allov2.Registry.ProfileCreated")
+  createProfileRole(event: Event) {
+    this.roleId = event.data.profileId;
+  }
 
-    // @dev: This is cause Profile.owner is not set via OZ roles
-    @OnEvent('allov2.Registry.ProfileCreated')
-    createProfileRole(event: Event) {
-        this.roleId = event.data.profileId
-    }
+  @OnEvent("allov2.Allo.RoleGranted")
+  @OnEvent("allov2.Registry.RoleGranted")
+  createAccountRole(event: Event) {
+    this.roleId = event.data.role;
+  }
 
-    @OnEvent('allov2.Allo.RoleGranted')
-    @OnEvent('allov2.Registry.RoleGranted')
-    createAccountRole(event: Event) {
-        this.roleId = event.data.role
-    }
-
-    @OnEvent('allov2.Allo.PoolCreated', { autoSave: false })
-    async createPoolRoles(event: Event) {
-        await saveAll(...generatePoolRoleIds(event.data.poolId).map(
-            roleId => this.new(Role, { roleId })
-        ))
-    }
+  @OnEvent("allov2.Allo.PoolCreated", { autoSave: false })
+  async createPoolRoles(event: Event) {
+    await saveAll(
+      ...generatePoolRoleIds(event.data.poolId).map((roleId) =>
+        this.new(Role, { roleId })
+      )
+    );
+  }
 }
 
-export default Role
+export default Role;

@@ -26,15 +26,12 @@ class RFP extends LiveObject {
         this.strategyId = event.origin.contractAddress;
     }
 
-    // TODO-SPEC: Is this needed cause RFPCommitteeStrategy extends RFPSimple 
-    // @OnEvent('allov2.RFPCommitteeStrategy.PoolActive')
-    @OnEvent('allov2.RFPSimple.PoolActive')
+    @OnEvent('allov2.RFPCommitteeStrategy.PoolActive')
     onPoolStatusUpdate(event: Event) {
         this.active = event.data.flag
     }
 
-    // @OnEvent('allov2.RFPCommitteeStrategy.MaxBidIncreased')
-    @OnEvent('allov2.RFPSimple.MaxBidIncreased')
+    @OnEvent('allov2.RFPCommitteeStrategy.MaxBidIncreased')
     async onMaxBidIncreased(event: Event) {
         await this.load();
         this.maxBid = this.maxBid.plus(event.data.amount)
