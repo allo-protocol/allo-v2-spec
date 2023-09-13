@@ -1,5 +1,6 @@
 import {
     Address,
+    BigInt,
     BeforeAll,
     Event,
     LiveObject,
@@ -19,8 +20,8 @@ class Profile extends LiveObject {
     @Property()
     profileId: Address;
 
-    @Property()
-    nonce: number;
+    @Property({ default: 0 })
+    nonce: BigInt;
 
     @Property()
     name: string;
@@ -38,6 +39,9 @@ class Profile extends LiveObject {
     anchor: Address;
 
     @Property()
+    creator: Address;
+
+    @Property()
     createdAt: Timestamp;
 
     // ====================
@@ -50,9 +54,9 @@ class Profile extends LiveObject {
     }
 
     @OnEvent("allov2.Registry.ProfileCreated")
-    onSomeEvent(event: Event) {
-        this.profileId = event.data.profileId;
-        this.nonce = event.data.nonce
+    async onSomeEvent(event: Event) {
+        this.profileId = event.data.profileId
+        this.nonce = BigInt.from(event.data.nonce)
         this.name = event.data.name
 
         const [protocol, pointer] = event.data.metadata
@@ -62,13 +66,16 @@ class Profile extends LiveObject {
         this.owner = event.data.owner
         this.anchor = event.data.anchor
 
+        const tx = await this.getCurrentTransaction()
+        this.creator = tx.from
+
         this.createdAt = this.blockTimestamp
     }
 
     @OnEvent("allov2.Registry.ProfileNameUpdated")
     onProfileNameUpdated(event: Event) {
-        this.name = event.data.name;
-        this.anchor = event.data.anchor;
+        this.name = event.data.name
+        this.anchor = event.data.anchor
     }
 
     @OnEvent("allov2.Registry.ProfileMetadataUpdated")
@@ -80,7 +87,7 @@ class Profile extends LiveObject {
 
     @OnEvent("allov2.Registry.ProfileOwnerUpdated")
     onProfileOwnerUpdated(event: Event) {
-        this.owner = event.data.owner;
+        this.owner = event.data.owner
     }
 
 }

@@ -24,11 +24,8 @@ class Role extends LiveObject {
     }
 
     @OnEvent('allov2.Allo.RoleGranted')
-    @OnEvent('allov2.Allo.RoleRevoked')
-    @OnEvent('allov2.Registry.RoleRevoked')
     @OnEvent('allov2.Registry.RoleGranted')
     createAccountRole(event: Event) {
-        // TODO: why do we need this for RoleRevoked?
         this.roleId = event.data.role
     }
 
