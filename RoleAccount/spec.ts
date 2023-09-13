@@ -36,7 +36,7 @@ class RoleAccount extends LiveObject {
     @OnEvent('allov2.Allo.RoleRevoked')
     @OnEvent('allov2.Registry.RoleRevoked')
     revoke() {
-        // TODO: Is this cause we cannot delete data?
+        // soft delete
         this.isActive = false
     }
 }
