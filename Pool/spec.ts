@@ -10,6 +10,7 @@ import {
     Timestamp,
 } from "@spec.dev/core";
 
+import { getStrategyGroup } from "../shared/contractCall";
 import { generatePoolRoleIds } from "../shared/roles";
 
 /**
@@ -66,7 +67,7 @@ class Pool extends LiveObject {
     }
 
     @OnEvent("allov2.Allo.PoolCreated")
-    onPoolCreated(event: Event) {
+    async onPoolCreated(event: Event) {
         this.profileId = event.data.profileId;
         this.strategy = event.data.strategy;
         this.token = event.data.token;
@@ -83,6 +84,11 @@ class Pool extends LiveObject {
         this.adminRoleId = adminRoleId;
 
         this.createdAt = this.blockTimestamp;
+
+        const contractGroupName = await getStrategyGroup(this.chainId, this.strategy)
+        if (contractGroupName) {
+            this.addContractToGroup(this.address, contractGroupName)
+        }
     }
 
     @OnEvent("allov2.Allo.PoolMetadataUpdated")
