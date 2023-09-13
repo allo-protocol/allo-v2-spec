@@ -54,7 +54,7 @@ class Profile extends LiveObject {
     }
 
     @OnEvent("allov2.Registry.ProfileCreated")
-    async onSomeEvent(event: Event) {
+    async onProfileCreated(event: Event) {
         this.profileId = event.data.profileId
         this.nonce = BigInt.from(event.data.nonce)
         this.name = event.data.name
