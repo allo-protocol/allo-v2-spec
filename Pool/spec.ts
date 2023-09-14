@@ -75,7 +75,7 @@ class Pool extends LiveObject {
         // @dev : ignore this as it would be handled on PoolFunded event
         // this.amount = BigInt.from(event.data.amount)
 
-        const [pointer, protocol] = event.data.metadata;
+        const [protocol, pointer] = event.data.metadata;
         this.metadataPointer = pointer;
         this.metadataProtocol = protocol;
 
@@ -94,7 +94,7 @@ class Pool extends LiveObject {
 
     @OnEvent("allov2.Allo.PoolMetadataUpdated")
     onPoolMetadataUpdated(event: Event) {
-        const [pointer, protocol] = event.data.metadata;
+        const [protocol, pointer] = event.data.metadata;
         this.metadataPointer = pointer;
         this.metadataProtocol = protocol;
     }
@@ -102,15 +102,14 @@ class Pool extends LiveObject {
     @OnEvent("allov2.Allo.PoolFunded")
     async onPoolFunded(event: Event) {
         await this.load();
-
-        this.amount = this.amount.plus(event.data.amount);
-        this.feePaid = this.feePaid.plus(event.data.fee);
+        this.amount = BigInt.from(this.amount || 0).plus(event.data.amount);
+        this.feePaid = BigInt.from(this.feePaid || 0).plus(event.data.fee);
     }
 
     @OnEvent("allov2.Allo.BaseFeePaid")
     async onBaseFeePaid(event: Event) {
         await this.load();
-        this.baseFeePaid = this.baseFeePaid.plus(event.data.amount);
+        this.baseFeePaid = BigInt.from(this.baseFeePaid || 0).plus(event.data.amount);
     }
 }
 
