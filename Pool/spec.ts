@@ -85,10 +85,11 @@ class Pool extends LiveObject {
 
         this.createdAt = this.blockTimestamp;
 
-        const contractGroupName = await getStrategyContractGroup(this.chainId, this.strategy)
-        if (contractGroupName) {
-            this.addContractToGroup(this.strategy, contractGroupName)
-        }
+        // TODO: uncomment when indexing strategies 
+        // const contractGroupName = await getStrategyContractGroup(this.chainId, this.strategy)
+        // if (contractGroupName) {
+        //     this.addContractToGroup(this.strategy, contractGroupName)
+        // }
     }
 
     @OnEvent("allov2.Allo.PoolMetadataUpdated")
