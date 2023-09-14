@@ -1,7 +1,7 @@
 import {
     Address,
-    BigInt,
     BeforeAll,
+    BigInt,
     Event,
     LiveObject,
     OnEvent,

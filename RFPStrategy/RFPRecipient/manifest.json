@@ -1,0 +1,10 @@
+{
+    "namespace": "allo",
+    "name": "RFP_Registration",
+    "version": "0.0.1",
+    "displayName": "RFP Registration",
+    "description": "Index Registation on RFPSimple",
+    "chains": [
+        5
+    ]
+}

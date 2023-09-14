@@ -1,0 +1,10 @@
+{
+    "namespace": "allo",
+    "name": "RFP",
+    "version": "0.0.1",
+    "displayName": "RFP",
+    "description": "Index global variable RFPSimple",
+    "chains": [
+        5
+    ]
+}

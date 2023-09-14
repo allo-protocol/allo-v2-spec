@@ -10,7 +10,8 @@ import {
     Timestamp,
 } from "@spec.dev/core";
 
-import { generatePoolRoleIds } from "../shared/roles";
+import { getStrategyContractGroup } from "../shared/contractCall.ts";
+import { generatePoolRoleIds } from "../shared/roles.ts";
 
 /**
  * All Pools created on Allo
@@ -66,7 +67,7 @@ class Pool extends LiveObject {
     }
 
     @OnEvent("allov2.Allo.PoolCreated")
-    onPoolCreated(event: Event) {
+    async onPoolCreated(event: Event) {
         this.profileId = event.data.profileId;
         this.strategy = event.data.strategy;
         this.token = event.data.token;
@@ -83,6 +84,11 @@ class Pool extends LiveObject {
         this.adminRoleId = adminRoleId;
 
         this.createdAt = this.blockTimestamp;
+
+        const contractGroupName = await getStrategyContractGroup(this.chainId, this.strategy)
+        if (contractGroupName) {
+            this.addContractToGroup(this.strategy, contractGroupName)
+        }
     }
 
     @OnEvent("allov2.Allo.PoolMetadataUpdated")
@@ -97,7 +103,7 @@ class Pool extends LiveObject {
         await this.load();
 
         this.amount = this.amount.plus(event.data.amount);
-        this.feePaid = this.feePaid.plus(event.data.feePaid);
+        this.feePaid = this.feePaid.plus(event.data.fee);
     }
 
     @OnEvent("allov2.Allo.BaseFeePaid")
