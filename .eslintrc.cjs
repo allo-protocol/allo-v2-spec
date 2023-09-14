@@ -4,6 +4,7 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     plugins: ["@typescript-eslint", "simple-import-sort"],
     rules: {
+        "@typescript-eslint/no-explicit-any": "off",
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
         "@typescript-eslint/ban-types": "off",

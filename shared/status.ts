@@ -5,7 +5,8 @@ const statusEnum = [
   "Rejected",
   "Appealed",
   "InReview",
-  "Canceled"
+  "Canceled",
+  "Deleted"
 ];
 
 export function getStatusFromInt(statusInt: number) {  

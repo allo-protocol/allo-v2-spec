@@ -35,15 +35,11 @@ class RFPMilestone extends LiveObject {
         this.milestoneId = event.data.milestoneId;
     }
 
-    @OnEvent('allov2.RFPSimple.MilestonesSet', { autoSave: false })
-    async onMilestonesSet(event: Event) {
-        const existingMilestones = await this.find(RFPMilestone, {
-            strategyId: this.strategyId
-        })
-        existingMilestones.forEach(milestone => {
-            milestone.status = 'deleted-or-something' // TODO-SPEC:
-        })
-        await saveAll(...existingMilestones)
+    @OnEvent('allov2.RFPSimpleStrategy.MilestonesSet', { autoSave: false })
+    @OnEvent('allov2.RFPCommitteeStrategy.MilestonesSet', { autoSave: false })
+    async onMilestonesSet() {
+
+       await this._softDeleteExistingMilestones();
 
         // TODO-ALLO: implement getMilestoneLength external function 
         const milestoneLength = await this.contract.getMilestoneCount()
@@ -68,15 +64,26 @@ class RFPMilestone extends LiveObject {
         await saveAll(...rfpMilestones)
     }
 
-    // TODO-SPEC: should we reomove the async/await here? are we awaiting anyghing under the hood?
-    @OnEvent('allov2.RFPSimple.MilstoneSubmitted')
-    async onMilstoneSubmitted() {
-        this.status = await getStatusFromInt(1)
+    @OnEvent('allov2.RFPSimpleStrategy.MilstoneSubmitted')
+    @OnEvent('allov2.RFPCommitteeStrategy.MilstoneSubmitted')
+    onMilstoneSubmitted() {
+        this.status = getStatusFromInt(1)
     }
 
-    @OnEvent('allov2.RFPSimple.MilestoneStatusChanged')
-    async onMilestoneStatusChanged(event: Event) {
-        this.status = await getStatusFromInt(event.data.status)
+    @OnEvent('allov2.RFPSimpleStrategy.MilestoneStatusChanged')
+    @OnEvent('allov2.RFPCommitteeStrategy.MilestoneStatusChanged')
+    onMilestoneStatusChanged(event: Event) {
+        this.status = getStatusFromInt(event.data.status)
+    }
+
+    async _softDeleteExistingMilestones() {
+        const existingMilestones = await this.find(RFPMilestone, {
+            strategyId: this.strategyId
+        })
+        existingMilestones.forEach(milestone => {
+            milestone.status = getStatusFromInt(7)
+        })
+        await saveAll(...existingMilestones)
     }
 }
 

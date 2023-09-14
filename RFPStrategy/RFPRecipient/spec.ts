@@ -44,7 +44,8 @@ class RFPRecipient extends LiveObject {
         this.recipientId = event.data.recipientId
     }
 
-    @OnEvent('allov2.RFPSimple.Registered')
+    @OnEvent('allov2.RFPSimpleStrategy.Registered')
+    @OnEvent('allov2.RFPCommitteeStrategy.Registered')
     async onRegistration(event: Event) {
         const useRegistryAnchor = await this.contract.useRegistryAnchor()
     
@@ -61,7 +62,8 @@ class RFPRecipient extends LiveObject {
         this.sender = event.data.sender
     }
 
-    @OnEvent('allov2.RFPSimple.UpdatedRegistration')
+    @OnEvent('allov2.RFPSimpleStrategy.UpdatedRegistration')
+    @OnEvent('allov2.RFPCommitteeStrategy.UpdatedRegistration')
     async onUpdatedRegistration(event: Event) {
 
         // make sure we have access to the current value for this.isRegistryAnchor
@@ -75,7 +77,8 @@ class RFPRecipient extends LiveObject {
         this.sender = event.data.sender
     }
 
-    @OnEvent('allov2.RFPSimple.Allocated')
+    @OnEvent('allov2.RFPSimpleStrategy.Allocated')
+    @OnEvent('allov2.RFPCommitteeStrategy.Allocated')
     onAllocation(event: Event) {
         this.status = getStatusFromInt(2)
         this.proposalBid = BigInt.from(event.data.proposalBid)

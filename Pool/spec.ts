@@ -10,7 +10,7 @@ import {
     Timestamp,
 } from "@spec.dev/core";
 
-import { getStrategyGroup } from "../shared/contractCall.ts";
+import { getStrategyContractGroup } from "../shared/contractCall.ts";
 import { generatePoolRoleIds } from "../shared/roles.ts";
 
 /**
@@ -85,7 +85,7 @@ class Pool extends LiveObject {
 
         this.createdAt = this.blockTimestamp;
 
-        const contractGroupName = await getStrategyGroup(this.chainId, this.strategy)
+        const contractGroupName = await getStrategyContractGroup(this.chainId, this.strategy)
         if (contractGroupName) {
             this.addContractToGroup(this.strategy, contractGroupName)
         }

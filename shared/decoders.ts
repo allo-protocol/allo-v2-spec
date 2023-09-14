@@ -1,7 +1,6 @@
 import { decodeAbi } from "@spec.dev/core";
-import { formatMetadataAsStruct } from "./formatter";
 
-// Deocoders
+import { formatMetadataAsStruct } from "./formatter";
 
 export function decodeRFPRegistrationData(
   useRegistryAnchor: boolean,
@@ -9,9 +8,9 @@ export function decodeRFPRegistrationData(
 ) {
   if (useRegistryAnchor) {
     const [, proposalBid, metadata] = decodeAbi(data, [
-      "address",
-      "uint256",
-      "tuple(uint256, string)",
+        "address",
+        "uint256",
+        "tuple(uint256, string)",
     ]);
 
     return {
@@ -20,10 +19,10 @@ export function decodeRFPRegistrationData(
     };
   } else {
     const [, , proposalBid, metadata] = decodeAbi(data, [
-      "address",
-      "address",
-      "uint256",
-      "tuple(uint256, string)",
+        "address",
+        "address",
+        "uint256",
+        "tuple(uint256, string)",
     ]);
 
     return {
@@ -39,9 +38,9 @@ export function decodeMerkleRegistrationData(
 ) {
   if (useRegistryAnchor) {
     const [, , metadata] = decodeAbi(data, [
-      "address",
-      "uint256",
-      "tuple(uint256, string)",
+        "address",
+        "uint256",
+        "tuple(uint256, string)",
     ]);
 
     return {
@@ -49,9 +48,9 @@ export function decodeMerkleRegistrationData(
     };
   } else {
     const [, , metadata] = decodeAbi(data, [
-      "address",
-      "address",
-      "tuple(uint256, string)",
+        "address",
+        "address",
+        "tuple(uint256, string)",
     ]);
 
     return {
