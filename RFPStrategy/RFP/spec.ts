@@ -32,7 +32,7 @@ class RFP extends LiveObject {
         this.active = event.data.flag
     }
 
-    @OnEvent('allov2.RFPSimpleStrategy.PoolActive')
+    @OnEvent('allov2.RFPSimpleStrategy.MaxBidIncreased')
     @OnEvent('allov2.RFPCommitteeStrategy.MaxBidIncreased')
     async onMaxBidIncreased(event: Event) {
         await this.load();
