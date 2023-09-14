@@ -11,7 +11,7 @@ class RFP extends LiveObject {
     @Property()
     strategyId: Address
 
-    @Property()
+    @Property({ default: false })
     active: boolean
 
     @Property({ default: 0 })

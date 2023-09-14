@@ -17,6 +17,9 @@ class RFPMilestone extends LiveObject {
     strategyId: Address
 
     @Property()
+    recipientId: Address
+
+    @Property()
     metadataProtocol: number
 
     @Property()
@@ -44,6 +47,8 @@ class RFPMilestone extends LiveObject {
         // TODO-ALLO: implement getMilestoneLength external function 
         const milestoneLength = await this.contract.getMilestoneCount()
         
+        const recipientId = await this.contract.acceptedRecipientId()
+
         // deno-lint-ignore no-explicit-any
         const rfpMilestones: any = [];
 
@@ -55,6 +60,7 @@ class RFPMilestone extends LiveObject {
             const rfpMilestone = this.new(RFPMilestone, {
                 milestoneId: i,
                 strategyId: this.strategyId,
+                recipientId: recipientId,
                 metadataProtocol: protocol,
                 metadataPointer: pointer,
                 status: getStatusFromInt(0)
