@@ -38,7 +38,7 @@ class Role extends LiveObject {
   @OnEvent("allov2.Allo.PoolCreated", { autoSave: false })
   async createPoolRoles(event: Event) {
     await saveAll(
-      ...generatePoolRoleIds(event.data.poolId).map((roleId) =>
+      ...generatePoolRoleIds(event.data.poolId.toString()).map((roleId) =>
         this.new(Role, { roleId })
       )
     );
