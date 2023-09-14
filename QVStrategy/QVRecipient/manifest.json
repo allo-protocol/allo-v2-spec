@@ -1,0 +1,8 @@
+{
+  "namespace": "allo",
+  "name": "QuadraticVoting_Recipient",
+  "version": "0.0.1",
+  "displayName": "QuadraticVoting Recipient",
+  "description": "Index QV Recipients",
+  "chains": [5]
+}

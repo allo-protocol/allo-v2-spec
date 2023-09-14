@@ -1,0 +1,8 @@
+{
+  "namespace": "allo",
+  "name": "QuadraticVoting_Base",
+  "version": "0.0.1",
+  "displayName": "QuadraticVoting Base",
+  "description": "Index global on QV strategies",
+  "chains": [5]
+}

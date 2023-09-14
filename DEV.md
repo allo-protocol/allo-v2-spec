@@ -1,5 +1,14 @@
 ## Spec CLI Common Commands
 
+Use the allo project
+```bash
+$ spec use project allo/spec
+```
+
+Add to new/existing contract group
+```bash
+$ spec add contracts
+```
 
 Show the structure of the event data
 ```bash
