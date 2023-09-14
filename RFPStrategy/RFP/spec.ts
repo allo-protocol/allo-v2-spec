@@ -15,6 +15,7 @@ class RFP extends LiveObject {
     active: boolean
 
     @Property({ default: 0 })
+    
     maxBid: BigInt
 
     // ====================
