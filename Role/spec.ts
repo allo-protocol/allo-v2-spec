@@ -7,7 +7,7 @@ import {
   Spec,
 } from "@spec.dev/core";
 
-import { generatePoolRoleIds } from "../shared/roles";
+import { generatePoolRoleIds } from "../shared/roles.ts";
 
 /**
  * A role on Allo.

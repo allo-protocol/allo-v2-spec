@@ -1,6 +1,6 @@
 import { Address, BeforeAll, Event, LiveObject, OnEvent, Property, saveAll,Spec } from '@spec.dev/core'
 
-import { getStatusFromInt } from '../../shared/status'
+import { getStatusFromInt } from '../../shared/status.ts'
 
 /**
  * RFP Milestone details
