@@ -54,7 +54,7 @@ class Profile extends LiveObject {
     }
 
     @OnEvent("allov2.Registry.ProfileCreated")
-    async onProfileCreated(event: Event) {
+    onProfileCreated(event: Event) {
         this.profileId = event.data.profileId
         this.nonce = BigInt.from(event.data.nonce)
         this.name = event.data.name
@@ -65,9 +65,7 @@ class Profile extends LiveObject {
 
         this.owner = event.data.owner
         this.anchor = event.data.anchor
-
-        const tx = await this.getCurrentTransaction()
-        this.creator = tx.from
+        this.creator = this.currentTransaction.from
 
         this.createdAt = this.blockTimestamp
     }

@@ -54,7 +54,7 @@ class Allo extends LiveObject {
         this.treasury = event.data.treasury;
     }
 
-        @OnEvent("allov2.Allo.StrategyApproved")
+    @OnEvent("allov2.Allo.StrategyApproved")
     async onStrategyApproved(event: Event) {
         await this.load();
 
