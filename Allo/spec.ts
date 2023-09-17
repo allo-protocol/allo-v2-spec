@@ -35,7 +35,7 @@ class Allo extends LiveObject {
     // ====================
 
     @OnEvent("allov2.Allo.RegistryUpdated")
-    onSomeEvent(event: Event) {
+    onRegistryUpdated(event: Event) {
         this.registry = event.data.registry;
     }
 

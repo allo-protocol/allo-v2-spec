@@ -66,7 +66,6 @@ class Profile extends LiveObject {
         this.owner = event.data.owner
         this.anchor = event.data.anchor
         this.creator = this.currentTransaction.from
-
         this.createdAt = this.blockTimestamp
     }
 

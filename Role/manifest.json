@@ -1,9 +1,9 @@
 {
-    "namespace": "allo",
+    "namespace": "allov2",
     "name": "Role",
     "version": "0.0.1",
     "displayName": "Allo Roles",
-    "description": "Role which are used in allo v2 core",
+    "description": "Role which is used in allo v2 core",
     "chains": [
         5
     ]

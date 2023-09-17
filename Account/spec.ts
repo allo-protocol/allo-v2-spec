@@ -1,4 +1,4 @@
-import { Address,Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
 
 /**
  * All accounts on Allo V2.
