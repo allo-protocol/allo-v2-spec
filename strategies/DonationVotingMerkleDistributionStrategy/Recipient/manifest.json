@@ -1,0 +1,10 @@
+{
+    "namespace": "allo",
+    "name": "DonationVotingMerkleDistribution_Recipient",
+    "version": "0.0.1",
+    "displayName": "DonationVotingMerkleDistribution Recipient",
+    "description": "Index Recipients on DonationVotingMerkleDistribution strategy",
+    "chains": [
+        5
+    ]
+}
