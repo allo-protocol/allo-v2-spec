@@ -1,7 +1,7 @@
 import { Address, BeforeAll, BigInt, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
 
-import { decodeRFPRegistrationData } from '../../shared/decoders.ts'
-import { getStatusFromInt } from '../../shared/status.ts'
+import { decodeRFPRegistrationData } from '../../../shared/decoders.ts'
+import { getStatusFromInt } from '../../../shared/status.ts'
 
 /**
  * RFP details
