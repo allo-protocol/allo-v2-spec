@@ -2,6 +2,41 @@ import { decodeAbi } from "@spec.dev/core";
 
 import { formatMetadataAsStruct } from "./formatter";
 
+export function decodeRFPSimpleInitializedData(
+  data: any
+) {
+  const [maxBid, useRegistryAnchor, metadataRequired] = decodeAbi(data, [
+      "uint256",
+      "bool",
+      "bool",
+  ]);
+
+  return {
+    maxBid,
+    useRegistryAnchor,
+    metadataRequired,
+  };
+}
+
+export function decodeRFPCommitteeInitializedData(
+  data: any
+) {
+  const [voteThreshold, rfpData ] = decodeAbi(data, [
+      "uint256",
+      "tuple(uint256, bool, bool)"
+  ]);
+
+  const [maxBid, useRegistryAnchor, metadataRequired] = rfpData;
+
+  return {
+    voteThreshold,
+    maxBid,
+    useRegistryAnchor,
+    metadataRequired,
+  };
+}
+
+
 export function decodeRFPRegistrationData(
   useRegistryAnchor: boolean,
   data: any

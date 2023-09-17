@@ -248,18 +248,6 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "allo",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "profileId",
-        "type": "bytes32"
-      },
-      {
-        "indexed": false,
         "internalType": "uint256",
         "name": "poolId",
         "type": "uint256"
@@ -530,6 +518,19 @@
         "internalType": "struct RFPSimpleStrategy.Milestone",
         "name": "",
         "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getMilestoneCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
