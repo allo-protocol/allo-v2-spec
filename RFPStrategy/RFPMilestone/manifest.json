@@ -2,7 +2,7 @@
     "namespace": "allov2",
     "name": "RFP_Milestone",
     "version": "0.0.1",
-    "displayName": "RFP_Milestone",
+    "displayName": "RFP Milestone",
     "description": "Index Milestones on RFPSimple & RFPCommitee",
     "chains": [
         5

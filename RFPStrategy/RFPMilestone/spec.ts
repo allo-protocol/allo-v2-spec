@@ -44,7 +44,6 @@ class RFPMilestone extends LiveObject {
 
        await this._softDeleteExistingMilestones();
 
-        // TODO-ALLO: implement getMilestoneLength external function 
         const milestoneLength = await this.contract.getMilestoneCount()
         
         const recipientId = await this.contract.acceptedRecipientId()
