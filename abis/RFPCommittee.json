@@ -296,7 +296,14 @@
   },
   {
     "anonymous": false,
-    "inputs": [],
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "milestonesLength",
+        "type": "uint256"
+      }
+    ],
     "name": "MilestonesSet",
     "type": "event"
   },
@@ -518,19 +525,6 @@
         "internalType": "struct RFPSimpleStrategy.Milestone",
         "name": "",
         "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getMilestoneCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",

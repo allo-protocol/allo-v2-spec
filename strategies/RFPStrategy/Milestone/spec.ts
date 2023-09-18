@@ -44,7 +44,7 @@ class RFPMilestone extends LiveObject {
 
        await this._softDeleteExistingMilestones();
 
-        const milestoneLength = await this.contract.getMilestoneCount()
+        const milestoneLength = event.data.milestonesLength
         
         const recipientId = await this.contract.acceptedRecipientId()
 
