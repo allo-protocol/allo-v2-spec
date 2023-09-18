@@ -15,7 +15,7 @@ import { decodeMerkleRegistrationData } from "../../shared/decoders.ts";
 @Spec({
   uniqueBy: ["strategyId", "recipientId", "chainId"],
 })
-class MerkleRecipients extends LiveObject {
+class DonationVotingMerkleDistributionRecipient extends LiveObject {
   @Property()
   recipientId: Address;
 
@@ -37,12 +37,6 @@ class MerkleRecipients extends LiveObject {
   @Property()
   sender: Address;
 
-  @Property()
-  amount: BigInt;
-
-  @Property()
-  token: Address;
-
   // ====================
   // =  Event Handlers  =
   // ====================
@@ -52,40 +46,33 @@ class MerkleRecipients extends LiveObject {
     this.strategyId = event.origin.contractAddress;
   }
 
-  @OnEvent("allov2.MerkleDistribution.Registered")
-  async onRegistration(event: Event) {
-    const useRegistryAnchor = await this.contract.useRegistryAnchor();
+  // @OnEvent("allov2.MerkleDistribution.Registered")
+  // async onRegistration(event: Event) {
+  //   const useRegistryAnchor = await this.contract.useRegistryAnchor();
 
-    const { metadata } = decodeMerkleRegistrationData(
-      useRegistryAnchor,
-      event.data.data
-    );
+  //   const { metadata } = decodeMerkleRegistrationData(
+  //     useRegistryAnchor,
+  //     event.data.data
+  //   );
 
-    this.recipientId = event.data.recipientId;
-    this.isRegistryAnchor = useRegistryAnchor;
-    this.status = event.data.status;
-    this.metadataProtocol = metadata?.protocol;
-    this.metadataPointer = metadata?.pointer;
-  }
+  //   this.recipientId = event.data.recipientId;
+  //   this.isRegistryAnchor = useRegistryAnchor;
+  //   this.status = event.data.status;
+  //   this.metadataProtocol = metadata?.protocol;
+  //   this.metadataPointer = metadata?.pointer;
+  // }
 
-  @OnEvent("allov2.MerkleDistribution.UpdatedRegistration")
-  async onUpdatedRegistration(event: Event) {
-    this.recipientId = event.data.recipientId;
-  }
+  // @OnEvent("allov2.MerkleDistribution.UpdatedRegistration")
+  // async onUpdatedRegistration(event: Event) {
+  //   this.recipientId = event.data.recipientId;
+  // }
 
-  @OnEvent("allov2.MerkleDistribution.RecipientStatusUpdated")
-  async onRecipientStatusUpdated(event: Event) {
-    this.sender = event.data.sender;
-    this.status = event.data.status;
-  }
+  // @OnEvent("allov2.MerkleDistribution.RecipientStatusUpdated")
+  // async onRecipientStatusUpdated(event: Event) {
+  //   this.sender = event.data.sender;
+  //   this.status = event.data.status;
+  // }
 
-  @OnEvent("allov2.MerkleDistribution.Allocated")
-  async onAllocation(event: Event) {
-    this.recipientId = event.data.recipientId;
-    this.amount = event.data.amount;
-    this.token = event.data.token;
-    this.sender = event.data.sender;
-  }
 }
 
-export default MerkleRecipients;
+export default DonationVotingMerkleDistributionRecipient;

@@ -6,10 +6,10 @@ import { Address, BeforeAll, BigInt, Event, LiveObject, OnEvent, Property, Spec 
 @Spec({
     uniqueBy: ['strategyId', "recipientId", 'chainId']
 })
-class MerkleDistribution extends LiveObject {
+class DonationVotingMerkleDistributionPayout extends LiveObject {
     @Property()
     recipientId: Address
-
+    
     @Property()
     strategyId: Address
 
@@ -36,4 +36,4 @@ class MerkleDistribution extends LiveObject {
     onBatchPayoutSuccessful(event: Event) {}
 }
 
-export default MerkleDistribution
+export default DonationVotingMerkleDistributionPayout

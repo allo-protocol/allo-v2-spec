@@ -2,6 +2,9 @@ import { decodeAbi } from "@spec.dev/core";
 
 import { formatMetadataAsStruct } from "./formatter";
 
+// ====================
+// =   RFP Decoder    =
+// ====================
 export function decodeRFPSimpleInitializedData(
   data: any
 ) {
@@ -65,6 +68,42 @@ export function decodeRFPRegistrationData(
       metadata: formatMetadataAsStruct(metadata),
     };
   }
+}
+
+// ================================================
+// =   DonationVotingMerkleDistribution Decoder   =
+// ================================================
+
+export function decodeDonationVotingMerkleDistributionInitializedData(
+  data: any
+) {
+  const [
+    useRegistryAnchor,
+    metadataRequired,
+    registrationStartTime,
+    registrationEndTime,
+    allocationStartTime,
+    allocationEndTime,
+    allowedTokens,
+  ] = decodeAbi(data, [
+      "bool",
+      "bool",
+      "uint64",
+      "uint64",
+      "uint64",
+      "uint64",
+      "address[]"
+  ]);
+
+  return {
+    useRegistryAnchor,
+    metadataRequired,
+    registrationStartTime,
+    registrationEndTime,
+    allocationStartTime,
+    allocationEndTime,
+    allowedTokens
+  };
 }
 
 export function decodeMerkleRegistrationData(
