@@ -83,7 +83,8 @@ class RFPMilestone extends LiveObject {
 
     async _softDeleteExistingMilestones() {
         const existingMilestones = await this.find(RFPMilestone, {
-            strategyId: this.strategyId
+            strategyId: this.strategyId,
+            chainId: this.chainId
         })
         existingMilestones.forEach(milestone => {
             milestone.status = getStatusFromInt(7)

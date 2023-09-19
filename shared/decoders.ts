@@ -111,6 +111,8 @@ export function decodeMerkleRegistrationData(
   data: any
 ) {
   if (useRegistryAnchor) {
+
+    // TODO: check if decodeAbi is correct
     const [, , metadata] = decodeAbi(data, [
         "address",
         "uint256",

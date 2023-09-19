@@ -78,7 +78,7 @@ class DonationVotingMerkleDistribution extends LiveObject {
         this.registrationEndTime = registrationEndTime
         this.allocationStartTime = allocationStartTime
         this.allocationEndTime = allocationEndTime
-        // TODO: check if valid
+        // TODO: check if valid assignment of allowedTokens
         this.allowedTokens = allowedTokens
         
         this.poolId = event.data.poolId.toString()
