@@ -9,10 +9,7 @@ import {
   Spec,
 } from "@spec.dev/core";
 
-import {
-  decodeQVRegistrationData,
-  decodeRFPRegistrationData,
-} from "../../shared/decoders.ts";
+import { decodeQVRegistrationData } from "../../shared/decoders.ts";
 import { getStatusFromInt } from "../../shared/status.ts";
 
 @Spec({
@@ -87,7 +84,7 @@ class QVRecipient extends LiveObject {
     this.sender = event.data.sender;
   }
 
-  @OnEvent("allov2.QVBaseStrategy.RecipientStatusUpdated")
+  @OnEvent("allov2.QVSimppleStrategy.RecipientStatusUpdated")
   async onRecipientStatusUpdated(event: Event) {
     this.status = getStatusFromInt(event.data.status);
     this.sender = event.data.sender;
