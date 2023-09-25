@@ -28,6 +28,8 @@ class RFPMilestone extends LiveObject {
     @Property()
     status: string
 
+    // Do we want to add sender here?
+
     // ====================
     // =  Event Handlers  =
     // ====================

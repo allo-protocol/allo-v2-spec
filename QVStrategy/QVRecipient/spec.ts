@@ -53,7 +53,7 @@ class QVRecipient extends LiveObject {
     this.recipientId = event.data.recipientId;
   }
 
-  @OnEvent("allov2.QVSimpleStrategy.Registered")
+  @OnEvent("allov2.QVSimpleStrategy.RecipientStatusUpdated")
   async onRegistered(event: Event) {
     const useRegistryAnchor = await this.contract.useRegistryAnchor();
 
@@ -80,7 +80,7 @@ class QVRecipient extends LiveObject {
     this.recipientAddress = decodedData.recipientAddress;
     this.metadataProtocol = decodedData.metadata?.metadataProtocol;
     this.metadataPointer = decodedData.metadata?.metadataPointer;
-    this.status = getStatusFromInt(0);
+    this.status = getStatusFromInt(event.data.status);
     this.sender = event.data.sender;
   }
 
@@ -88,18 +88,6 @@ class QVRecipient extends LiveObject {
   async onRecipientStatusUpdated(event: Event) {
     this.status = getStatusFromInt(event.data.status);
     this.sender = event.data.sender;
-  }
-
-  @OnEvent("allov2.QVBaseStrategy.Reviewed")
-  async onReviewed(event: Event) {
-    this.status = getStatusFromInt(event.data.status);
-    this.sender = event.data.sender;
-  }
-
-  @OnEvent("allov2.QVBaseStrategy.Allocated")
-  async onAllocated(event: Event) {
-    this.totalVotesReceived = event.data.votes;
-    this.sender = event.data.allocator;
   }
 }
 

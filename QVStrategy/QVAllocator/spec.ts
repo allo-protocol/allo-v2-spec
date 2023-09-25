@@ -1,7 +1,6 @@
 import {
   Address,
   BeforeAll,
-  BigInt,
   Event,
   LiveObject,
   OnEvent,
@@ -10,7 +9,7 @@ import {
 } from "@spec.dev/core";
 
 @Spec({
-  uniqueBy: ["strategyId", "", "chainId"],
+  uniqueBy: ["strategyId", "chainId"],
 })
 class QVAllocator extends LiveObject {
   @Property()
@@ -18,6 +17,12 @@ class QVAllocator extends LiveObject {
 
   @Property()
   allowedAllocators: Address[];
+
+  // @Property()
+  // allowedAllocatorsCount: BigInt;
+
+  @Property()
+  sender: Address;
 
   // ====================
   // =  Event Handlers  =
@@ -34,6 +39,7 @@ class QVAllocator extends LiveObject {
 
     const allocator = event.data.allocator;
     this.allowedAllocators = this.allowedAllocators.concat(allocator);
+    this.sender = event.data.sender;
   }
 
   @OnEvent("allov2.QVSimpleStrategy.AllocatorRemoved")
@@ -44,6 +50,7 @@ class QVAllocator extends LiveObject {
     this.allowedAllocators = this.allowedAllocators.filter(
       (a) => a !== allocator
     );
+    this.sender = event.data.sender;
   }
 }
 

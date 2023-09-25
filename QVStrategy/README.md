@@ -1,4 +1,4 @@
-# RFP Strategies
+# Quadratic Voting Strategies
 
 Strategies indexed by RFPStrategy Live Objects:
 - [RFPSimpleStrategy](https://github.com/allo-protocol/allo-v2/blob/main/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol)
@@ -10,16 +10,15 @@ This section captures the live objects and the events which would be used to ind
 
 ### Base   
 - `event PoolActive(bool active);`
-- `event MaxBidIncreased(uint256 maxBid);`
+- `event TimestampsUpdated(uint256 registrationStartTime, uint256 registrationEndTime, uint256 allocationStartTime, uint256 allocationEndTime);`
 
-### RFPMilestone
-- `event MilestonesSet();`
-- `event MilstoneSubmitted(uint256 milestoneId);`
-- `event MilestoneStatusChanged(uint256 milestoneId, Status status);`
+### QVAllocator
+- `event AllocatorAdded(address allocator, address sender);`
+- `event AllocatorRemoved(address allocator, address sender);`
 
-### RFPRecipient
-- `event Registered(address indexed recipientId, bytes data, address sender);`
-- `event UpdatedRegistration(address indexed recipientId, bytes data, address sender);`
+### QVRecipient
+- `event RecipientStatusUpdated(address indexed recipientId, bytes data, address sender);`
+- `event UpdatedRegistration(address indexed recipientId, bytes data, address sender, Status status);`
     
 ## Events Auto Indexed
 This section lists out events which would auto indexed by spec and hence wouldn't require a custom live object to be created

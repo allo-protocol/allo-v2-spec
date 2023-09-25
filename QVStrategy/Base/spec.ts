@@ -65,7 +65,7 @@ class QV extends LiveObject {
     this.registry = event.data.registry;
   }
 
-  @OnEvent(`allov2.${this.contractGroup}.TimestampsUpdated`)
+  @OnEvent(`allov2.BaseStrategy.TimestampsUpdated`)
   async onTimestampsUpdated(event: Event) {
     await this.load();
 
@@ -73,6 +73,11 @@ class QV extends LiveObject {
     this.registrationEndTime = event.data.registrationEndTime;
     this.allocationStartTime = event.data.allocationStartTime;
     this.allocationEndTime = event.data.allocationEndTime;
+  }
+
+  @OnEvent(`allov2.BaseStrategy.PoolActive`)
+  async onPoolActive(event: Event) {
+    this.active = event.data.flag;
   }
 }
 
