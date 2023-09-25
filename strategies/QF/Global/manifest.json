@@ -1,0 +1,10 @@
+{
+    "namespace": "allov2",
+    "name": "QF",
+    "version": "0.0.1",
+    "displayName": "QF",
+    "description": "Index global variable in QF strategies",
+    "chains": [
+        5
+    ]
+}

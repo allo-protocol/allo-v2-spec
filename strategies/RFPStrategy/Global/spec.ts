@@ -9,7 +9,6 @@ import { decodeRFPCommitteeInitializedData, decodeRFPSimpleInitializedData } fro
     uniqueBy: ['strategyId', 'chainId']
 })
 class RFP extends LiveObject {
-
     @Property()
     strategyId: Address
 

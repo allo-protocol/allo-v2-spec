@@ -1,4 +1,4 @@
-# RFP Strategy
+# RFP Strategies
 
 Strategies indexed by RFPStrategy Live Objects:
 - [RFPSimpleStrategy](https://github.com/allo-protocol/allo-v2/blob/main/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol)
