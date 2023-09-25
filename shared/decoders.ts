@@ -1,6 +1,6 @@
 import { decodeAbi } from "@spec.dev/core";
 
-import { formatMetadataAsStruct } from "./formatter";
+import { formatMetadataAsStruct } from "./formatter.ts";
 
 export function decodeRFPRegistrationData(
   useRegistryAnchor: boolean,
@@ -8,9 +8,9 @@ export function decodeRFPRegistrationData(
 ) {
   if (useRegistryAnchor) {
     const [, proposalBid, metadata] = decodeAbi(data, [
-        "address",
-        "uint256",
-        "tuple(uint256, string)",
+      "address",
+      "uint256",
+      "tuple(uint256, string)",
     ]);
 
     return {
@@ -19,10 +19,10 @@ export function decodeRFPRegistrationData(
     };
   } else {
     const [, , proposalBid, metadata] = decodeAbi(data, [
-        "address",
-        "address",
-        "uint256",
-        "tuple(uint256, string)",
+      "address",
+      "address",
+      "uint256",
+      "tuple(uint256, string)",
     ]);
 
     return {
@@ -38,9 +38,9 @@ export function decodeMerkleRegistrationData(
 ) {
   if (useRegistryAnchor) {
     const [, , metadata] = decodeAbi(data, [
-        "address",
-        "uint256",
-        "tuple(uint256, string)",
+      "address",
+      "uint256",
+      "tuple(uint256, string)",
     ]);
 
     return {
@@ -48,12 +48,43 @@ export function decodeMerkleRegistrationData(
     };
   } else {
     const [, , metadata] = decodeAbi(data, [
-        "address",
-        "address",
-        "tuple(uint256, string)",
+      "address",
+      "address",
+      "tuple(uint256, string)",
     ]);
 
     return {
+      metadata: formatMetadataAsStruct(metadata),
+    };
+  }
+}
+
+export function decodeQVRegistrationData(
+  useRegistryAnchor: boolean,
+  data: any
+) {
+  if (useRegistryAnchor) {
+    const [recipientId, recipientAddress, metadata] = decodeAbi(data, [
+      "address",
+      "address",
+      "tuple(uint256, string)",
+    ]);
+
+    return {
+      recipientId,
+      recipientAddress,
+      metadata: formatMetadataAsStruct(metadata),
+    };
+  } else {
+    const [recipientAddress, registryAnchor, metadata] = decodeAbi(data, [
+      "address",
+      "address",
+      "tuple(uint256, string)",
+    ]);
+
+    return {
+      recipientAddress,
+      registryAnchor,
       metadata: formatMetadataAsStruct(metadata),
     };
   }

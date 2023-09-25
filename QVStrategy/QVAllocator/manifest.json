@@ -1,8 +1,0 @@
-{
-  "namespace": "allo",
-  "name": "QuadraticVoting_Allocator",
-  "version": "0.0.1",
-  "displayName": "QuadraticVoting Allocator",
-  "description": "Index QV Allocators",
-  "chains": [5]
-}

@@ -11,7 +11,7 @@ import {
 @Spec({
   uniqueBy: ["strategyId", "chainId"],
 })
- class QVBase extends LiveObject {
+class QV extends LiveObject {
   protected contractGroup: string;
 
   constructor(_contractGroup: string) {
@@ -57,29 +57,23 @@ import {
 
   // todo: how to set initial params? (active, registryGating, metadataRequired, timestamps..)
 
+  @OnEvent("allov2.BaseStrategy.Initialized")
+  async onInitialized(event: Event) {
+    this.active = true;
+    this.registryGating = event.data.registryGating;
+    this.metadataRequired = event.data.metadataRequired;
+    this.registry = event.data.registry;
+  }
+
   @OnEvent(`allov2.${this.contractGroup}.TimestampsUpdated`)
   async onTimestampsUpdated(event: Event) {
+    await this.load();
+
     this.registrationStartTime = event.data.registrationStartTime;
     this.registrationEndTime = event.data.registrationEndTime;
     this.allocationStartTime = event.data.allocationStartTime;
     this.allocationEndTime = event.data.allocationEndTime;
   }
-
-  // @OnEvent("allov2.QVBase.Initialized")
-  // async onInitialized(event: Event) {
-  //   this.active = true;
-  //   this.registryGating = event.data.registryGating;
-  //   this.metadataRequired = event.data.metadataRequired;
-  //   this.registry = event.data.registry;
-  // }
 }
 
-export default QVBase;
-
-    // event UpdatedRegistration(address indexed recipientId, bytes data, address sender, Status status);
-
-    // event RecipientStatusUpdated(address indexed recipientId, Status status, address sender);
-
-    // event Allocated(address indexed recipientId, uint256 votes, address allocator);
-
-    // event Reviewed(address indexed recipientId, Status status, address sender);
+export default QV;
