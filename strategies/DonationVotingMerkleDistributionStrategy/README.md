@@ -9,7 +9,7 @@ Strategies indexed by DonationVotingMerkleDistributionStrategy Live Objects:
 
 This section captures the live objects and the events which would be used to index this
 
-### Global
+### Base
 - `event TimestampsUpdated(uint64 registrationStartTime, uint64 registrationEndTime, uint64 allocationStartTime, uint64 allocationEndTime, address sender);`
 - `event DistributionUpdated(bytes32 merkleRoot, Metadata metadata);`
 

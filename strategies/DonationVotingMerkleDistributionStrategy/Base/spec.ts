@@ -1,5 +1,5 @@
 import { Address, BeforeAll, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
-import { decodeDonationVotingMerkleDistributionInitializedData } from "../../../shared/decoders.ts";
+import { decodeDonationVotingMerkleDistributionInitializedData } from "../../../shared/decoders.js";
 
 /**
  * Merkle Timestamp details

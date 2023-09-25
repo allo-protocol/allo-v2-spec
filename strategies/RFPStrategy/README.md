@@ -8,7 +8,7 @@ Strategies indexed by RFPStrategy Live Objects:
 
 This section captures the live objects and the events which would be used to index this
 
-### Global   
+### Base   
 - `event PoolActive(bool active);`
 - `event MaxBidIncreased(uint256 maxBid);`
 
