@@ -1,78 +1,106 @@
 import {
-  Address,
-  BeforeAll,
-  Event,
-  LiveObject,
-  OnEvent,
-  Property,
-  Spec,
+    Address,
+    BeforeAll,
+    Event,
+    LiveObject,
+    OnEvent,
+    Property,
+    Spec,
 } from "@spec.dev/core";
 
-import { decodeMerkleRegistrationData } from "../../shared/decoders.ts";
+import { decodeDonationVotingMerkleDistributionRegistrationData } from "../../../shared/decoders.ts";
+import { getStatusFromInt } from "../../../shared/status.ts";
 /**
  * Merkle Recipient details
  */
 @Spec({
-  uniqueBy: ["strategyId", "recipientId", "chainId"],
+    uniqueBy: ["strategyId", "recipientId", "chainId"],
 })
 class DonationVotingMerkleDistributionRecipient extends LiveObject {
-  @Property()
-  recipientId: Address;
+    @Property()
+    recipientId: Address;
 
-  @Property()
-  strategyId: Address;
+    @Property()
+    strategyId: Address;
 
-  @Property()
-  isRegistryAnchor: boolean;
+    @Property()
+    recipientAddress: Address;
 
-  @Property()
-  status: number;
+    @Property()
+    isUsingRegistryAnchor: boolean;
 
-  @Property()
-  metadataProtocol: number;
+    @Property()
+    status: string;
 
-  @Property()
-  metadataPointer: string;
+    @Property()
+    metadataProtocol: number;
 
-  @Property()
-  sender: Address;
+    @Property()
+    metadataPointer: string;
 
-  // ====================
-  // =  Event Handlers  =
-  // ====================
+    @Property()
+    sender: Address;
 
-  @BeforeAll()
-  setCommonProperties(event: Event) {
-    this.strategyId = event.origin.contractAddress;
-  }
+    // @Property({default: false})
+    // hasClaimed: boolean;
 
-  // @OnEvent("allov2.MerkleDistribution.Registered")
-  // async onRegistration(event: Event) {
-  //   const useRegistryAnchor = await this.contract.useRegistryAnchor();
+    // ====================
+    // =  Event Handlers  =
+    // ====================
 
-  //   const { metadata } = decodeMerkleRegistrationData(
-  //     useRegistryAnchor,
-  //     event.data.data
-  //   );
+    @BeforeAll()
+    setCommonProperties(event: Event) {
+        this.strategyId = event.origin.contractAddress;
+        this.recipientId = event.data.recipientId;
+    }
 
-  //   this.recipientId = event.data.recipientId;
-  //   this.isRegistryAnchor = useRegistryAnchor;
-  //   this.status = event.data.status;
-  //   this.metadataProtocol = metadata?.protocol;
-  //   this.metadataPointer = metadata?.pointer;
-  // }
+    @OnEvent(
+        "allov2.DonationVotingMerkleDistributionDirectTransferStrategy.Registered"
+    )
+    @OnEvent("allov2.DonationVotingMerkleDistributionVaultStrategy.Registered")
+    async onRegistration(event: Event) {
+        const useRegistryAnchor = await this.contract.useRegistryAnchor();
 
-  // @OnEvent("allov2.MerkleDistribution.UpdatedRegistration")
-  // async onUpdatedRegistration(event: Event) {
-  //   this.recipientId = event.data.recipientId;
-  // }
+        this.upsertRecipientOnRegistration(useRegistryAnchor, event);
+        this.status = getStatusFromInt(1);
+    }
 
-  // @OnEvent("allov2.MerkleDistribution.RecipientStatusUpdated")
-  // async onRecipientStatusUpdated(event: Event) {
-  //   this.sender = event.data.sender;
-  //   this.status = event.data.status;
-  // }
+    @OnEvent(
+        "allov2.DonationVotingMerkleDistributionDirectTransferStrategy.UpdatedRegistration"
+    )
+    @OnEvent(
+        "allov2.DonationVotingMerkleDistributionVaultStrategy.UpdatedRegistration"
+    )
+    async onUpdatedRegistration(event: Event) {
+        const useRegistryAnchor = await this.contract.useRegistryAnchor();
 
+        this.upsertRecipientOnRegistration(useRegistryAnchor, event);
+        this.status = getStatusFromInt(event.data.status);
+        // TODO: validate to ensure record is updated and not inserted
+    }
+
+    // TODO: FIX
+    // @OnEvent("allov2.DonationVotingMerkleDistributionDirectTransferStrategy.RecipientStatusUpdated")
+    // async onRecipientStatusUpdated(event: Event) {
+    //   this.sender = event.data.sender;
+    //   this.status = event.data.status;
+    // }
+
+    // TODO: Update status to paid out on payout
+
+    upsertRecipientOnRegistration(useRegistryAnchor: boolean, event: Event) {
+        const { isUsingRegistryAnchor, recipientAddress, metadata } =
+            decodeDonationVotingMerkleDistributionRegistrationData(
+                useRegistryAnchor,
+                event.data.data
+            );
+
+        this.isUsingRegistryAnchor = isUsingRegistryAnchor;
+        this.recipientAddress = recipientAddress;
+        this.metadataProtocol = metadata.protocol;
+        this.metadataPointer = metadata.pointer;
+        this.sender = event.data.sender;
+    }
 }
 
 export default DonationVotingMerkleDistributionRecipient;

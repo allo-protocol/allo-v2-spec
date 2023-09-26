@@ -20,7 +20,7 @@ class RFPRecipient extends LiveObject {
     proposalBid: BigInt
 
     @Property()
-    isRegistryAnchor: boolean
+    isUsingRegistryAnchor: boolean
 
     @Property()
     status: string
@@ -46,35 +46,22 @@ class RFPRecipient extends LiveObject {
 
     @OnEvent('allov2.RFPSimpleStrategy.Registered')
     @OnEvent('allov2.RFPCommitteeStrategy.Registered')
-    async onRegistration(event: Event) {
-        const useRegistryAnchor = await this.contract.useRegistryAnchor()
-    
-        const { proposalBid, metadata } = decodeRegistrationData(
-            useRegistryAnchor, 
-            event.data.data,
-        )
-    
-        this.proposalBid = proposalBid
-        this.isRegistryAnchor = useRegistryAnchor
-        this.status = getStatusFromInt(0)
-        this.metadataProtocol = metadata?.protocol
-        this.metadataPointer = metadata?.pointer
-        this.sender = event.data.sender
-    }
-
     @OnEvent('allov2.RFPSimpleStrategy.UpdatedRegistration')
     @OnEvent('allov2.RFPCommitteeStrategy.UpdatedRegistration')
-    async onUpdatedRegistration(event: Event) {
-
-        // make sure we have access to the current value for this.isRegistryAnchor
-        await this.load();
-        const decodedData = decodeRFPRegistrationData(this.isRegistryAnchor, event.data.data)
-
-        this.proposalBid = decodedData.proposalBid
-        this.metadataProtocol = decodedData.metadata?.protocol
-        this.metadataPointer = decodedData.metadata?.pointer
-        this.status = getStatusFromInt(0)  
+    async onRegistration(event: Event) {
+        const useRegistryAnchor = await this.contract.useRegistryAnchor()
+        const { isUsingRegistryAnchor, proposalBid, metadata } = decodeRFPRegistrationData(
+            useRegistryAnchor, event.data.data
+        );
+        
+        this.isUsingRegistryAnchor = isUsingRegistryAnchor
+        this.proposalBid = proposalBid
+        this.metadataProtocol = metadata.protocol
+        this.metadataPointer = metadata.pointer
         this.sender = event.data.sender
+
+        // Note: there is not appealed status for RFP
+        this.status = getStatusFromInt(0)
     }
 
     @OnEvent('allov2.RFPSimpleStrategy.Allocated')
@@ -83,6 +70,7 @@ class RFPRecipient extends LiveObject {
         this.status = getStatusFromInt(2)
         this.proposalBid = BigInt.from(event.data.proposalBid)
     }
+
 }
 
 export default RFPRecipient

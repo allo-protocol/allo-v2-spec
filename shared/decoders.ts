@@ -1,6 +1,6 @@
-import { decodeAbi } from "@spec.dev/core";
+import { decodeAbi, isNullAddress } from "@spec.dev/core"
 
-import { formatMetadataAsStruct } from "./formatter";
+import { formatMetadataAsStruct } from "./formatter"
 
 // ====================
 // =   RFP Decoder    =
@@ -12,13 +12,13 @@ export function decodeRFPSimpleInitializedData(
       "uint256",
       "bool",
       "bool",
-  ]);
+  ])
 
   return {
     maxBid,
     useRegistryAnchor,
     metadataRequired,
-  };
+  }
 }
 
 export function decodeRFPCommitteeInitializedData(
@@ -27,16 +27,16 @@ export function decodeRFPCommitteeInitializedData(
   const [voteThreshold, rfpData ] = decodeAbi(data, [
       "uint256",
       "tuple(uint256, bool, bool)"
-  ]);
+  ])
 
-  const [maxBid, useRegistryAnchor, metadataRequired] = rfpData;
+  const [maxBid, useRegistryAnchor, metadataRequired] = rfpData
 
   return {
     voteThreshold,
     maxBid,
     useRegistryAnchor,
     metadataRequired,
-  };
+  }
 }
 
 
@@ -49,24 +49,28 @@ export function decodeRFPRegistrationData(
         "address",
         "uint256",
         "tuple(uint256, string)",
-    ]);
+    ])
 
     return {
+      isUsingRegistryAnchor: true,
       proposalBid,
       metatdata: formatMetadataAsStruct(metadata),
-    };
+    }
   } else {
-    const [, , proposalBid, metadata] = decodeAbi(data, [
+    const [, registryAnchor, proposalBid, metadata] = decodeAbi(data, [
         "address",
         "address",
         "uint256",
         "tuple(uint256, string)",
-    ]);
+    ])
+
+    const isUsingRegistryAnchor = !isNullAddress(registryAnchor)
 
     return {
+      isUsingRegistryAnchor,
       proposalBid,
       metadata: formatMetadataAsStruct(metadata),
-    };
+    }
   }
 }
 
@@ -93,7 +97,7 @@ export function decodeDonationVotingMerkleDistributionInitializedData(
       "uint64",
       "uint64",
       "address[]"
-  ]);
+  ])
 
   return {
     useRegistryAnchor,
@@ -103,34 +107,39 @@ export function decodeDonationVotingMerkleDistributionInitializedData(
     allocationStartTime,
     allocationEndTime,
     allowedTokens
-  };
+  }
 }
 
-export function decodeMerkleRegistrationData(
+export function decodeDonationVotingMerkleDistributionRegistrationData(
   useRegistryAnchor: boolean,
   data: any
 ) {
   if (useRegistryAnchor) {
 
-    // TODO: check if decodeAbi is correct
-    const [, , metadata] = decodeAbi(data, [
-        "address",
-        "uint256",
-        "tuple(uint256, string)",
-    ]);
-
-    return {
-      metatdata: formatMetadataAsStruct(metadata),
-    };
-  } else {
-    const [, , metadata] = decodeAbi(data, [
+    const [, recipientAddress, metadata] = decodeAbi(data, [
         "address",
         "address",
         "tuple(uint256, string)",
-    ]);
+    ])
 
     return {
+      isUsingRegistryAnchor: true,
+      recipientAddress,
       metadata: formatMetadataAsStruct(metadata),
-    };
+    }
+  } else {
+    const [recipientAddress, registryAnchor, metadata] = decodeAbi(data, [
+        "address",
+        "address",
+        "tuple(uint256, string)",
+    ])
+
+    const isUsingRegistryAnchor = !isNullAddress(registryAnchor)
+
+    return {
+      isUsingRegistryAnchor,
+      recipientAddress,
+      metadata: formatMetadataAsStruct(metadata),
+    }
   }
 }
