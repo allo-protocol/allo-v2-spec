@@ -40,7 +40,7 @@ class RFPMilestone extends LiveObject {
 
     @OnEvent('allov2.RFPSimpleStrategy.MilestonesSet', { autoSave: false })
     @OnEvent('allov2.RFPCommitteeStrategy.MilestonesSet', { autoSave: false })
-    async onMilestonesSet() {
+    async onMilestonesSet(event: Event) {
 
        await this._softDeleteExistingMilestones();
 
