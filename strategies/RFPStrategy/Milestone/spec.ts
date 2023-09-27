@@ -14,6 +14,9 @@ class RFPMilestone extends LiveObject {
     milestoneId: number
 
     @Property()
+    poolId: string
+
+    @Property()
     strategy: Address
 
     @Property()
@@ -48,6 +51,8 @@ class RFPMilestone extends LiveObject {
         
         const recipientId = await this.contract.acceptedRecipientId()
 
+        const poolId = await this.contract.getPoolId()
+
         // deno-lint-ignore no-explicit-any
         const rfpMilestones: any = [];
 
@@ -59,6 +64,7 @@ class RFPMilestone extends LiveObject {
             const rfpMilestone = this.new(RFPMilestone, {
                 milestoneId: i,
                 strategy: this.strategy,
+                poolId: poolId.toString(),
                 recipientId: recipientId,
                 metadataProtocol: protocol,
                 metadataPointer: pointer,

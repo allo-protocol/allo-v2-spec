@@ -16,6 +16,9 @@ class RFPRecipient extends LiveObject {
     @Property()
     strategy: Address
 
+    @Property()
+    poolId: string
+
     @Property({ default: 0 })
     proposalBid: BigInt
 
@@ -53,7 +56,10 @@ class RFPRecipient extends LiveObject {
         const { isUsingRegistryAnchor, proposalBid, metadata } = decodeRFPRegistrationData(
             useRegistryAnchor, event.data.data
         );
+
+        const poolId = await this.contract.getPoolId()
         
+        this.poolId = poolId.toString()
         this.isUsingRegistryAnchor = isUsingRegistryAnchor
         this.proposalBid = proposalBid
         this.metadataProtocol = metadata.protocol

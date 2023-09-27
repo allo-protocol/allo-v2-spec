@@ -24,6 +24,9 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
     strategy: Address;
 
     @Property()
+    poolId: string;
+
+    @Property()
     recipientAddress: Address;
 
     @Property()
@@ -50,8 +53,8 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        this.strategy = event.origin.contractAddress;
-        this.recipientId = event.data.recipientId;
+        this.strategy = event.origin.contractAddress
+        this.recipientId = event.data.recipientId
     }
 
     @OnEvent(
@@ -59,10 +62,12 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
     )
     @OnEvent("allov2.DonationVotingMerkleDistributionVaultStrategy.Registered")
     async onRegistration(event: Event) {
-        const useRegistryAnchor = await this.contract.useRegistryAnchor();
+        const useRegistryAnchor = await this.contract.useRegistryAnchor()
+        const poolId = await this.contract.getPoolId()
 
-        this.upsertRecipientOnRegistration(useRegistryAnchor, event);
-        this.status = getStatusFromInt(1);
+        this.upsertRecipientOnRegistration(useRegistryAnchor, event)
+        this.status = getStatusFromInt(1)
+        this.poolId = poolId.toString()
     }
 
     @OnEvent(
@@ -72,10 +77,10 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
         "allov2.DonationVotingMerkleDistributionVaultStrategy.UpdatedRegistration"
     )
     async onUpdatedRegistration(event: Event) {
-        const useRegistryAnchor = await this.contract.useRegistryAnchor();
+        const useRegistryAnchor = await this.contract.useRegistryAnchor()
 
-        this.upsertRecipientOnRegistration(useRegistryAnchor, event);
-        this.status = getStatusFromInt(event.data.status);
+        this.upsertRecipientOnRegistration(useRegistryAnchor, event)
+        this.status = getStatusFromInt(event.data.status)
         // TODO: validate to ensure record is updated and not inserted
     }
 
@@ -93,13 +98,13 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
             decodeDonationVotingMerkleDistributionRegistrationData(
                 useRegistryAnchor,
                 event.data.data
-            );
+            )
 
-        this.isUsingRegistryAnchor = isUsingRegistryAnchor;
-        this.recipientAddress = recipientAddress;
-        this.metadataProtocol = metadata.protocol;
-        this.metadataPointer = metadata.pointer;
-        this.sender = event.data.sender;
+        this.isUsingRegistryAnchor = isUsingRegistryAnchor
+        this.recipientAddress = recipientAddress
+        this.metadataProtocol = metadata.protocol
+        this.metadataPointer = metadata.pointer
+        this.sender = event.data.sender
     }
 }
 

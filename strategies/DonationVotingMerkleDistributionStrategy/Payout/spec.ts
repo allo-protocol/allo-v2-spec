@@ -17,6 +17,9 @@ class DonationVotingMerkleDistributionPayout extends LiveObject {
     strategy: Address
 
     @Property()
+    poolId: string
+
+    @Property()
     index: number
 
     @Property()
@@ -55,10 +58,13 @@ class DonationVotingMerkleDistributionPayout extends LiveObject {
         // deno-lint-ignore no-explicit-any
         const payouts: any = []
 
+        const poolId = await this.contract.getPoolId()
+
         const payoutsMetadata = await resolveMetadata(pointer, { protocol })
         for (let i = 0; i <= payoutsMetadata.length; i++) {
             // create new payout record
             const payout = this.new(DonationVotingMerkleDistributionPayout, {
+                poolId: poolId.toString(),
                 index: payoutsMetadata[i].index,
                 recipientId: payoutsMetadata[i].recipientId,
                 amount: payoutsMetadata[i].amount,
