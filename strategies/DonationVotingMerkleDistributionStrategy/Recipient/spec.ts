@@ -81,17 +81,33 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
 
         this.upsertRecipientOnRegistration(useRegistryAnchor, event)
         this.status = getStatusFromInt(event.data.status)
-        // TODO: validate to ensure record is updated and not inserted
     }
 
-    // TODO: FIX
-    // @OnEvent("allov2.DonationVotingMerkleDistributionDirectTransferStrategy.RecipientStatusUpdated")
-    // async onRecipientStatusUpdated(event: Event) {
-    //   this.sender = event.data.sender;
-    //   this.status = event.data.status;
-    // }
+    @OnEvent("allov2.DonationVotingMerkleDistributionDirectTransferStrategy.RecipientStatusUpdated")
+    @OnEvent("allov2.DonationVotingMerkleDistributionVaultStrategy.RecipientStatusUpdated")
+    async onRecipientStatusUpdated(event: Event) {
+        const APPLICATIONS_PER_ROW = 64; // 256/4
 
-    // TODO: Update status to paid out on payout
+        const rowIndex = event.data.index;
+        const fullRow = event.data.fullRow;
+
+        const startApplicationIndex = rowIndex * APPLICATIONS_PER_ROW;
+
+        for (let i = 0; i < APPLICATIONS_PER_ROW; i++) {
+            // const currentApplicationIndex = startApplicationIndex + i;
+            // const status = fullRow
+            //     .rightShift(u8(i * 2))
+            //     .bitAnd(BigInt.fromI32(3))
+            //     .toI32();
+        }
+
+        // const rowIndex = index / this._itemsPerRow;
+        // const colIndex = (index % this._itemsPerRow) * this.bitsPerStatus;
+        // const row = this.rows[rowIndex.toString()] ?? BigInt(0);
+        // const value = (row >> colIndex) & this.maxStatus;
+
+        // return Number(value);
+    }
 
     upsertRecipientOnRegistration(useRegistryAnchor: boolean, event: Event) {
         const { isUsingRegistryAnchor, recipientAddress, metadata } =
