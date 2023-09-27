@@ -35,6 +35,9 @@ class RFP extends LiveObject {
     @Property()
     voteThreshold: number
 
+    @Property()
+    acceptedRecipientId: Address
+
     // ====================
     // =  Event Handlers  =
     // ====================
@@ -54,14 +57,14 @@ class RFP extends LiveObject {
         this.useRegistryAnchor = useRegistryAnchor
         this.metadataRequired = metadataRequired
         this.poolId = event.data.poolId.toString()
-        this.voteThreshold = 1
+        this.voteThreshold = 1 // default to 1 for RFP Simple
         
         const strategyId = await this.contract.acceptedRecipientId().toString()
         this.strategyId = strategyId
     }
 
     @OnEvent('allov2.RFPCommitteeStrategy.Initialized')
-    onRFPCommitteeInitalized(event: Event) {
+    async onRFPCommitteeInitalized(event: Event) {
         const { voteThreshold, maxBid, useRegistryAnchor, metadataRequired } = decodeRFPCommitteeInitializedData(
             event.data.data
         )
@@ -71,6 +74,9 @@ class RFP extends LiveObject {
         this.metadataRequired = metadataRequired
         this.voteThreshold = voteThreshold
         this.poolId = event.data.poolId.toString()
+
+        const strategyId = await this.contract.acceptedRecipientId().toString()
+        this.strategyId = strategyId
     }
 
     @OnEvent('allov2.RFPSimpleStrategy.PoolActive')
@@ -84,6 +90,12 @@ class RFP extends LiveObject {
     async onMaxBidIncreased(event: Event) {
         await this.load();
         this.maxBid = this.maxBid.plus(event.data.amount)
+    }
+
+    @OnEvent('allov2.RFPSimpleStrategy.Allocated')
+    @OnEvent('allov2.RFPCommitteeStrategy.Allocated')
+    onAllocation(event: Event) {
+        this.acceptedRecipientId = event.data.recipientId
     }
 }
 

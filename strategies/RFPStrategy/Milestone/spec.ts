@@ -29,6 +29,9 @@ class RFPMilestone extends LiveObject {
     metadataPointer: string
 
     @Property()
+    amountPercentage: number
+
+    @Property()
     status: string
 
     // ====================
@@ -68,6 +71,7 @@ class RFPMilestone extends LiveObject {
                 recipientId: recipientId,
                 metadataProtocol: protocol,
                 metadataPointer: pointer,
+                amountPercentage: milestone.amountPercentage,
                 status: getStatusFromInt(0)
             })
             rfpMilestones.push(rfpMilestone)

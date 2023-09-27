@@ -9,18 +9,19 @@ Strategies indexed by RFPStrategy Live Objects:
 This section captures the live objects and the events which would be used to index this
 
 ### Base   
+- `event Initialized()`
 - `event PoolActive(bool active);`
 - `event MaxBidIncreased(uint256 maxBid);`
+
+### Recipient
+- `event Registered(address indexed recipientId, bytes data, address sender);`
+- `event UpdatedRegistration(address indexed recipientId, bytes data, address sender);`
 
 ### Milestone
 - `event MilestonesSet();`
 - `event MilstoneSubmitted(uint256 milestoneId);`
 - `event MilestoneStatusChanged(uint256 milestoneId, Status status);`
 
-### Recipient
-- `event Registered(address indexed recipientId, bytes data, address sender);`
-- `event UpdatedRegistration(address indexed recipientId, bytes data, address sender);`
-    
 ## Events Auto Indexed
 This section lists out events which would auto indexed by spec and hence wouldn't require a custom live object to be created
 - `event Allocated(address indexed recipientId, uint256 amount, address token, address sender);`

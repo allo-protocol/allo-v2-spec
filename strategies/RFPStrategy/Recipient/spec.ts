@@ -66,7 +66,7 @@ class RFPRecipient extends LiveObject {
         this.metadataPointer = metadata.pointer
         this.sender = event.data.sender
 
-        // Note: there is not appealed status for RFP
+        // Note: there is no appealed status for RFP
         this.status = getStatusFromInt(0)
     }
 
