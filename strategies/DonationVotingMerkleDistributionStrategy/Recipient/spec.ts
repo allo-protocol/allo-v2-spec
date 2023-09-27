@@ -5,13 +5,14 @@ import {
     LiveObject,
     OnEvent,
     Property,
+    saveAll,
     Spec,
 } from "@spec.dev/core";
 
-import { decodeDonationVotingMerkleDistributionRegistrationData } from "../../../shared/decoders.ts";
+import { decodeDonationVotingMerkleDistributionRegistrationData, decodeRecipientIndexDonationVotingMerkleDistribution } from "../../../shared/decoders.ts";
 import { getStatusFromInt } from "../../../shared/status.ts";
 /**
- * Merkle Recipient details
+ * DonationVotingMerkleDistribution Recipient
  */
 @Spec({
     uniqueBy: ["strategy", "recipientId", "chainId"],
@@ -19,6 +20,9 @@ import { getStatusFromInt } from "../../../shared/status.ts";
 class DonationVotingMerkleDistributionRecipient extends LiveObject {
     @Property()
     recipientId: Address;
+
+    @Property()
+    recipientIndex: number;
 
     @Property()
     strategy: Address;
@@ -44,9 +48,6 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
     @Property()
     sender: Address;
 
-    // @Property({default: false})
-    // hasClaimed: boolean;
-
     // ====================
     // =  Event Handlers  =
     // ====================
@@ -57,70 +58,81 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
         this.recipientId = event.data.recipientId
     }
 
-    @OnEvent(
-        "allov2.DonationVotingMerkleDistributionDirectTransferStrategy.Registered"
-    )
+    @OnEvent("allov2.DonationVotingMerkleDistributionDirectTransferStrategy.Registered")
     @OnEvent("allov2.DonationVotingMerkleDistributionVaultStrategy.Registered")
     async onRegistration(event: Event) {
         const useRegistryAnchor = await this.contract.useRegistryAnchor()
         const poolId = await this.contract.getPoolId()
 
-        this.upsertRecipientOnRegistration(useRegistryAnchor, event)
+        // decode to get
+        const {recipientIndex, encodedData } = decodeRecipientIndexDonationVotingMerkleDistribution(
+            event.data.data
+        )
+
+        this.upsertRecipientOnRegistration(useRegistryAnchor, encodedData)
         this.status = getStatusFromInt(1)
         this.poolId = poolId.toString()
+        this.recipientIndex = recipientIndex
+        this.sender = event.data.sender
     }
 
-    @OnEvent(
-        "allov2.DonationVotingMerkleDistributionDirectTransferStrategy.UpdatedRegistration"
-    )
-    @OnEvent(
-        "allov2.DonationVotingMerkleDistributionVaultStrategy.UpdatedRegistration"
-    )
+    @OnEvent("allov2.DonationVotingMerkleDistributionDirectTransferStrategy.UpdatedRegistration")
+    @OnEvent("allov2.DonationVotingMerkleDistributionVaultStrategy.UpdatedRegistration")
     async onUpdatedRegistration(event: Event) {
         const useRegistryAnchor = await this.contract.useRegistryAnchor()
 
-        this.upsertRecipientOnRegistration(useRegistryAnchor, event)
+        this.upsertRecipientOnRegistration(useRegistryAnchor, event.data.data)
         this.status = getStatusFromInt(event.data.status)
+        this.sender = event.data.sender
     }
 
-    @OnEvent("allov2.DonationVotingMerkleDistributionDirectTransferStrategy.RecipientStatusUpdated")
-    @OnEvent("allov2.DonationVotingMerkleDistributionVaultStrategy.RecipientStatusUpdated")
+    @OnEvent("allov2.DonationVotingMerkleDistributionDirectTransferStrategy.RecipientStatusUpdated",  { autoSave: false })
+    @OnEvent("allov2.DonationVotingMerkleDistributionVaultStrategy.RecipientStatusUpdated",  { autoSave: false })
     async onRecipientStatusUpdated(event: Event) {
-        const APPLICATIONS_PER_ROW = 64; // 256/4
+        const applicationsPerRow = 64; // 256/4
 
-        const rowIndex = event.data.index;
-        const fullRow = event.data.fullRow;
+        const rowIndex = event.data.index
+        const fullRow = event.data.fullRow
+        const bitsPerStatus = 4
 
-        const startApplicationIndex = rowIndex * APPLICATIONS_PER_ROW;
+        const startApplicationIndex = rowIndex * applicationsPerRow
 
-        for (let i = 0; i < APPLICATIONS_PER_ROW; i++) {
-            // const currentApplicationIndex = startApplicationIndex + i;
-            // const status = fullRow
-            //     .rightShift(u8(i * 2))
-            //     .bitAnd(BigInt.fromI32(3))
-            //     .toI32();
+        const recipients = []
+
+        for (let index = 0; index < applicationsPerRow; index++) {
+            // get recipientIndex
+            const currentApplicationIndex = startApplicationIndex + index
+            const colIndex = index * bitsPerStatus
+            // get recipient status
+            const status = (fullRow >> colIndex) & 15 // 1111
+
+            // get recipient
+            const recipient = await this.findOne(DonationVotingMerkleDistributionRecipient, {
+                strategy: this.strategy,
+                chainId: this.chainId,
+                recipientIndex: currentApplicationIndex
+            })
+
+            if (recipient) {
+                // update status
+                recipient.status = getStatusFromInt(status)
+                recipients.push(recipient)
+            }
         }
-
-        // const rowIndex = index / this._itemsPerRow;
-        // const colIndex = (index % this._itemsPerRow) * this.bitsPerStatus;
-        // const row = this.rows[rowIndex.toString()] ?? BigInt(0);
-        // const value = (row >> colIndex) & this.maxStatus;
-
-        // return Number(value);
+        await saveAll(...recipients)
     }
 
-    upsertRecipientOnRegistration(useRegistryAnchor: boolean, event: Event) {
+    upsertRecipientOnRegistration(useRegistryAnchor: boolean, data: any) {
         const { isUsingRegistryAnchor, recipientAddress, metadata } =
             decodeDonationVotingMerkleDistributionRegistrationData(
                 useRegistryAnchor,
-                event.data.data
+                data
             )
 
         this.isUsingRegistryAnchor = isUsingRegistryAnchor
         this.recipientAddress = recipientAddress
         this.metadataProtocol = metadata.protocol
         this.metadataPointer = metadata.pointer
-        this.sender = event.data.sender
     }
 }
 

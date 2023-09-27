@@ -143,3 +143,17 @@ export function decodeDonationVotingMerkleDistributionRegistrationData(
     }
   }
 }
+
+export function decodeRecipientIndexDonationVotingMerkleDistribution(
+  data: any
+) {
+  const [encodedData, recipientIndex] = decodeAbi(data, [
+      "bytes",
+      "uint256"
+  ])
+
+  return {
+    encodedData,
+    recipientIndex,
+  }
+}
