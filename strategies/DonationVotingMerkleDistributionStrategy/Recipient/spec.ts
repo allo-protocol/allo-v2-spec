@@ -14,14 +14,14 @@ import { getStatusFromInt } from "../../../shared/status.ts";
  * Merkle Recipient details
  */
 @Spec({
-    uniqueBy: ["strategyId", "recipientId", "chainId"],
+    uniqueBy: ["strategy", "recipientId", "chainId"],
 })
 class DonationVotingMerkleDistributionRecipient extends LiveObject {
     @Property()
     recipientId: Address;
 
     @Property()
-    strategyId: Address;
+    strategy: Address;
 
     @Property()
     recipientAddress: Address;
@@ -50,7 +50,7 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        this.strategyId = event.origin.contractAddress;
+        this.strategy = event.origin.contractAddress;
         this.recipientId = event.data.recipientId;
     }
 

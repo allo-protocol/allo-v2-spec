@@ -1,17 +1,21 @@
 import { Address, BeforeAll, BigInt, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
 
-import { decodeRFPCommitteeInitializedData, decodeRFPSimpleInitializedData } from "../../../shared/decoders.js";
+import { decodeRFPCommitteeInitializedData, decodeRFPSimpleInitializedData } from "../../../shared/decoders.ts";
 
 /**
  * RFP details
  */
 @Spec({
-    uniqueBy: ['strategyId', 'chainId']
+    uniqueBy: ['strategy', 'chainId']
 })
 class RFP extends LiveObject {
 
     @Property()
-    strategyId: Address
+    strategy: Address
+
+    // @dev bytes32
+    @Property()
+    strategyId: string
 
     @Property()
     poolId: string
@@ -37,11 +41,11 @@ class RFP extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        this.strategyId = event.origin.contractAddress;
+        this.strategy = event.origin.contractAddress;
     }
 
     @OnEvent('allov2.RFPSimpleStrategy.Initialized')
-    onRFPSimpleInitalized(event: Event) {
+    async onRFPSimpleInitalized(event: Event) {
         const { maxBid, useRegistryAnchor, metadataRequired} = decodeRFPSimpleInitializedData(
             event.data.data
         )
@@ -51,6 +55,9 @@ class RFP extends LiveObject {
         this.metadataRequired = metadataRequired
         this.poolId = event.data.poolId.toString()
         this.voteThreshold = 1
+        
+        const strategyId = await this.contract.acceptedRecipientId().toString()
+        this.strategyId = strategyId
     }
 
     @OnEvent('allov2.RFPCommitteeStrategy.Initialized')

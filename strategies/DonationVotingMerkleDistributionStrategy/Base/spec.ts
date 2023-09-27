@@ -6,16 +6,16 @@ import { decodeDonationVotingMerkleDistributionInitializedData } from "../../../
  * DonationVotingMerkleDistribution details
  */
 @Spec({
-    uniqueBy: ['strategyId', 'chainId'],
+    uniqueBy: ['strategy', 'chainId'],
 })
 class DonationVotingMerkleDistribution extends LiveObject {
     @Property()
-    strategyId: Address
+    strategy: Address
 
     @Property()
     poolId: string
 
-    // TODO: this is derived property can cannot be detected by event
+    // Note: this is derived property can cannot be detected by event
     // @Property()
     // active: boolean
 
@@ -55,7 +55,7 @@ class DonationVotingMerkleDistribution extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        this.strategyId = event.origin.contractAddress
+        this.strategy = event.origin.contractAddress
     }
 
     @OnEvent('allov2.DonationVotingMerkleDistributionDirectTransferStrategy.Initialized')

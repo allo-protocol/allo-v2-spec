@@ -7,14 +7,14 @@ import { getStatusFromInt } from "../../../shared/status.ts";
  * Merkle Distribution details
  */
 @Spec({
-    uniqueBy: ['strategyId', "recipientId", 'chainId']
+    uniqueBy: ['strategy', "recipientId", 'chainId']
 })
 class DonationVotingMerkleDistributionPayout extends LiveObject {
     @Property()
     recipientId: Address
     
     @Property()
-    strategyId: Address
+    strategy: Address
 
     @Property()
     index: number
@@ -40,7 +40,7 @@ class DonationVotingMerkleDistributionPayout extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        this.strategyId = event.origin.contractAddress
+        this.strategy = event.origin.contractAddress
         this.recipientId = event.data.recipientId
     }
 
@@ -83,7 +83,7 @@ class DonationVotingMerkleDistributionPayout extends LiveObject {
 
     async _softDeleteExistingPayouts() {
         const existingPayouts = await this.find(DonationVotingMerkleDistributionPayout, {
-            strategyId: this.strategyId,
+            strategy: this.strategy,
             chainId: this.chainId
         })
         existingPayouts.forEach(payout => {

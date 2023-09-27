@@ -7,14 +7,14 @@ import { getStatusFromInt } from '../../../shared/status.ts'
  * RFP details
  */
 @Spec({
-    uniqueBy: ['strategyId', 'recipientId', 'chainId']
+    uniqueBy: ['strategy', 'recipientId', 'chainId']
 })
 class RFPRecipient extends LiveObject {
     @Property()
     recipientId: Address
 
     @Property()
-    strategyId: Address
+    strategy: Address
 
     @Property({ default: 0 })
     proposalBid: BigInt
@@ -40,7 +40,7 @@ class RFPRecipient extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        this.strategyId = event.origin.contractAddress
+        this.strategy = event.origin.contractAddress
         this.recipientId = event.data.recipientId
     }
 

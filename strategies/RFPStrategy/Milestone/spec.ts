@@ -6,7 +6,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
  * RFP Milestone details
  */
 @Spec({
-    uniqueBy: ['strategyId', 'milestoneId', 'chainId']
+    uniqueBy: ['strategy', 'milestoneId', 'chainId']
 })
 class RFPMilestone extends LiveObject {
 
@@ -14,7 +14,7 @@ class RFPMilestone extends LiveObject {
     milestoneId: number
 
     @Property()
-    strategyId: Address
+    strategy: Address
 
     @Property()
     recipientId: Address
@@ -34,7 +34,7 @@ class RFPMilestone extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        this.strategyId = event.origin.contractAddress;
+        this.strategy = event.origin.contractAddress;
         this.milestoneId = event.data.milestoneId;
     }
 
@@ -58,7 +58,7 @@ class RFPMilestone extends LiveObject {
 
             const rfpMilestone = this.new(RFPMilestone, {
                 milestoneId: i,
-                strategyId: this.strategyId,
+                strategy: this.strategy,
                 recipientId: recipientId,
                 metadataProtocol: protocol,
                 metadataPointer: pointer,
@@ -83,7 +83,7 @@ class RFPMilestone extends LiveObject {
 
     async _softDeleteExistingMilestones() {
         const existingMilestones = await this.find(RFPMilestone, {
-            strategyId: this.strategyId,
+            strategy: this.strategy,
             chainId: this.chainId
         })
         existingMilestones.forEach(milestone => {
