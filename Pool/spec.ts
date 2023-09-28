@@ -29,6 +29,10 @@ class Pool extends LiveObject {
     @Property()
     profileId: Address;
 
+    // @dev : bytes32
+    @Property()
+    strategyId: string;
+
     @Property()
     strategy: Address;
 
@@ -75,7 +79,7 @@ class Pool extends LiveObject {
     async onPoolCreated(event: Event) {
         this.profileId = event.data.profileId;
         this.strategy = event.data.strategy;
-        this.token = event.data.token;
+        this.token = event.data.token.toLowerCase();
         this.tokenMetadata = await getERC20TokenMetadata(this.chainId, this.token)
 
         // @dev : ignore this as it would be handled on PoolFunded event
@@ -91,11 +95,11 @@ class Pool extends LiveObject {
 
         this.createdAt = this.blockTimestamp;
 
-        // TODO: uncomment when indexing strategies 
-        // const contractGroupName = await getStrategyContractGroup(this.chainId, this.strategy)
-        // if (contractGroupName) {
-        //     this.addContractToGroup(this.strategy, contractGroupName)
-        // }
+        const { strategyId, contractGroupName } = await getStrategyContractGroup(this.chainId, this.strategy)
+        if (contractGroupName) {
+            this.addContractToGroup(this.strategy, contractGroupName)
+            this.strategyId = strategyId
+        }
     }
 
     @OnEvent("allov2.Allo.PoolMetadataUpdated")

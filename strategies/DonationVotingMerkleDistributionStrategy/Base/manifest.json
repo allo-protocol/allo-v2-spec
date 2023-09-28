@@ -1,0 +1,10 @@
+{
+    "namespace": "allov2",
+    "name": "DonationVotingMerkleDistribution",
+    "version": "0.0.1",
+    "displayName": "DonationVotingMerkleDistribution",
+    "description": "Index global variables in DonationVotingMerkleDistribution strategy",
+    "chains": [
+        5
+    ]
+}

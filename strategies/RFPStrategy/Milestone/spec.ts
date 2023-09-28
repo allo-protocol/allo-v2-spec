@@ -6,7 +6,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
  * RFP Milestone details
  */
 @Spec({
-    uniqueBy: ['strategyId', 'milestoneId', 'chainId']
+    uniqueBy: ['strategy', 'milestoneId', 'chainId']
 })
 class RFPMilestone extends LiveObject {
 
@@ -14,7 +14,10 @@ class RFPMilestone extends LiveObject {
     milestoneId: number
 
     @Property()
-    strategyId: Address
+    poolId: string
+
+    @Property()
+    strategy: Address
 
     @Property()
     recipientId: Address
@@ -26,6 +29,9 @@ class RFPMilestone extends LiveObject {
     metadataPointer: string
 
     @Property()
+    amountPercentage: number
+
+    @Property()
     status: string
 
     // ====================
@@ -34,13 +40,13 @@ class RFPMilestone extends LiveObject {
 
     @BeforeAll()
     setCommonProperties(event: Event) {
-        this.strategyId = event.origin.contractAddress;
+        this.strategy = event.origin.contractAddress;
         this.milestoneId = event.data.milestoneId;
     }
 
     @OnEvent('allov2.RFPSimpleStrategy.MilestonesSet', { autoSave: false })
     @OnEvent('allov2.RFPCommitteeStrategy.MilestonesSet', { autoSave: false })
-    async onMilestonesSet() {
+    async onMilestonesSet(event: Event) {
 
        await this._softDeleteExistingMilestones();
 
@@ -48,20 +54,25 @@ class RFPMilestone extends LiveObject {
         
         const recipientId = await this.contract.acceptedRecipientId()
 
+        const poolId = await this.contract.getPoolId()
+
         // deno-lint-ignore no-explicit-any
         const rfpMilestones: any = [];
 
         for(let i = 0; i < milestoneLength; i++) {
             const milestone = await this.contract.getMilestone(i)
             
+            // TODO: working to auto-reconstruct the tuple responses. Ask ben
             const [protocol, pointer] = milestone.metadata
 
             const rfpMilestone = this.new(RFPMilestone, {
                 milestoneId: i,
-                strategyId: this.strategyId,
+                strategy: this.strategy,
+                poolId: poolId.toString(),
                 recipientId: recipientId,
                 metadataProtocol: protocol,
                 metadataPointer: pointer,
+                amountPercentage: milestone.amountPercentage,
                 status: getStatusFromInt(0)
             })
             rfpMilestones.push(rfpMilestone)
@@ -83,7 +94,8 @@ class RFPMilestone extends LiveObject {
 
     async _softDeleteExistingMilestones() {
         const existingMilestones = await this.find(RFPMilestone, {
-            strategyId: this.strategyId
+            strategy: this.strategy,
+            chainId: this.chainId
         })
         existingMilestones.forEach(milestone => {
             milestone.status = getStatusFromInt(7)
