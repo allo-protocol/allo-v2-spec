@@ -14,14 +14,16 @@ This section captures the live objects and the events which would be used to ind
 
 ### Recipient
 
-- `event RecipientStatusUpdated(address indexed recipientId, Status status, address sender);`
+- `event Registered(address indexed recipientId, bytes data, address sender);`
 - `event UpdatedRegistration(address indexed recipientId, bytes data, address sender, Status status);`
-- `event Reviewed(address indexed recipientId, Status status, address sender);`
+- `event RecipientStatusUpdated(address indexed recipientId, Status status, address sender);`
+- `event Allocated(address indexed recipientId, uint256 votes, address allocator);` // To track votes received
 
 
 ## Events Auto Indexed
 
-- `event Allocated(address indexed recipientId, uint256 votes, address allocator);`
-- `event Distributed(address indexed recipientId, address recipientAddress, uint256 amount, address sender);`
 - `emit AllocatorAdded(_allocator, msg.sender);`
 - `emit AllocatorRemoved(_allocator, msg.sender);`
+- `event Reviewed(address indexed recipientId, Status status, address sender);`
+- `event Allocated(address indexed recipientId, uint256 votes, address allocator);`
+- `event Distributed(address indexed recipientId, address recipientAddress, uint256 amount, address sender);`

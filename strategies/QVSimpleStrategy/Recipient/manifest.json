@@ -1,9 +1,9 @@
 {
     "namespace": "allov2",
-    "name": "QVSimple",
+    "name": "QVSimple_Recipient",
     "version": "0.0.1",
-    "displayName": "QVSimple",
-    "description": "Index base variables in QVSimple strategy",
+    "displayName": "QVSimple Recipient",
+    "description": "Index Recipients on QVSimple strategy",
     "chains": [
         5
     ]

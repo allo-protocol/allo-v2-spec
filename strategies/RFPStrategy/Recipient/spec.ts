@@ -20,6 +20,9 @@ class RFPRecipient extends LiveObject {
     poolId: string
 
     @Property()
+    recipientAddress: Address;
+
+    @Property()
     proposalBid: BigInt
 
     @Property()
@@ -53,13 +56,14 @@ class RFPRecipient extends LiveObject {
     @OnEvent('allov2.RFPCommitteeStrategy.UpdatedRegistration')
     async onRegistration(event: Event) {
         const useRegistryAnchor = await this.contract.useRegistryAnchor()
-        const { isUsingRegistryAnchor, proposalBid, metadata } = decodeRFPRegistrationData(
+        const { recipientAddress, isUsingRegistryAnchor, proposalBid, metadata } = decodeRFPRegistrationData(
             useRegistryAnchor, event.data.data
         );
 
         const poolId = await this.contract.getPoolId()
         
         this.poolId = poolId.toString()
+        this.recipientAddress = recipientAddress
         this.isUsingRegistryAnchor = isUsingRegistryAnchor
         this.proposalBid = proposalBid
         this.metadataProtocol = metadata.protocol
