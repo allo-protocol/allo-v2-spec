@@ -3,6 +3,8 @@ import {
     BeforeAll,
     BigInt,
     Event,
+    getERC20TokenMetadata,
+    Json,
     LiveObject,
     OnEvent,
     Property,
@@ -36,6 +38,9 @@ class Pool extends LiveObject {
 
     @Property()
     token: Address;
+
+    @Property()
+    tokenMetadata: Json;
 
     @Property({ default: 0 })
     amount: BigInt;
@@ -75,6 +80,7 @@ class Pool extends LiveObject {
         this.profileId = event.data.profileId;
         this.strategy = event.data.strategy;
         this.token = event.data.token.toLowerCase();
+        this.tokenMetadata = await getERC20TokenMetadata(this.chainId, this.token)
 
         // @dev : ignore this as it would be handled on PoolFunded event
         // this.amount = BigInt.from(event.data.amount)
