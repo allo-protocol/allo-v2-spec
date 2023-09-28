@@ -74,7 +74,7 @@ class Pool extends LiveObject {
     async onPoolCreated(event: Event) {
         this.profileId = event.data.profileId;
         this.strategy = event.data.strategy;
-        this.token = event.data.token;
+        this.token = event.data.token.toLowerCase();
 
         // @dev : ignore this as it would be handled on PoolFunded event
         // this.amount = BigInt.from(event.data.amount)

@@ -1,6 +1,6 @@
 import { Address, BeforeAll, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
 
-import { decodeDonationVotingMerkleDistributionInitializedData } from "../../../shared/decoders.js";
+import { decodeDonationVotingMerkleDistributionInitializedData } from "../../../shared/decoders.ts";
 
 /**
  * DonationVotingMerkleDistribution details
@@ -79,7 +79,6 @@ class DonationVotingMerkleDistribution extends LiveObject {
         this.registrationEndTime = registrationEndTime
         this.allocationStartTime = allocationStartTime
         this.allocationEndTime = allocationEndTime
-        // TODO: check if valid assignment of allowedTokens
         this.allowedTokens = allowedTokens
         
         this.poolId = event.data.poolId.toString()

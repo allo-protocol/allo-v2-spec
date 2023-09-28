@@ -1,6 +1,6 @@
 import { decodeAbi, isNullAddress } from "@spec.dev/core"
 
-import { formatMetadataAsStruct } from "./formatter"
+import { formatMetadataAsStruct } from "./formatter.ts"
 
 // ====================
 // =   RFP Decoder    =
@@ -106,7 +106,7 @@ export function decodeDonationVotingMerkleDistributionInitializedData(
     registrationEndTime,
     allocationStartTime,
     allocationEndTime,
-    allowedTokens
+    allowedTokens: allowedTokens.map(token => token.toLowerCase()),
   }
 }
 
@@ -124,7 +124,7 @@ export function decodeDonationVotingMerkleDistributionRegistrationData(
 
     return {
       isUsingRegistryAnchor: true,
-      recipientAddress,
+      recipientAddress: recipientAddress.toLowerCase(),
       metadata: formatMetadataAsStruct(metadata),
     }
   } else {
@@ -138,7 +138,7 @@ export function decodeDonationVotingMerkleDistributionRegistrationData(
 
     return {
       isUsingRegistryAnchor,
-      recipientAddress,
+      recipientAddress: recipientAddress.toLowerCase(),
       metadata: formatMetadataAsStruct(metadata),
     }
   }

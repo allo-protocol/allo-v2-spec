@@ -52,6 +52,6 @@ export async function getStrategyContractGroup(chainId: string, strategyContract
       };
    
     default:
-      return ;
+      return {};
   }
 }
