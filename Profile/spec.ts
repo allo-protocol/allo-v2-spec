@@ -20,7 +20,7 @@ class Profile extends LiveObject {
     @Property()
     profileId: Address;
 
-    @Property({ default: 0 })
+    @Property()
     nonce: BigInt;
 
     @Property()
@@ -55,7 +55,6 @@ class Profile extends LiveObject {
 
     @OnEvent("allov2.Registry.ProfileCreated")
     onProfileCreated(event: Event) {
-        this.profileId = event.data.profileId
         this.nonce = BigInt.from(event.data.nonce)
         this.name = event.data.name
 
@@ -86,7 +85,6 @@ class Profile extends LiveObject {
     onProfileOwnerUpdated(event: Event) {
         this.owner = event.data.owner
     }
-
 }
 
 export default Profile;

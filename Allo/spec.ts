@@ -18,10 +18,10 @@ class Allo extends LiveObject {
     @Property()
     registry: Address;
 
-    @Property({ default: 0 })
+    @Property()
     feePercentage: BigInt;
 
-    @Property({ default: 0 })
+    @Property()
     baseFee: BigInt;
 
     @Property()
@@ -57,16 +57,12 @@ class Allo extends LiveObject {
     @OnEvent("allov2.Allo.StrategyApproved")
     async onStrategyApproved(event: Event) {
         await this.load();
-
-        this.cloneableStrategies = this.cloneableStrategies || []
         this.cloneableStrategies.push(event.data.strategy);
     }
 
     @OnEvent("allov2.Allo.StrategyRemoved")
     async onStrategyRemoved(event: Event) {
         await this.load();
-
-        this.cloneableStrategies = this.cloneableStrategies || []
         this.cloneableStrategies = this.cloneableStrategies.filter(
             (strategy) => strategy !== event.data.strategy
         );

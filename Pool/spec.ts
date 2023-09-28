@@ -42,13 +42,13 @@ class Pool extends LiveObject {
     @Property()
     tokenMetadata: Json;
 
-    @Property({ default: 0 })
+    @Property()
     amount: BigInt;
 
-    @Property({ default: 0 })
+    @Property()
     feePaid: BigInt;
 
-    @Property({ default: 0 })
+    @Property()
     baseFeePaid: BigInt;
 
     @Property()
@@ -112,14 +112,14 @@ class Pool extends LiveObject {
     @OnEvent("allov2.Allo.PoolFunded")
     async onPoolFunded(event: Event) {
         await this.load();
-        this.amount = BigInt.from(this.amount || 0).plus(event.data.amount);
-        this.feePaid = BigInt.from(this.feePaid || 0).plus(event.data.fee);
+        this.amount = this.amount.plus(event.data.amount);
+        this.feePaid = this.feePaid.plus(event.data.fee);
     }
 
     @OnEvent("allov2.Allo.BaseFeePaid")
     async onBaseFeePaid(event: Event) {
         await this.load();
-        this.baseFeePaid = BigInt.from(this.baseFeePaid || 0).plus(event.data.amount);
+        this.baseFeePaid = this.baseFeePaid.plus(event.data.amount);
     }
 }
 
