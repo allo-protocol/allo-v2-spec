@@ -78,7 +78,7 @@ class QVSimple extends LiveObject {
         this.allocationStartTime = allocationStartTime
         this.allocationEndTime = allocationEndTime
         this.maxVoiceCreditsPerAllocator = maxVoiceCreditsPerAllocator
-        
+
         this.poolId = event.data.poolId.toString()
     }
 

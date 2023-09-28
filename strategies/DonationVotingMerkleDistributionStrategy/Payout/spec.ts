@@ -21,6 +21,9 @@ import { getStatusFromInt } from "../../../shared/status.ts";
 })
 class DonationVotingMerkleDistributionPayout extends LiveObject {
     @Property()
+    chainId: number
+
+    @Property()
     recipientId: Address
     
     @Property()
