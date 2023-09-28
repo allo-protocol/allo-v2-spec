@@ -157,3 +157,40 @@ export function decodeRecipientIndexDonationVotingMerkleDistribution(
     recipientIndex,
   }
 }
+
+// ========================
+// =   QVSimple Decoder   =
+// ========================
+
+export function decodeQVSimpleInitializedData(
+  data: any
+) {
+  const [
+    maxVoiceCreditsPerAllocator,
+    initParams
+  ] = decodeAbi(data, [
+      "uint256",
+      "tuple(bool, bool, uint256, uint64, uint64, uint64, uint64)",
+  ])
+
+  const [
+    useRegistryAnchor,
+    metadataRequired,
+    reviewThreshold,
+    registrationStartTime,
+    registrationEndTime,
+    allocationStartTime,
+    allocationEndTime
+  ] = initParams
+
+  return {
+    useRegistryAnchor,
+    metadataRequired,
+    reviewThreshold,
+    registrationStartTime,
+    registrationEndTime,
+    allocationStartTime,
+    allocationEndTime,
+    maxVoiceCreditsPerAllocator
+  }
+}

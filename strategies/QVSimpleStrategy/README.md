@@ -11,8 +11,6 @@ This section captures the live objects and the events which would be used to ind
 
 - `event Initialized()`
 - `event TimestampsUpdated(uint64 registrationStartTime, uint64 registrationEndTime, uint64 allocationStartTime, uint64 allocationEndTime, address sender)`
-- `emit AllocatorAdded(_allocator, msg.sender);`
-- `emit AllocatorRemoved(_allocator, msg.sender);`
 
 ### Recipient
 
@@ -25,3 +23,5 @@ This section captures the live objects and the events which would be used to ind
 
 - `event Allocated(address indexed recipientId, uint256 votes, address allocator);`
 - `event Distributed(address indexed recipientId, address recipientAddress, uint256 amount, address sender);`
+- `emit AllocatorAdded(_allocator, msg.sender);`
+- `emit AllocatorRemoved(_allocator, msg.sender);`
