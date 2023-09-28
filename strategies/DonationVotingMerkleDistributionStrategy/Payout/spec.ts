@@ -75,6 +75,7 @@ class DonationVotingMerkleDistributionPayout extends LiveObject {
             // create new payout record
             const payout = this.new(DonationVotingMerkleDistributionPayout, {
                 poolId: poolId.toString(),
+                strategy: this.strategy,
                 index: payoutsMetadata[i].index,
                 recipientId: payoutsMetadata[i].recipientId,
                 amount: payoutsMetadata[i].amount,

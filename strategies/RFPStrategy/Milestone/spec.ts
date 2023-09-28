@@ -62,6 +62,7 @@ class RFPMilestone extends LiveObject {
         for(let i = 0; i < milestoneLength; i++) {
             const milestone = await this.contract.getMilestone(i)
             
+            // TODO: working to auto-reconstruct the tuple responses. Ask ben
             const [protocol, pointer] = milestone.metadata
 
             const rfpMilestone = this.new(RFPMilestone, {
