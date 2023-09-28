@@ -9,7 +9,7 @@ import {
     Spec,
 } from "@spec.dev/core";
 
-import { decodeDonationVotingMerkleDistributionRegistrationData, decodeRecipientIndexDonationVotingMerkleDistribution } from "../../../shared/decoders.ts";
+import { decodeGenericRegistrationData, decodeRecipientIndexDonationVotingMerkleDistribution } from "../../../shared/decoders.ts";
 import { getStatusFromInt } from "../../../shared/status.ts";
 /**
  * DonationVotingMerkleDistribution Recipient
@@ -18,6 +18,9 @@ import { getStatusFromInt } from "../../../shared/status.ts";
     uniqueBy: ["strategy", "recipientId", "chainId"],
 })
 class DonationVotingMerkleDistributionRecipient extends LiveObject {
+    @Property()
+    chainId: number;
+
     @Property()
     recipientId: Address;
 
@@ -124,7 +127,7 @@ class DonationVotingMerkleDistributionRecipient extends LiveObject {
 
     upsertRecipientOnRegistration(useRegistryAnchor: boolean, data: any) {
         const { isUsingRegistryAnchor, recipientAddress, metadata } =
-            decodeDonationVotingMerkleDistributionRegistrationData(
+            decodeGenericRegistrationData(
                 useRegistryAnchor,
                 data
             )

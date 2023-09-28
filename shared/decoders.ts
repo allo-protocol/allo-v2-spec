@@ -2,6 +2,45 @@ import { decodeAbi, isNullAddress } from "@spec.dev/core"
 
 import { formatMetadataAsStruct } from "./formatter.ts"
 
+// ======================
+// =   Common Decoder   =
+// ======================
+
+export function decodeGenericRegistrationData(
+  useRegistryAnchor: boolean,
+  data: any
+) {
+  if (useRegistryAnchor) {
+
+    const [, recipientAddress, metadata] = decodeAbi(data, [
+        "address",
+        "address",
+        "tuple(uint256, string)",
+    ])
+
+    return {
+      isUsingRegistryAnchor: true,
+      recipientAddress: recipientAddress.toLowerCase(),
+      metadata: formatMetadataAsStruct(metadata),
+    }
+  } else {
+    const [recipientAddress, registryAnchor, metadata] = decodeAbi(data, [
+        "address",
+        "address",
+        "tuple(uint256, string)",
+    ])
+
+    const isUsingRegistryAnchor = !isNullAddress(registryAnchor)
+
+    return {
+      isUsingRegistryAnchor,
+      recipientAddress: recipientAddress.toLowerCase(),
+      metadata: formatMetadataAsStruct(metadata),
+    }
+  }
+}
+
+
 // ====================
 // =   RFP Decoder    =
 // ====================
@@ -45,19 +84,20 @@ export function decodeRFPRegistrationData(
   data: any
 ) {
   if (useRegistryAnchor) {
-    const [, proposalBid, metadata] = decodeAbi(data, [
+    const [recipientAddress, proposalBid, metadata] = decodeAbi(data, [
         "address",
         "uint256",
         "tuple(uint256, string)",
     ])
 
     return {
+      recipientAddress: recipientAddress.toLowerCase(),
       isUsingRegistryAnchor: true,
       proposalBid,
       metatdata: formatMetadataAsStruct(metadata),
     }
   } else {
-    const [, registryAnchor, proposalBid, metadata] = decodeAbi(data, [
+    const [recipientAddress, registryAnchor, proposalBid, metadata] = decodeAbi(data, [
         "address",
         "address",
         "uint256",
@@ -67,6 +107,7 @@ export function decodeRFPRegistrationData(
     const isUsingRegistryAnchor = !isNullAddress(registryAnchor)
 
     return {
+      recipientAddress: recipientAddress.toLowerCase(),
       isUsingRegistryAnchor,
       proposalBid,
       metadata: formatMetadataAsStruct(metadata),
@@ -110,40 +151,6 @@ export function decodeDonationVotingMerkleDistributionInitializedData(
   }
 }
 
-export function decodeDonationVotingMerkleDistributionRegistrationData(
-  useRegistryAnchor: boolean,
-  data: any
-) {
-  if (useRegistryAnchor) {
-
-    const [, recipientAddress, metadata] = decodeAbi(data, [
-        "address",
-        "address",
-        "tuple(uint256, string)",
-    ])
-
-    return {
-      isUsingRegistryAnchor: true,
-      recipientAddress: recipientAddress.toLowerCase(),
-      metadata: formatMetadataAsStruct(metadata),
-    }
-  } else {
-    const [recipientAddress, registryAnchor, metadata] = decodeAbi(data, [
-        "address",
-        "address",
-        "tuple(uint256, string)",
-    ])
-
-    const isUsingRegistryAnchor = !isNullAddress(registryAnchor)
-
-    return {
-      isUsingRegistryAnchor,
-      recipientAddress: recipientAddress.toLowerCase(),
-      metadata: formatMetadataAsStruct(metadata),
-    }
-  }
-}
-
 export function decodeRecipientIndexDonationVotingMerkleDistribution(
   data: any
 ) {
@@ -155,5 +162,42 @@ export function decodeRecipientIndexDonationVotingMerkleDistribution(
   return {
     encodedData,
     recipientIndex,
+  }
+}
+
+// ========================
+// =   QVSimple Decoder   =
+// ========================
+
+export function decodeQVSimpleInitializedData(
+  data: any
+) {
+  const [
+    maxVoiceCreditsPerAllocator,
+    initParams
+  ] = decodeAbi(data, [
+      "uint256",
+      "tuple(bool, bool, uint256, uint64, uint64, uint64, uint64)",
+  ])
+
+  const [
+    useRegistryAnchor,
+    metadataRequired,
+    reviewThreshold,
+    registrationStartTime,
+    registrationEndTime,
+    allocationStartTime,
+    allocationEndTime
+  ] = initParams
+
+  return {
+    useRegistryAnchor,
+    metadataRequired,
+    reviewThreshold,
+    registrationStartTime,
+    registrationEndTime,
+    allocationStartTime,
+    allocationEndTime,
+    maxVoiceCreditsPerAllocator
   }
 }
