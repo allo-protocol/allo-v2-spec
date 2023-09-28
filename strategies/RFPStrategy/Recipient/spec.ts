@@ -19,7 +19,7 @@ class RFPRecipient extends LiveObject {
     @Property()
     poolId: string
 
-    @Property({ default: 0 })
+    @Property()
     proposalBid: BigInt
 
     @Property()
