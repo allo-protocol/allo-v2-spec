@@ -29,3 +29,31 @@ See registered events
 ```bash
 spec get events allov2.RFPSimple
 ```
+
+## Dev Notes
+
+Install spec cli
+```bash
+npm install -g @spec.dev/cli @spec.dev/spec
+```
+Update cache / spec core library
+```bash
+deno cache https://esm.sh/@spec.dev/core@0.0.122
+```
+
+Login
+```bash
+spec login
+```
+
+Use Profile
+```bash
+spec use profile allov2/spec
+```
+
+Install `Deno for Visual Studio Code` extension by denoland (the purple one)
+
+Install postgresql
+```bash
+sudo apt install postgresql
+```

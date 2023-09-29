@@ -67,7 +67,7 @@ class QVSimpleRecipient extends LiveObject {
 
     @OnEvent('allov2.QVSimpleStrategy.Allocated')
     onAllocation(event: Event) {
-        this.totalVotesReceived = event.data.votes
+        this.totalVotesReceived += event.data.votes
     }
 
     upsertRecipientOnRegistration(useRegistryAnchor: boolean, data: any) {
