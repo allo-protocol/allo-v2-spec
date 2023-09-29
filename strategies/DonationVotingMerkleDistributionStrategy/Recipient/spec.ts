@@ -18,8 +18,6 @@ import { getStatusFromInt } from "../../../shared/status.ts";
     uniqueBy: ["strategy", "recipientId", "chainId"],
 })
 class DonationVotingMerkleDistributionRecipient extends LiveObject {
-    @Property()
-    chainId: number;
 
     @Property()
     recipientId: Address;
