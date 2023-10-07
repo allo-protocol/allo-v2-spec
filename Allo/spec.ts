@@ -58,6 +58,7 @@ class Allo extends LiveObject {
     async onStrategyApproved(event: Event) {
         await this.load();
         this.cloneableStrategies.push(event.data.strategy);
+        this.cloneableStrategies = Array.from(new Set(this.cloneableStrategies));
     }
 
     @OnEvent("allov2.Allo.StrategyRemoved")
