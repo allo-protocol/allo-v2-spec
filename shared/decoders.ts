@@ -205,6 +205,7 @@ export function decodeQVSimpleInitializedData(
 // ========================
 // = MicroGrants Decoder  =
 // ========================
+
 export function decodeMicroGrantsInitializedData(
   data: any
 ) {
@@ -228,5 +229,23 @@ export function decodeMicroGrantsInitializedData(
     allocationEndTime,
     approvalThreshold,
     maxRequestedAmount
+  }
+}
+
+export function decodeMicroGrantsRegistrationData(
+  data: any
+) {
+  const [registryAnchor, recipientAddress, requestedAmount, metadata] = decodeAbi(data, [
+      "address",
+      "address",
+      "uint256",
+      "tuple(uint256, string)",
+  ])
+  
+  return {
+    registryAnchor: registryAnchor.toLowerCase(),
+    recipientAddress: recipientAddress.toLowerCase(),
+    requestedAmount: requestedAmount,
+    metadata: formatMetadataAsStruct(metadata),
   }
 }

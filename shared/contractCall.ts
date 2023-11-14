@@ -21,6 +21,13 @@ export async function getStrategyContractGroup(chainId: string, strategyContract
   const strategyId = await contract.getStrategyId();
 
   switch (strategyId) {
+
+    case "0x697f0592ebd05466d2d24454477e11d69c475d7a7c4134f15ddc1ea9811bb16f":
+      return {
+        strategyId: strategyId,
+        contractGroupName: "allov2.MicroGrantsStrategy"
+      };
+  
     case "0xb87f34c0968bd74d43a6a5b72831a5ea733a4783a026b9fc9b1d17adf51214d2":
       return {
         strategyId: strategyId,
