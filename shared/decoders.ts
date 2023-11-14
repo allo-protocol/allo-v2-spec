@@ -201,3 +201,32 @@ export function decodeQVSimpleInitializedData(
     maxVoiceCreditsPerAllocator
   }
 }
+
+// ========================
+// = MicroGrants Decoder  =
+// ========================
+export function decodeMicroGrantsInitializedData(
+  data: any
+) {
+  const [
+    useRegistryAnchor,
+    allocationStartTime,
+    allocationEndTime,
+    approvalThreshold,
+    maxRequestedAmount
+  ] = decodeAbi(data, [
+      "bool",
+      "uint64",
+      "uint64",
+      "uint256",
+      "uint256",
+  ])
+
+  return {
+    useRegistryAnchor,
+    allocationStartTime,
+    allocationEndTime,
+    approvalThreshold,
+    maxRequestedAmount
+  }
+}
