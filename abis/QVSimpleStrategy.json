@@ -286,18 +286,6 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "allo",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "profileId",
-        "type": "bytes32"
-      },
-      {
-        "indexed": false,
         "internalType": "uint256",
         "name": "poolId",
         "type": "uint256"
@@ -333,6 +321,12 @@
         "internalType": "address",
         "name": "recipientId",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "applicationId",
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -383,6 +377,12 @@
         "internalType": "address",
         "name": "recipientId",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "applicationId",
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -445,6 +445,12 @@
         "internalType": "address",
         "name": "recipientId",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "applicationId",
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -601,6 +607,19 @@
   },
   {
     "inputs": [],
+    "name": "distributionStarted",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "getAllo",
     "outputs": [
       {
@@ -722,6 +741,11 @@
             "internalType": "enum IStrategy.Status",
             "name": "recipientStatus",
             "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "applicationId",
+            "type": "uint256"
           }
         ],
         "internalType": "struct QVBaseStrategy.Recipient",
@@ -937,6 +961,11 @@
         "internalType": "enum IStrategy.Status",
         "name": "recipientStatus",
         "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "applicationId",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -1057,6 +1086,40 @@
         "type": "address"
       },
       {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "reviewedByManager",
+    "outputs": [
+      {
+        "internalType": "enum IStrategy.Status",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
         "internalType": "enum IStrategy.Status",
         "name": "",
         "type": "uint8"
@@ -1113,5 +1176,22 @@
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      }
+    ],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "receive"
   }
 ]

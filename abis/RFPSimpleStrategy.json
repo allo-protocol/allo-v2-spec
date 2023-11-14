@@ -102,7 +102,7 @@
   },
   {
     "inputs": [],
-    "name": "MILESTONE_ALREADY_ACCEPTED",
+    "name": "MILESTONE_NOT_PENDING",
     "type": "error"
   },
   {
@@ -623,6 +623,23 @@
             "internalType": "enum IStrategy.Status",
             "name": "recipientStatus",
             "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "protocol",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "pointer",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct Metadata",
+            "name": "metadata",
+            "type": "tuple"
           }
         ],
         "internalType": "struct RFPSimpleStrategy.Recipient",
@@ -954,9 +971,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
       }
     ],
     "name": "withdraw",
