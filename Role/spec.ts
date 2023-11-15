@@ -1,6 +1,6 @@
 import {
   Event,
-  LiveObject,
+  LiveTable,
   OnEvent,
   Property,
   saveAll,
@@ -15,7 +15,7 @@ import { generatePoolRoleIds } from "../shared/roles.ts";
 @Spec({
   uniqueBy: ["roleId", "chainId"],
 })
-class Role extends LiveObject {
+class Role extends LiveTable {
   @Property()
   roleId: string;
 

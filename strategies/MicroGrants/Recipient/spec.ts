@@ -1,15 +1,15 @@
-import { Address, BeforeAll, BigInt, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll, BigInt, Event, LiveTable, OnEvent, Property, Spec, isNullAddress } from '@spec.dev/core'
 
-import { decodeRFPRegistrationData } from '../../../shared/decoders.ts'
+import { decodeMicroGrantsRegistrationData } from '../../../shared/decoders.ts'
 import { getStatusFromInt } from '../../../shared/status.ts'
 
 /**
- * RFP details
+ * MicroGrants details
  */
 @Spec({
     uniqueBy: ['strategy', 'recipientId', 'chainId']
 })
-class RFPRecipient extends LiveTable {
+class MicroGrantsRecipient extends LiveTable {
     @Property()
     recipientId: Address
 
@@ -23,7 +23,7 @@ class RFPRecipient extends LiveTable {
     recipientAddress: Address;
 
     @Property()
-    proposalBid: BigInt
+    requestedAmount: BigInt
 
     @Property()
     isUsingRegistryAnchor: boolean
@@ -50,37 +50,39 @@ class RFPRecipient extends LiveTable {
         this.recipientId = event.data.recipientId
     }
 
-    @OnEvent('allov2.RFPSimpleStrategy.Registered')
-    @OnEvent('allov2.RFPCommitteeStrategy.Registered')
-    @OnEvent('allov2.RFPSimpleStrategy.UpdatedRegistration')
-    @OnEvent('allov2.RFPCommitteeStrategy.UpdatedRegistration')
+    @OnEvent('allov2.MicroGrantsStrategy.Registered')
+    @OnEvent('allov2.MicroGrantsStrategy.UpdatedRegistration')
     async onRegistration(event: Event) {
-        const useRegistryAnchor = await this.contract.useRegistryAnchor()
-        const { recipientAddress, isUsingRegistryAnchor, proposalBid, metadata } = decodeRFPRegistrationData(
-            useRegistryAnchor, event.data.data
+
+        const  {
+            registryAnchor,
+            recipientAddress,
+            requestedAmount,
+            metadata
+        } = decodeMicroGrantsRegistrationData(
+            event.data.data
         );
 
         const poolId = await this.contract.getPoolId()
         
         this.poolId = poolId.toString()
         this.recipientAddress = recipientAddress
-        this.isUsingRegistryAnchor = isUsingRegistryAnchor
-        this.proposalBid = proposalBid
+        this.isUsingRegistryAnchor = isNullAddress(registryAnchor)
+        this.requestedAmount = requestedAmount
         this.metadataProtocol = metadata.protocol
         this.metadataPointer = metadata.pointer
         this.sender = event.data.sender
 
-        // Note: there is no appealed status for RFP
-        this.status = getStatusFromInt(0)
+        // Note: Only possible status is Pending / Accepted
+        this.status = getStatusFromInt(1)
     }
 
-    @OnEvent('allov2.RFPSimpleStrategy.Allocated')
-    @OnEvent('allov2.RFPCommitteeStrategy.Allocated')
+    @OnEvent('allov2.MicroGrantsStrategy.Distributed')
     onAllocation(event: Event) {
+        // Note: this means that the recipient has been allocated funds
         this.status = getStatusFromInt(2)
-        this.proposalBid = BigInt.from(event.data.proposalBid)
     }
 
 }
 
-export default RFPRecipient
+export default MicroGrantsRecipient

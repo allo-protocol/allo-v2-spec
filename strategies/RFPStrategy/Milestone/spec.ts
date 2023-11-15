@@ -1,4 +1,4 @@
-import { Address, BeforeAll, Event, LiveObject, OnEvent, Property, saveAll,Spec } from '@spec.dev/core'
+import { Address, BeforeAll, Event, LiveTable, OnEvent, Property, saveAll,Spec } from '@spec.dev/core'
 
 import { getStatusFromInt } from '../../../shared/status.ts'
 
@@ -8,7 +8,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
 @Spec({
     uniqueBy: ['strategy', 'milestoneId', 'chainId']
 })
-class RFPMilestone extends LiveObject {
+class RFPMilestone extends LiveTable {
 
     @Property()
     milestoneId: number

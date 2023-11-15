@@ -1,0 +1,10 @@
+{
+    "namespace": "allov2",
+    "name": "MicroGrantRecipient",
+    "version": "0.0.1",
+    "displayName": "MicroGrants Recipients",
+    "description": "Index Recipients on MicroGrants",
+    "chains": [
+        5
+    ]
+}

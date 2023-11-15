@@ -986,6 +986,11 @@
         "internalType": "struct DonationVotingMerkleDistributionBaseStrategy.ApplicationStatus[]",
         "name": "statuses",
         "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "refRecipientsCounter",
+        "type": "uint256"
       }
     ],
     "name": "reviewRecipients",
@@ -1099,9 +1104,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
       }
     ],
     "name": "withdraw",

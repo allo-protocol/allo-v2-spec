@@ -1,12 +1,62 @@
 [
   {
     "inputs": [],
+    "name": "ALLOCATION_ACTIVE",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ALLOCATION_NOT_ACTIVE",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ALLOCATION_NOT_ENDED",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ALREADY_INITIALIZED",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "AMOUNT_MISMATCH",
     "type": "error"
   },
   {
     "inputs": [],
+    "name": "ANCHOR_ERROR",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ARRAY_MISMATCH",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "INVALID",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "INVALID_ADDRESS",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "INVALID_FEE",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "INVALID_METADATA",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "INVALID_REGISTRATION",
     "type": "error"
   },
   {
@@ -21,17 +71,27 @@
   },
   {
     "inputs": [],
+    "name": "NONCE_NOT_AVAILABLE",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "NOT_APPROVED_STRATEGY",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "NOT_CONTRACT",
+    "name": "NOT_ENOUGH_FUNDS",
     "type": "error"
   },
   {
     "inputs": [],
-    "name": "NOT_ENOUGH_FUNDS",
+    "name": "NOT_INITIALIZED",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NOT_PENDING_OWNER",
     "type": "error"
   },
   {
@@ -42,6 +102,42 @@
   {
     "inputs": [],
     "name": "NoHandoverRequest",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "POOL_ACTIVE",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "POOL_INACTIVE",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RECIPIENT_ALREADY_ACCEPTED",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "recipientId",
+        "type": "address"
+      }
+    ],
+    "name": "RECIPIENT_ERROR",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "RECIPIENT_NOT_ACCEPTED",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "REGISTRATION_NOT_ACTIVE",
     "type": "error"
   },
   {
@@ -89,19 +185,6 @@
       }
     ],
     "name": "BaseFeeUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "feePercentage",
-        "type": "uint256"
-      }
-    ],
-    "name": "FeePercentageUpdated",
     "type": "event"
   },
   {
@@ -160,6 +243,19 @@
       }
     ],
     "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "percentFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "PercentFeeUpdated",
     "type": "event"
   },
   {
@@ -415,19 +511,6 @@
   },
   {
     "inputs": [],
-    "name": "FEE_DENOMINATOR",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "NATIVE",
     "outputs": [
       {
@@ -523,7 +606,7 @@
     "outputs": [
       {
         "internalType": "address[]",
-        "name": "",
+        "name": "recipientIds",
         "type": "address[]"
       }
     ],
@@ -728,7 +811,20 @@
   },
   {
     "inputs": [],
-    "name": "getFeePercentage",
+    "name": "getFeeDenominator",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "FEE_DENOMINATOR",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getPercentFee",
     "outputs": [
       {
         "internalType": "uint256",
@@ -912,6 +1008,11 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "_registry",
         "type": "address"
       },
@@ -922,7 +1023,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "_feePercentage",
+        "name": "_percentFee",
         "type": "uint256"
       },
       {
@@ -1207,11 +1308,11 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_feePercentage",
+        "name": "_percentFee",
         "type": "uint256"
       }
     ],
-    "name": "updateFeePercentage",
+    "name": "updatePercentFee",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

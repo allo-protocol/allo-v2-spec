@@ -1079,6 +1079,11 @@
         "internalType": "struct DonationVotingMerkleDistributionBaseStrategy.ApplicationStatus[]",
         "name": "statuses",
         "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "refRecipientsCounter",
+        "type": "uint256"
       }
     ],
     "name": "reviewRecipients",
@@ -1095,6 +1100,25 @@
       }
     ],
     "name": "statusesBitMap",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "totalClaimableAmount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -1192,9 +1216,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
       }
     ],
     "name": "withdraw",
