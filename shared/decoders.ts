@@ -241,7 +241,7 @@ export function decodeMicroGrantsRegistrationData(
       "uint256",
       "tuple(uint256, string)",
   ])
-  
+
   return {
     registryAnchor: registryAnchor.toLowerCase(),
     recipientAddress: recipientAddress.toLowerCase(),

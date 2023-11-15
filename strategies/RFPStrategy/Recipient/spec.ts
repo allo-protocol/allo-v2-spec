@@ -1,4 +1,4 @@
-import { Address, BeforeAll, BigInt, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll, BigInt, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
 import { decodeRFPRegistrationData } from '../../../shared/decoders.ts'
 import { getStatusFromInt } from '../../../shared/status.ts'
@@ -9,7 +9,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
 @Spec({
     uniqueBy: ['strategy', 'recipientId', 'chainId']
 })
-class RFPRecipient extends LiveObject {
+class RFPRecipient extends LiveTable {
     @Property()
     recipientId: Address
 

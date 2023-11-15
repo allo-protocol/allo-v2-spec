@@ -1,4 +1,4 @@
-import { Address, BeforeAll, BigInt, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll, BigInt, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
 import { decodeMicroGrantsInitializedData } from "../../../shared/decoders.ts";
 
@@ -8,7 +8,7 @@ import { decodeMicroGrantsInitializedData } from "../../../shared/decoders.ts";
 @Spec({
     uniqueBy: ['strategy', 'chainId']
 })
-class MicroGrants extends LiveObject {
+class MicroGrants extends LiveTable {
 
     @Property()
     strategy: Address
@@ -68,7 +68,7 @@ class MicroGrants extends LiveObject {
 
         this.poolId = event.data.poolId.toString()
         
-        const strategyId = await this.contract.getStrategyId().toString()
+        const strategyId = (await this.contract.getStrategyId()).toString()
         this.strategyId = strategyId
     }
 

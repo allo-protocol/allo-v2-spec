@@ -1,4 +1,4 @@
-import { Address, BeforeAll, BigInt, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll, BigInt, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
 import { decodeRFPCommitteeInitializedData, decodeRFPSimpleInitializedData } from "../../../shared/decoders.ts";
 
@@ -8,7 +8,7 @@ import { decodeRFPCommitteeInitializedData, decodeRFPSimpleInitializedData } fro
 @Spec({
     uniqueBy: ['strategy', 'chainId']
 })
-class RFP extends LiveObject {
+class RFP extends LiveTable {
 
     @Property()
     strategy: Address
@@ -59,7 +59,7 @@ class RFP extends LiveObject {
         this.poolId = event.data.poolId.toString()
         this.voteThreshold = 1 // default to 1 for RFP Simple
         
-        const strategyId = await this.contract.getStrategyId().toString()
+        const strategyId = (await this.contract.getStrategyId()).toString()
         this.strategyId = strategyId
     }
 
@@ -75,7 +75,7 @@ class RFP extends LiveObject {
         this.voteThreshold = voteThreshold
         this.poolId = event.data.poolId.toString()
 
-        const strategyId = await this.contract.getStrategyId().toString()
+        const strategyId = (await this.contract.getStrategyId()).toString()
         this.strategyId = strategyId
     }
 

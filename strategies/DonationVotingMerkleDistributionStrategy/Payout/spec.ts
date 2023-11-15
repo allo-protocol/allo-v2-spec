@@ -3,7 +3,7 @@ import {
     BeforeAll,
     BigInt,
     Event,
-    LiveObject,
+    LiveTable,
     OnEvent,
     Property,
     resolveMetadata,
@@ -19,7 +19,7 @@ import { getStatusFromInt } from "../../../shared/status.ts";
 @Spec({
     uniqueBy: ['strategy', "recipientId", 'chainId']
 })
-class DonationVotingMerkleDistributionPayout extends LiveObject {
+class DonationVotingMerkleDistributionPayout extends LiveTable {
 
     @Property()
     recipientId: Address

@@ -1,4 +1,4 @@
-import { Address, BeforeAll, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
 import { decodeDonationVotingMerkleDistributionInitializedData } from "../../../shared/decoders.ts";
 
@@ -8,7 +8,7 @@ import { decodeDonationVotingMerkleDistributionInitializedData } from "../../../
 @Spec({
     uniqueBy: ['strategy', 'chainId'],
 })
-class DonationVotingMerkleDistribution extends LiveObject {
+class DonationVotingMerkleDistribution extends LiveTable {
     @Property()
     strategy: Address
 

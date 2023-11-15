@@ -1,4 +1,4 @@
-import { Address, BeforeAll, BigInt, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll, BigInt, Event, LiveTable, OnEvent, Property, Spec, isNullAddress } from '@spec.dev/core'
 
 import { decodeMicroGrantsRegistrationData } from '../../../shared/decoders.ts'
 import { getStatusFromInt } from '../../../shared/status.ts'
@@ -9,7 +9,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
 @Spec({
     uniqueBy: ['strategy', 'recipientId', 'chainId']
 })
-class MicroGrantsRecipient extends LiveObject {
+class MicroGrantsRecipient extends LiveTable {
     @Property()
     recipientId: Address
 
@@ -67,7 +67,7 @@ class MicroGrantsRecipient extends LiveObject {
         
         this.poolId = poolId.toString()
         this.recipientAddress = recipientAddress
-        this.isUsingRegistryAnchor = registryAnchor == "0x0000000000000000000000000000000000000000"
+        this.isUsingRegistryAnchor = isNullAddress(registryAnchor)
         this.requestedAmount = requestedAmount
         this.metadataProtocol = metadata.protocol
         this.metadataPointer = metadata.pointer
