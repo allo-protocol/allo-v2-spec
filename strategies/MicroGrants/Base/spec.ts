@@ -68,7 +68,7 @@ class MicroGrants extends LiveObject {
 
         this.poolId = event.data.poolId.toString()
         
-        const strategyId = await this.contract.acceptedRecipientId().toString()
+        const strategyId = await this.contract.strategyId().toString()
         this.strategyId = strategyId
     }
 
