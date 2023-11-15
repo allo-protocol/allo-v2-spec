@@ -1,6 +1,6 @@
 {
     "namespace": "allov2",
-    "name": "MicroGrants_Recipients",
+    "name": "MicroGrantRecipient",
     "version": "0.0.1",
     "displayName": "MicroGrants Recipients",
     "description": "Index Recipients on MicroGrants",
