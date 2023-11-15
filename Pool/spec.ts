@@ -5,7 +5,7 @@ import {
     Event,
     getERC20TokenMetadata,
     Json,
-    LiveObject,
+    LiveTable,
     OnEvent,
     Property,
     Spec,
@@ -21,7 +21,7 @@ import { generatePoolRoleIds } from "../shared/roles.ts";
 @Spec({
     uniqueBy: ["poolId", "chainId"],
 })
-class Pool extends LiveObject {
+class Pool extends LiveTable {
     @Property()
     poolId: string;
 

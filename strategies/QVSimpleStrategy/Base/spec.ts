@@ -1,4 +1,4 @@
-import { Address, BeforeAll, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
 import { decodeQVSimpleInitializedData } from "../../../shared/decoders.ts";
 
@@ -8,7 +8,7 @@ import { decodeQVSimpleInitializedData } from "../../../shared/decoders.ts";
 @Spec({
     uniqueBy: ['strategy', 'chainId'],
 })
-class QVSimple extends LiveObject {
+class QVSimple extends LiveTable {
     @Property()
     strategy: Address
 

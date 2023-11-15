@@ -1,4 +1,4 @@
-import { Address, BeforeAll, Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
 import { decodeGenericRegistrationData } from '../../../shared/decoders.ts'
 import { getStatusFromInt } from '../../../shared/status.ts'
@@ -9,7 +9,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
 @Spec({
     uniqueBy: ['strategy', 'recipientId', 'chainId']
 })
-class QVSimpleRecipient extends LiveObject {
+class QVSimpleRecipient extends LiveTable {
     @Property()
     recipientId: Address;
 

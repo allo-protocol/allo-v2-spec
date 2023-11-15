@@ -1,4 +1,4 @@
-import { Address, BeforeAll,Event, LiveObject, OnEvent, Property, Spec } from '@spec.dev/core'
+import { Address, BeforeAll,Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
 /**
  * The accounts associated with an Allo role.
@@ -6,7 +6,7 @@ import { Address, BeforeAll,Event, LiveObject, OnEvent, Property, Spec } from '@
 @Spec({
     uniqueBy: ['roleId', 'accountId', 'chainId']
 })
-class RoleAccount extends LiveObject {
+class RoleAccount extends LiveTable {
 
     @Property()
     roleId: string

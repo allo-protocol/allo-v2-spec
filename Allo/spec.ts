@@ -2,7 +2,7 @@ import {
     Address,
     BigInt,
     Event,
-    LiveObject,
+    LiveTable,
     OnEvent,
     Property,
     Spec,
@@ -14,7 +14,7 @@ import {
 @Spec({
     uniqueBy: ["chainId"],
 })
-class Allo extends LiveObject {
+class Allo extends LiveTable {
     @Property()
     registry: Address;
 

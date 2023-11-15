@@ -3,7 +3,7 @@ import {
     BeforeAll,
     BigInt,
     Event,
-    LiveObject,
+    LiveTable,
     OnEvent,
     Property,
     Spec,
@@ -16,7 +16,7 @@ import {
 @Spec({
     uniqueBy: ["profileId", "chainId"],
 })
-class Profile extends LiveObject {
+class Profile extends LiveTable {
     @Property()
     profileId: Address;
 
