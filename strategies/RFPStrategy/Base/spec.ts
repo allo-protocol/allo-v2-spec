@@ -59,7 +59,7 @@ class RFP extends LiveObject {
         this.poolId = event.data.poolId.toString()
         this.voteThreshold = 1 // default to 1 for RFP Simple
         
-        const strategyId = await this.contract.strategyId().toString()
+        const strategyId = await this.contract.getStrategyId().toString()
         this.strategyId = strategyId
     }
 
@@ -75,7 +75,7 @@ class RFP extends LiveObject {
         this.voteThreshold = voteThreshold
         this.poolId = event.data.poolId.toString()
 
-        const strategyId = await this.contract.strategyId().toString()
+        const strategyId = await this.contract.getStrategyId().toString()
         this.strategyId = strategyId
     }
 
