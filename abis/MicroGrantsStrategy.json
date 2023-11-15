@@ -509,43 +509,6 @@
       {
         "indexed": false,
         "internalType": "uint64",
-        "name": "registrationStartTime",
-        "type": "uint64"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint64",
-        "name": "registrationEndTime",
-        "type": "uint64"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint64",
-        "name": "allocationStartTime",
-        "type": "uint64"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint64",
-        "name": "allocationEndTime",
-        "type": "uint64"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      }
-    ],
-    "name": "TimestampsUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint64",
         "name": "allocationStartTime",
         "type": "uint64"
       },
