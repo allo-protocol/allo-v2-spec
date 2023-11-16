@@ -1,0 +1,210 @@
+# = Live Objects (Sources) ------------------------------
+
+[objects.Profile]
+id = 'allov2.Profile@0.0.1'
+
+[objects.Pool]
+id = 'allov2.Pool@0.0.1'
+
+[objects.Account]
+id = 'allov2.Account@0.0.1'
+
+[objects.Role]
+id = 'allov2.Role@0.0.1'
+
+[objects.RoleAccount]
+id = 'allov2.RoleAccount@0.0.1'
+
+[objects.Allo]
+id = 'allov2.Allo@0.0.1'
+
+[objects.Transaction]
+id = 'goerli.Transaction@0.0.1'
+
+[objects.MicroGrant]
+id = 'allov2.MicroGrant@0.0.1'
+
+[objects.MicroGrantRecipient]
+id = 'allov2.MicroGrantRecipient@0.0.1'
+
+# = Live Columns (Outputs) ------------------------------
+
+[tables.public.profile]
+profile_id = 'Profile.profileId'
+chain_id = 'Profile.chainId'
+nonce = 'Profile.nonce'
+name = 'Profile.name'
+metadata_protocol = 'Profile.metadataProtocol'
+metadata_pointer = 'Profile.metadataPointer'
+owner = 'Profile.owner'
+anchor = 'Profile.anchor'
+creator = 'Profile.creator'
+created_at = 'Profile.createdAt'
+block_hash = 'Profile.blockHash'
+block_number = 'Profile.blockNumber'
+updated_at = 'Profile.blockTimestamp'
+
+[tables.public.pool]
+pool_id = 'Pool.poolId'
+chain_id = 'Pool.chainId'
+profile_id = 'Pool.profileId'
+strategy = 'Pool.strategy'
+token = 'Pool.token'
+token_metadata = 'Pool.tokenMetadata'
+amount = 'Pool.amount'
+fee_paid = 'Pool.feePaid'
+base_fee_paid = 'Pool.baseFeePaid'
+metadata_protocol = 'Pool.metadataProtocol'
+metadata_pointer = 'Pool.metadataPointer'
+manager_role_id = 'Pool.managerRoleId'
+admin_role_id = 'Pool.adminRoleId'
+created_at = 'Pool.createdAt'
+block_hash = 'Pool.blockHash'
+block_number = 'Pool.blockNumber'
+updated_at = 'Pool.blockTimestamp'
+
+[tables.public.account]
+account_id = 'Account.accountId'
+chain_id = 'Account.chainId'
+block_hash = 'Account.blockHash'
+block_number = 'Account.blockNumber'
+updated_at = 'Account.blockTimestamp'
+
+[tables.public.role]
+role_id = 'Role.roleId'
+chain_id = 'Role.chainId'
+block_hash = 'Role.blockHash'
+block_number = 'Role.blockNumber'
+updated_at = 'Role.blockTimestamp'
+
+[tables.public.role_account]
+role_id = 'RoleAccount.roleId'
+account_id = 'RoleAccount.accountId'
+chain_id = 'RoleAccount.chainId'
+is_active = 'RoleAccount.isActive'
+block_hash = 'RoleAccount.blockHash'
+block_number = 'RoleAccount.blockNumber'
+updated_at = 'RoleAccount.blockTimestamp'
+
+[tables.public.allo]
+chain_id = 'Allo.chainId'
+registry = 'Allo.registry'
+fee_percentage = 'Allo.feePercentage'
+base_fee = 'Allo.baseFee'
+treasury = 'Allo.treasury'
+cloneable_strategies = 'Allo.cloneableStrategies'
+block_hash = 'Allo.blockHash'
+block_number = 'Allo.blockNumber'
+updated_at = 'Allo.blockTimestamp'
+
+[tables.public.allo_transaction]
+hash = 'Transaction.hash'
+chain_id = 'Transaction.chainId'
+nonce = 'Transaction.nonce'
+transaction_index = 'Transaction.transactionIndex'
+from_address = 'Transaction.from'
+to_address = 'Transaction.to'
+contract_address = 'Transaction.contractAddress'
+value = 'Transaction.value'
+input = 'Transaction.input'
+function_name = 'Transaction.functionName'
+function_args = 'Transaction.functionArgs'
+transaction_type = 'Transaction.transactionType'
+status = 'Transaction.status'
+root = 'Transaction.root'
+gas = 'Transaction.gas'
+gas_price = 'Transaction.gasPrice'
+max_fee_per_gas = 'Transaction.maxFeePerGas'
+max_priority_fee_per_gas = 'Transaction.maxPriorityFeePerGas'
+gas_used = 'Transaction.gasUsed'
+cumulative_gas_used = 'Transaction.cumulativeGasUsed'
+effective_gas_price = 'Transaction.effectiveGasPrice'
+block_hash = 'Transaction.blockHash'
+block_number = 'Transaction.blockNumber'
+block_timestamp = 'Transaction.blockTimestamp'
+
+[tables.public.micro_grant]
+strategy = 'MicroGrant.strategy'
+strategy_id = 'MicroGrant.strategyId'
+pool_id = 'MicroGrant.poolId'
+use_registry_anchor = 'MicroGrant.useRegistryAnchor'
+allocation_start_time = 'MicroGrant.allocationStartTime'
+allocation_end_time = 'MicroGrant.allocationEndTime'
+approval_threshold = 'MicroGrant.approvalThreshold'
+max_requested_amount = 'MicroGrant.maxRequestedAmount'
+block_hash = 'MicroGrant.blockHash'
+block_number = 'MicroGrant.blockNumber'
+block_timestamp = 'MicroGrant.blockTimestamp'
+chain_id = 'MicroGrant.chainId'
+
+[tables.public.micro_grant_recipient]
+recipient_id = 'MicroGrantRecipient.recipientId'
+strategy = 'MicroGrantRecipient.strategy'
+pool_id = 'MicroGrantRecipient.poolId'
+recipient_address = 'MicroGrantRecipient.recipientAddress'
+requested_amount = 'MicroGrantRecipient.requestedAmount'
+is_using_registry_anchor = 'MicroGrantRecipient.isUsingRegistryAnchor'
+status = 'MicroGrantRecipient.status'
+metadata_protocol = 'MicroGrantRecipient.metadataProtocol'
+metadata_pointer = 'MicroGrantRecipient.metadataPointer'
+sender = 'MicroGrantRecipient.sender'
+block_hash = 'MicroGrantRecipient.blockHash'
+block_number = 'MicroGrantRecipient.blockNumber'
+block_timestamp = 'MicroGrantRecipient.blockTimestamp'
+chain_id = 'MicroGrantRecipient.chainId'
+
+# = Links & Filters --------------------------------------
+
+[[objects.Profile.links]]
+table = 'public.profile'
+uniqueBy = [ 'profileId', 'chainId' ]
+
+[[objects.Pool.links]]
+table = 'public.pool'
+uniqueBy = [ 'poolId', 'chainId' ]
+
+[[objects.Account.links]]
+table = 'public.account'
+uniqueBy = [ 'accountId', 'chainId' ]
+
+[[objects.Role.links]]
+table = 'public.role'
+uniqueBy = [ 'roleId', 'chainId' ]
+
+[[objects.RoleAccount.links]]
+table = 'public.role_account'
+uniqueBy = [ 'roleId', 'accountId', 'chainId' ]
+
+[[objects.Allo.links]]
+table = 'public.allo'
+uniqueBy = [ 'chainId' ]
+
+[[objects.Transaction.links]]
+table = 'public.allo_transaction'
+uniqueBy = [ 'hash', 'chainId' ]
+filterBy = [
+	{ from = { op = 'in', value = [
+		'0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3',
+		'0xbc23124ed2655a1579291f7adde581ff18327d41',
+		'0xaec621ec8d9de4b524f4864791171045d6bbbe27',
+		'0x1133ea7af70876e64665ecd07c0a0476d09465a1',
+		'0xbb6b237a98d907b04682d8567f4a8d0b4b611a3b',
+		'0x79536cc062ee8fafa7a19a5fa07783bd7f792206',
+	] } },
+	{ to = { op = 'in', value = [
+		'0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3',
+		'0xbc23124ed2655a1579291f7adde581ff18327d41',
+		'0xaec621ec8d9de4b524f4864791171045d6bbbe27',
+		'0x1133ea7af70876e64665ecd07c0a0476d09465a1',
+		'0xbb6b237a98d907b04682d8567f4a8d0b4b611a3b',
+		'0x79536cc062ee8fafa7a19a5fa07783bd7f792206',
+	] } },
+]
+
+[[objects.MicroGrant.links]]
+table = 'public.micro_grant'
+uniqueBy = [ 'strategy', 'chainId' ]
+
+[[objects.MicroGrantRecipient.links]]
+table = 'public.micro_grant_recipient'
+uniqueBy = [ 'strategy', 'recipientId', 'chainId' ]
