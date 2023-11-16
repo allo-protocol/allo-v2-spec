@@ -7,7 +7,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
  * RFP details
  */
 @Spec({
-    uniqueBy: ['strategy', 'recipientId', 'chainId']
+    uniqueBy: [ 'chainId', 'poolId', 'recipientId']
 })
 class RFPRecipient extends LiveTable {
     @Property()

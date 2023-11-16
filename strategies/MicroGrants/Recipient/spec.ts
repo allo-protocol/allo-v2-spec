@@ -7,7 +7,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
  * MicroGrants details
  */
 @Spec({
-    uniqueBy: ['strategy', 'recipientId', 'chainId']
+    uniqueBy: [ 'chainId', 'poolId', 'recipientId']
 })
 class MicroGrantsRecipient extends LiveTable {
     @Property()

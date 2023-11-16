@@ -6,7 +6,7 @@ import { decodeMicroGrantsInitializedData } from "../../../shared/decoders.ts";
  * MicroGrants details
  */
 @Spec({
-    uniqueBy: ['strategy', 'chainId']
+    uniqueBy: ['chainId', 'poolId']
 })
 class MicroGrants extends LiveTable {
 

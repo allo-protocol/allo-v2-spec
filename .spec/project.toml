@@ -237,11 +237,11 @@ filterBy = [
 
 [[objects.MicroGrant.links]]
 table = 'public.micro_grant'
-uniqueBy = [ 'strategy', 'chainId' ]
+uniqueBy = [ 'chainId', 'poolId' ]
 
 [[objects.MicroGrantRecipient.links]]
 table = 'public.micro_grant_recipient'
-uniqueBy = [ 'strategy', 'recipientId', 'chainId' ]
+uniqueBy = [ 'chainId', 'poolId', 'recipientId']
 
 [[objects.Allocated.links]]
 table = 'public.allocated'

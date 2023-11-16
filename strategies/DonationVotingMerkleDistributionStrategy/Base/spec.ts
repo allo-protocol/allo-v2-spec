@@ -6,7 +6,7 @@ import { decodeDonationVotingMerkleDistributionInitializedData } from "../../../
  * DonationVotingMerkleDistribution details
  */
 @Spec({
-    uniqueBy: ['strategy', 'chainId'],
+    uniqueBy: ['chainId', 'poolId'],
 })
 class DonationVotingMerkleDistribution extends LiveTable {
     @Property()
