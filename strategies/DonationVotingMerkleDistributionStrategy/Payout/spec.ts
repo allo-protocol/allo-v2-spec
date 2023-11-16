@@ -17,7 +17,7 @@ import { getStatusFromInt } from "../../../shared/status.ts";
  * Merkle Distribution details
  */
 @Spec({
-    uniqueBy: ['strategy', "recipientId", 'chainId']
+    uniqueBy: ['chainId', "poolId", 'recipientId']
 })
 class DonationVotingMerkleDistributionPayout extends LiveTable {
 

@@ -7,7 +7,7 @@ import { getStatusFromInt } from '../../../shared/status.ts'
  * QVSimple Recipient details
  */
 @Spec({
-    uniqueBy: ['strategy', 'recipientId', 'chainId']
+    uniqueBy: [ 'chainId', 'poolId', 'recipientId']
 })
 class QVSimpleRecipient extends LiveTable {
     @Property()

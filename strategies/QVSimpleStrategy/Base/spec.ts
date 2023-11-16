@@ -6,7 +6,7 @@ import { decodeQVSimpleInitializedData } from "../../../shared/decoders.ts";
  * QVSimple details
  */
 @Spec({
-    uniqueBy: ['strategy', 'chainId'],
+    uniqueBy: ['chainId', 'poolId'],
 })
 class QVSimple extends LiveTable {
     @Property()

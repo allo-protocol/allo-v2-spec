@@ -15,7 +15,7 @@ import { getStatusFromInt } from "../../../shared/status.ts";
  * DonationVotingMerkleDistribution Recipient
  */
 @Spec({
-    uniqueBy: ["strategy", "recipientId", "chainId"],
+    uniqueBy: ["chainId", "poolId", "recipientId"],
 })
 class DonationVotingMerkleDistributionRecipient extends LiveTable {
 
