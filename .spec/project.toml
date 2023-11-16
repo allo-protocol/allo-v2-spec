@@ -27,6 +27,12 @@ id = 'allov2.MicroGrant@0.0.1'
 [objects.MicroGrantRecipient]
 id = 'allov2.MicroGrantRecipient@0.0.1'
 
+[objects.Allocated]
+id = 'goerli.contracts.allov2.MicroGrantsStrategy.Allocated@0x463ffc2cf8b1596445c417388ed30e53eb67cf6668cb2be7f0addf8a78c8441b'
+
+[objects.Distributed]
+id = 'goerli.contracts.allov2.MicroGrantsStrategy.Distributed@0xb5b51454adfa840bd593658325a60a50b0216f12eb5d2937efe6cea935675b7d'
+
 # = Live Columns (Outputs) ------------------------------
 
 [tables.public.profile]
@@ -153,6 +159,34 @@ block_number = 'MicroGrantRecipient.blockNumber'
 block_timestamp = 'MicroGrantRecipient.blockTimestamp'
 chain_id = 'MicroGrantRecipient.chainId'
 
+[tables.public.allocated]
+recipient_id = 'Allocated.recipientId'
+amount = 'Allocated.amount'
+token = 'Allocated.token'
+sender = 'Allocated.sender'
+contract_name = 'Allocated.contractName'
+contract_address = 'Allocated.contractAddress'
+transaction_hash = 'Allocated.transactionHash'
+log_index = 'Allocated.logIndex'
+block_hash = 'Allocated.blockHash'
+block_number = 'Allocated.blockNumber'
+block_timestamp = 'Allocated.blockTimestamp'
+chain_id = 'Allocated.chainId'
+
+[tables.public.distributed]
+recipient_id = 'Distributed.recipientId'
+recipient_address = 'Distributed.recipientAddress'
+amount = 'Distributed.amount'
+sender = 'Distributed.sender'
+contract_name = 'Distributed.contractName'
+contract_address = 'Distributed.contractAddress'
+transaction_hash = 'Distributed.transactionHash'
+log_index = 'Distributed.logIndex'
+block_hash = 'Distributed.blockHash'
+block_number = 'Distributed.blockNumber'
+block_timestamp = 'Distributed.blockTimestamp'
+chain_id = 'Distributed.chainId'
+
 # = Links & Filters --------------------------------------
 
 [[objects.Profile.links]]
@@ -208,3 +242,11 @@ uniqueBy = [ 'strategy', 'chainId' ]
 [[objects.MicroGrantRecipient.links]]
 table = 'public.micro_grant_recipient'
 uniqueBy = [ 'strategy', 'recipientId', 'chainId' ]
+
+[[objects.Allocated.links]]
+table = 'public.allocated'
+uniqueBy = [ 'transactionHash', 'logIndex' ]
+
+[[objects.Distributed.links]]
+table = 'public.distributed'
+uniqueBy = [ 'transactionHash', 'logIndex' ]
