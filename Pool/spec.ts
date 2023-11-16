@@ -29,6 +29,9 @@ class Pool extends LiveTable {
     @Property()
     profileId: Address;
 
+    @Property()
+    strategyName: string;
+
     // @dev : bytes32
     @Property()
     strategyId: string;
@@ -99,6 +102,7 @@ class Pool extends LiveTable {
         if (contractGroupName) {
             this.addContractToGroup(this.strategy, contractGroupName)
             this.strategyId = strategyId
+            this.strategyName = contractGroupName
         }
     }
 
