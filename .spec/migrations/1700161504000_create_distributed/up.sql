@@ -3,4 +3,5 @@ BEGIN;
     alter table public.distributed add constraint pk_wmjkmyft4jsezeqj5reuq9 primary key (transaction_hash, log_index);
     create index idx_ipnkl2uh6ak1jmqe3buqxe on public.distributed (block_number, chain_id);
     create index idx_ig1upbfdlsjfchmxhrdhgp on public.distributed (block_timestamp);
+    COMMENT ON TABLE public.distributed IS E'@foreignKey (contract_address, chain_id) references public.micro_grant (strategy, chain_id)|@fieldName microGrant|@foreignFieldName distributeds';
 COMMIT;

@@ -3,5 +3,5 @@ BEGIN;
     alter table public.micro_grant add constraint pk_g3r9zttgztjuzmgujyrsws primary key (chain_id, pool_id);
     create index idx_8cnb4lbdfazzbj8nqvsv5v on public.micro_grant (block_number, chain_id);
     create index idx_ecnzwnieua9drcwdvuip6w on public.micro_grant (block_timestamp);
-    COMMENT ON TABLE public.micro_grant IS E'@foreignKey (pool_id, chain_id) references public.pool (pool_id, chain_id)|@fieldName pool';
+    COMMENT ON TABLE public.micro_grant IS E'@foreignKey (chain_id, pool_id) references public.pool (chain_id, pool_id)|@fieldName pool|@foreignFieldName microGrant';
 COMMIT;
