@@ -3,4 +3,5 @@ BEGIN;
     alter table public.allocated add constraint pk_k47uxoehg4i9zev7frj7by primary key (transaction_hash, log_index);
     create index idx_arqirdvyca5ggw3c4simz9 on public.allocated (block_number, chain_id);
     create index idx_19cjr7udaxr3zcn2fgdkch on public.allocated (block_timestamp);
+    COMMENT ON TABLE public.allocated IS E'@foreignKey (contract_address, chain_id) references public.micro_grant (strategy, chain_id)|@fieldName microGrant|@foreignFieldName allocateds';
 COMMIT;
