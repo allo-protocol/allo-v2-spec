@@ -4,7 +4,7 @@
 id = 'allov2.Profile@0.0.1'
 
 [objects.Pool]
-id = 'allov2.Pool@0.0.1'
+id = 'allov2.Pool@0.0.2'
 
 [objects.Account]
 id = 'allov2.Account@0.0.1'
@@ -55,6 +55,8 @@ pool_id = 'Pool.poolId'
 chain_id = 'Pool.chainId'
 profile_id = 'Pool.profileId'
 strategy = 'Pool.strategy'
+strategy_id = 'Pool.strategyId'
+strategy_name = 'Pool.strategyName'
 token = 'Pool.token'
 token_metadata = 'Pool.tokenMetadata'
 amount = 'Pool.amount'
