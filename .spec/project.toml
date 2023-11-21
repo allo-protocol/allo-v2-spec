@@ -28,7 +28,7 @@ id = 'allov2.MicroGrant@0.0.1'
 id = 'allov2.MicroGrantRecipient@0.0.1'
 
 [objects.Allocated]
-id = 'goerli.contracts.allov2.MicroGrantsStrategy.Allocated@0x463ffc2cf8b1596445c417388ed30e53eb67cf6668cb2be7f0addf8a78c8441b'
+id = 'goerli.contracts.allov2.MicroGrantsStrategy.Allocated@0xb735720d94de3d169791e2f713cbac8da02eb4d5a344d5a6d5ef542fdf3b2438'
 
 [objects.Distributed]
 id = 'goerli.contracts.allov2.MicroGrantsStrategy.Distributed@0xb5b51454adfa840bd593658325a60a50b0216f12eb5d2937efe6cea935675b7d'
