@@ -163,8 +163,6 @@ chain_id = 'MicroGrantRecipient.chainId'
 
 [tables.public.allocated]
 recipient_id = 'Allocated.recipientId'
-amount = 'Allocated.amount'
-token = 'Allocated.token'
 sender = 'Allocated.sender'
 contract_name = 'Allocated.contractName'
 contract_address = 'Allocated.contractAddress'
@@ -174,6 +172,7 @@ block_hash = 'Allocated.blockHash'
 block_number = 'Allocated.blockNumber'
 block_timestamp = 'Allocated.blockTimestamp'
 chain_id = 'Allocated.chainId'
+status = 'Allocated.status'
 
 [tables.public.distributed]
 recipient_id = 'Distributed.recipientId'
@@ -243,7 +242,7 @@ uniqueBy = [ 'chainId', 'poolId' ]
 
 [[objects.MicroGrantRecipient.links]]
 table = 'public.micro_grant_recipient'
-uniqueBy = [ 'chainId', 'poolId', 'recipientId']
+uniqueBy = [ 'chainId', 'poolId', 'recipientId' ]
 
 [[objects.Allocated.links]]
 table = 'public.allocated'

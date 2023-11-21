@@ -1,5 +1,5 @@
 BEGIN;
-    drop index public.idx_19cjr7udaxr3zcn2fgdkch;
-    drop index public.idx_arqirdvyca5ggw3c4simz9;
+    drop index public.idx_7ddunrdjfzvd9kgawjf51h;
+    drop index public.idx_wxeewmbofi3ugmxszruupy;
     drop table public.allocated;
 COMMIT;
