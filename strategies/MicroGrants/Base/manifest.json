@@ -1,7 +1,7 @@
 {
     "namespace": "allov2",
     "name": "MicroGrant",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "displayName": "MicroGrants",
     "description": "index base variables in MicroGrants strategy",
     "chains": [
