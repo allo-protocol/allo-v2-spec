@@ -220,19 +220,11 @@ uniqueBy = [ 'hash', 'chainId' ]
 filterBy = [
 	{ from = { op = 'in', value = [
 		'0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3',
-		'0xbc23124ed2655a1579291f7adde581ff18327d41',
-		'0xaec621ec8d9de4b524f4864791171045d6bbbe27',
 		'0x1133ea7af70876e64665ecd07c0a0476d09465a1',
-		'0xbb6b237a98d907b04682d8567f4a8d0b4b611a3b',
-		'0x79536cc062ee8fafa7a19a5fa07783bd7f792206',
 	] } },
 	{ to = { op = 'in', value = [
 		'0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3',
-		'0xbc23124ed2655a1579291f7adde581ff18327d41',
-		'0xaec621ec8d9de4b524f4864791171045d6bbbe27',
 		'0x1133ea7af70876e64665ecd07c0a0476d09465a1',
-		'0xbb6b237a98d907b04682d8567f4a8d0b4b611a3b',
-		'0x79536cc062ee8fafa7a19a5fa07783bd7f792206',
 	] } },
 ]
 
