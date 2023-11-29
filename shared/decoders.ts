@@ -263,7 +263,7 @@ export function decodeMicroGrantsGovInitializedData(
     allocationEndTime,
     approvalThreshold,
     maxRequestedAmount,
-    govToken,
+    gov,
     snapshotReference,
     minVotePower
   ] = decodeAbi(data, [
@@ -283,7 +283,7 @@ export function decodeMicroGrantsGovInitializedData(
     allocationEndTime,
     approvalThreshold,
     maxRequestedAmount,
-    govToken,
+    gov,
     snapshotReference,
     minVotePower
   }

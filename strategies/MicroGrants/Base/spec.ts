@@ -41,7 +41,7 @@ class MicroGrants extends LiveTable {
 
     // ==  Unique to MicroGrantsGov ==
     @Property()
-    govToken: Address
+    gov: Address
 
     @Property()
     snapshotReference: number
@@ -51,7 +51,7 @@ class MicroGrants extends LiveTable {
 
     // == Unique to MicroGrantsHats ==
     @Property()
-    hatContract: Address
+    hats: Address
 
     @Property()
     hatId: number
@@ -97,7 +97,7 @@ class MicroGrants extends LiveTable {
             allocationEndTime,
             approvalThreshold,
             maxRequestedAmount,
-            govToken,
+            gov,
             snapshotReference,
             minVotePower,
         } = decodeMicroGrantsGovInitializedData(
@@ -109,7 +109,7 @@ class MicroGrants extends LiveTable {
         this.allocationEndTime = allocationEndTime
         this.approvalThreshold = approvalThreshold
         this.maxRequestedAmount = maxRequestedAmount
-        this.govToken = govToken
+        this.gov = gov
         this.snapshotReference = snapshotReference
         this.minVotingPower = minVotingPower
 
