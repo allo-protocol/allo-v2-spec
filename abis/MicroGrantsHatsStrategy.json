@@ -393,19 +393,6 @@
   },
   {
     "inputs": [],
-    "name": "HATS_PROTOCOL",
-    "outputs": [
-      {
-        "internalType": "contract IHats",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "NATIVE",
     "outputs": [
       {
@@ -694,6 +681,19 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "hats",
+    "outputs": [
+      {
+        "internalType": "contract IHats",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
