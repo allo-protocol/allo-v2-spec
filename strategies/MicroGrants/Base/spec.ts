@@ -47,14 +47,14 @@ class MicroGrants extends LiveTable {
     snapshotReference: number
 
     @Property()
-    minVotePower: number
+    minVotePower: BigInt
 
     // == Unique to MicroGrantsHats ==
     @Property()
     hats: Address
 
     @Property()
-    hatId: number
+    hatId: BigInt
 
     // ====================
     // =  Event Handlers  =
