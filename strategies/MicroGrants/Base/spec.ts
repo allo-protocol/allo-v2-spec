@@ -111,7 +111,7 @@ class MicroGrants extends LiveTable {
         this.maxRequestedAmount = maxRequestedAmount
         this.gov = gov
         this.snapshotReference = snapshotReference
-        this.minVotingPower = minVotingPower
+        this.minVotePower = minVotePower
 
         // TODO: wire in other details
 
@@ -142,7 +142,7 @@ class MicroGrants extends LiveTable {
         this.approvalThreshold = approvalThreshold
         this.maxRequestedAmount = maxRequestedAmount
 
-        this.hatsContract = hatsContract
+        this.hats = hatsContract
         this.hatId = hatsId
 
         this.poolId = event.data.poolId.toString()
