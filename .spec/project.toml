@@ -4,7 +4,7 @@
 id = 'allov2.Profile@0.0.1'
 
 [objects.Pool]
-id = 'allov2.Pool@0.0.2'
+id = 'allov2.Pool@0.0.3'
 
 [objects.Account]
 id = 'allov2.Account@0.0.1'
@@ -22,10 +22,10 @@ id = 'allov2.Allo@0.0.1'
 id = 'goerli.Transaction@0.0.1'
 
 [objects.MicroGrant]
-id = 'allov2.MicroGrant@0.0.2'
+id = 'allov2.MicroGrant@0.0.3'
 
 [objects.MicroGrantRecipient]
-id = 'allov2.MicroGrantRecipient@0.0.2'
+id = 'allov2.MicroGrantRecipient@0.0.3'
 
 [objects.Allocated]
 id = 'goerli.contracts.allov2.MicroGrantsStrategy.Allocated@0xb735720d94de3d169791e2f713cbac8da02eb4d5a344d5a6d5ef542fdf3b2438'
@@ -140,6 +140,11 @@ allocation_start_time = 'MicroGrant.allocationStartTime'
 allocation_end_time = 'MicroGrant.allocationEndTime'
 approval_threshold = 'MicroGrant.approvalThreshold'
 max_requested_amount = 'MicroGrant.maxRequestedAmount'
+gov = 'MicroGrant.gov'
+snapshotReference = 'MicroGrant.snapshotReference'
+minVotePower = 'MicroGrant.minVotePower'
+hats = 'MicroGrant.hats'
+hatId = 'MicroGrant.hatId'
 block_hash = 'MicroGrant.blockHash'
 block_number = 'MicroGrant.blockNumber'
 block_timestamp = 'MicroGrant.blockTimestamp'

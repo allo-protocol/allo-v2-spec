@@ -249,3 +249,78 @@ export function decodeMicroGrantsRegistrationData(
     metadata: formatMetadataAsStruct(metadata),
   }
 }
+
+// ============================
+// = MicroGrants Gov Decoder  =
+// ============================
+
+export function decodeMicroGrantsGovInitializedData(
+  data: any
+) {
+  const [
+    useRegistryAnchor,
+    allocationStartTime,
+    allocationEndTime,
+    approvalThreshold,
+    maxRequestedAmount,
+    gov,
+    snapshotReference,
+    minVotePower
+  ] = decodeAbi(data, [
+      "bool",
+      "uint64",
+      "uint64",
+      "uint256",
+      "uint256",
+      "address",
+      "uint256",
+      "uint256",
+  ])
+
+  return {
+    useRegistryAnchor,
+    allocationStartTime,
+    allocationEndTime,
+    approvalThreshold,
+    maxRequestedAmount,
+    gov,
+    snapshotReference,
+    minVotePower
+  }
+}
+
+// =============================
+// = MicroGrants Hats Decoder  =
+// =============================
+
+export function decodeMicroGrantsHatsInitializedData(
+  data: any
+) {
+  const [
+    useRegistryAnchor,
+    allocationStartTime,
+    allocationEndTime,
+    approvalThreshold,
+    maxRequestedAmount,
+    hatsContract,
+    hatsId
+  ] = decodeAbi(data, [
+      "bool",
+      "uint64",
+      "uint64",
+      "uint256",
+      "uint256",
+      "address",
+      "uint256",
+  ])
+
+  return {
+    useRegistryAnchor,
+    allocationStartTime,
+    allocationEndTime,
+    approvalThreshold,
+    maxRequestedAmount,
+    hatsContract,
+    hatsId
+  }
+}

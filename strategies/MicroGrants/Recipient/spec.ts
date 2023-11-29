@@ -52,6 +52,10 @@ class MicroGrantsRecipient extends LiveTable {
 
     @OnEvent('allov2.MicroGrantsStrategy.Registered')
     @OnEvent('allov2.MicroGrantsStrategy.UpdatedRegistration')
+    @OnEvent('allov2.MicroGrantsGovStrategy.Registered')
+    @OnEvent('allov2.MicroGrantsGovStrategy.UpdatedRegistration')
+    @OnEvent('allov2.MicroGrantsHatsStrategy.Registered')
+    @OnEvent('allov2.MicroGrantsHatsStrategy.UpdatedRegistration')
     async onRegistration(event: Event) {
 
         const  {
@@ -78,6 +82,8 @@ class MicroGrantsRecipient extends LiveTable {
     }
 
     @OnEvent('allov2.MicroGrantsStrategy.Distributed')
+    @OnEvent('allov2.MicroGrantsGovStrategy.Distributed')
+    @OnEvent('allov2.MicroGrantsHatsStrategy.Distributed')
     onAllocation(event: Event) {
         // Note: this means that the recipient has been allocated funds
         this.status = getStatusFromInt(2)

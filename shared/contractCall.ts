@@ -27,6 +27,18 @@ export async function getStrategyContractGroup(chainId: string, strategyContract
         strategyId: strategyId,
         contractGroupName: "allov2.MicroGrantsStrategy"
       };
+
+    case "0x741ac1e2f387d83f219f6b5349d35ec34902cf94019d117335e0045d2e0ed912":
+      return {
+        strategyId: strategyId,
+        contractGroupName: "allov2.MicroGrantsGovStrategy"
+      };
+
+    case "0x5aa24dcfcd55a1e059a172e987b3456736b4856c71e57aaf52e9a965897318dd":
+      return {
+        strategyId: strategyId,
+        contractGroupName: "allov2.MicroGrantsHatsStrategy"
+      };
   
     case "0xb87f34c0968bd74d43a6a5b72831a5ea733a4783a026b9fc9b1d17adf51214d2":
       return {
@@ -57,7 +69,7 @@ export async function getStrategyContractGroup(chainId: string, strategyContract
         strategyId: strategyId,
         contractGroupName: "allov2.DonationVotingMerkleDistributionVaultStrategy"
       };
-   
+
     default:
       return {};
   }

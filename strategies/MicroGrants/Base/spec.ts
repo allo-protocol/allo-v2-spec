@@ -1,6 +1,6 @@
 import { Address, BeforeAll, BigInt, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
-import { decodeMicroGrantsInitializedData } from "../../../shared/decoders.ts";
+import { decodeMicroGrantsGovInitializedData, decodeMicroGrantsHatsInitializedData, decodeMicroGrantsInitializedData } from "../../../shared/decoders.ts";
 
 /**
  * MicroGrants details
@@ -39,6 +39,23 @@ class MicroGrants extends LiveTable {
     @Property()
     maxRequestedAmount: BigInt
 
+    // ==  Unique to MicroGrantsGov ==
+    @Property()
+    gov: Address
+
+    @Property()
+    snapshotReference: number
+
+    @Property()
+    minVotePower: number
+
+    // == Unique to MicroGrantsHats ==
+    @Property()
+    hats: Address
+
+    @Property()
+    hatId: number
+
     // ====================
     // =  Event Handlers  =
     // ====================
@@ -72,18 +89,87 @@ class MicroGrants extends LiveTable {
         this.strategyId = strategyId
     }
 
+    @OnEvent('allov2.MicroGrantsGovStrategy.Initialized')
+    async onMicroGrantsGovInitalized(event: Event) {
+        const {
+            useRegistryAnchor,
+            allocationStartTime,
+            allocationEndTime,
+            approvalThreshold,
+            maxRequestedAmount,
+            gov,
+            snapshotReference,
+            minVotePower,
+        } = decodeMicroGrantsGovInitializedData(
+            event.data.data
+        )
+
+        this.useRegistryAnchor = useRegistryAnchor
+        this.allocationStartTime = allocationStartTime
+        this.allocationEndTime = allocationEndTime
+        this.approvalThreshold = approvalThreshold
+        this.maxRequestedAmount = maxRequestedAmount
+        this.gov = gov
+        this.snapshotReference = snapshotReference
+        this.minVotePower = minVotePower
+
+        // TODO: wire in other details
+
+        this.poolId = event.data.poolId.toString()
+        
+        const strategyId = (await this.contract.getStrategyId()).toString()
+        this.strategyId = strategyId
+    }
+
+
+    @OnEvent('allov2.MicroGrantsHatsStrategy.Initialized')
+    async onMicroGrantsHatsInitalized(event: Event) {
+        const {
+            useRegistryAnchor,
+            allocationStartTime,
+            allocationEndTime,
+            approvalThreshold,
+            maxRequestedAmount,
+            hatsContract,
+            hatsId
+        } = decodeMicroGrantsHatsInitializedData(
+            event.data.data
+        )
+
+        this.useRegistryAnchor = useRegistryAnchor
+        this.allocationStartTime = allocationStartTime
+        this.allocationEndTime = allocationEndTime
+        this.approvalThreshold = approvalThreshold
+        this.maxRequestedAmount = maxRequestedAmount
+
+        this.hats = hatsContract
+        this.hatId = hatsId
+
+        this.poolId = event.data.poolId.toString()
+        
+        const strategyId = (await this.contract.getStrategyId()).toString()
+        this.strategyId = strategyId
+    }
+
+
     @OnEvent('allov2.MicroGrantsStrategy.TimestampsUpdated')
+    @OnEvent('allov2.MicroGrantsGovStrategy.TimestampsUpdated')
+    @OnEvent('allov2.MicroGrantsHatsStrategy.TimestampsUpdated')
     onPoolTimestampUpdate(event: Event) {
         this.allocationStartTime = event.data.allocationStartTime
         this.allocationEndTime = event.data.allocationEndTime
     }
 
     @OnEvent('allov2.MicroGrantsStrategy.ApprovalThresholdUpdated')
+    @OnEvent('allov2.MicroGrantsGovStrategy.ApprovalThresholdUpdated')
+    @OnEvent('allov2.MicroGrantsHatsStrategy.ApprovalThresholdUpdated')
     onPoolApprovalThresholdUpdate(event: Event) {
         this.approvalThreshold = event.data.approvalThreshold
     }
 
     @OnEvent('allov2.MicroGrantsStrategy.MaxRequestedAmountIncreased')
+    @OnEvent('allov2.MicroGrantsGovStrategy.MaxRequestedAmountIncreased')
+    @OnEvent('allov2.MicroGrantsHatsStrategy.MaxRequestedAmountIncreased')
     onMaxRequestedAmountIncreased(event: Event) {
         this.maxRequestedAmount = this.maxRequestedAmount.plus(event.data.maxRequestedAmount)
     }
