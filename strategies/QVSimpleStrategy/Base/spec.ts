@@ -51,7 +51,10 @@ class QVSimple extends LiveTable {
     // ====================
 
     @BeforeAll()
-    setCommonProperties(event: Event) {
+    async setCommonProperties(event: Event) {
+        const poolId = await this.contract.getPoolId()
+
+        this.poolId = poolId.toString()
         this.strategy = event.origin.contractAddress
     }
 
@@ -79,7 +82,6 @@ class QVSimple extends LiveTable {
         this.allocationEndTime = allocationEndTime
         this.maxVoiceCreditsPerAllocator = maxVoiceCreditsPerAllocator
 
-        this.poolId = event.data.poolId.toString()
     }
 
     @OnEvent('allov2.QVSimpleStrategy.TimestampsUpdated')
