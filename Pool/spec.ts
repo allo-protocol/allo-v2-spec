@@ -98,13 +98,13 @@ class Pool extends LiveTable {
 
         this.createdAt = this.blockTimestamp;
 
-        const { strategyId, contractGroups } = await getStrategyContractGroup(this.chainId, this.strategy)
+        const { strategyId, contractGroups, contractGroupName } = await getStrategyContractGroup(this.chainId, this.strategy)
         if (contractGroups && contractGroups?.length > 0) {
             for (const contractGroup of contractGroups) {
                 this.addContractToGroup(this.strategy, contractGroup)
             }
             this.strategyId = strategyId
-                this.strategyName = contractGroups
+            this.strategyName = contractGroupName
         }
     }
 
