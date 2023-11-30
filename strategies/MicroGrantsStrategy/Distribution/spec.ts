@@ -1,25 +1,26 @@
 import { Address, BeforeAll, Event, LiveTable, OnEvent, Property, Spec } from '@spec.dev/core'
 
-import { getStatusFromInt } from '../../../shared/status.ts'
-
 /**
- * MicroGrantsAllocation details
+ * MicroGrantDistribution details
  */
 @Spec({
     uniqueBy: [ 'chainId', 'poolId', 'recipientId']
 })
-class MicroGrantsAllocation extends LiveTable {
+class MicroGrantDistribution extends LiveTable {
     @Property()
     recipientId: Address
-
+    
     @Property()
     strategy: Address
-
+    
     @Property()
     poolId: string
 
     @Property()
-    status: string
+    recipientAddress: Address
+
+    @Property()
+    amount: string
 
     @Property()
     sender: Address
@@ -36,15 +37,15 @@ class MicroGrantsAllocation extends LiveTable {
         this.strategy = event.origin.contractAddress
         this.recipientId = event.data.recipientId
     }
-
-    @OnEvent('allov2.MicroGrantsStrategy.Allocated')
-    @OnEvent('allov2.MicroGrantsGovStrategy.Allocated')
-    @OnEvent('allov2.MicroGrantsHatsStrategy.Allocated')
-    onAllocation(event: Event) {
-        this.status = getStatusFromInt(event.data.status)
+    
+    @OnEvent('allov2.MicroGrantsStrategy.Distributed')
+    @OnEvent('allov2.MicroGrantsGovStrategy.Distributed')
+    @OnEvent('allov2.MicroGrantsHatsStrategy.Distributed')
+    onDistribution(event: Event) {
+        this.recipientAddress = event.data.recipientAddress
+        this.amount = event.data.amount
         this.sender = event.data.sender
     }
-
 }
 
-export default MicroGrantsAllocation
+export default MicroGrantDistribution

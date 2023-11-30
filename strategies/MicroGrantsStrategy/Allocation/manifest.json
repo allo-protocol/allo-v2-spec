@@ -1,6 +1,6 @@
 {
     "namespace": "allov2",
-    "name": "MicroGrantsAllocation",
+    "name": "MicroGrantAllocation",
     "version": "0.0.1",
     "displayName": "MicroGrantsAllocations",
     "description": "index Allocation event from all MicroGrants strategy",

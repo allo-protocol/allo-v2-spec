@@ -4,12 +4,12 @@ import { decodeMicroGrantsRegistrationData } from '../../../shared/decoders.ts'
 import { getStatusFromInt } from '../../../shared/status.ts'
 
 /**
- * MicroGrants details
+ * MicroGrantRecipient details
  */
 @Spec({
     uniqueBy: [ 'chainId', 'poolId', 'recipientId']
 })
-class MicroGrantsRecipient extends LiveTable {
+class MicroGrantRecipient extends LiveTable {
     @Property()
     recipientId: Address
 
@@ -91,4 +91,4 @@ class MicroGrantsRecipient extends LiveTable {
 
 }
 
-export default MicroGrantsRecipient
+export default MicroGrantRecipient
