@@ -38,7 +38,7 @@ export async function getStrategyContractGroup(
         strategyId: strategyId,
         contractGroupName: "allov2.MicroGrantsGovStrategy",
         contractGroups: [
-          "allov2.MicroGrantsStrategy",
+          "allov2.MicroGrantsGovStrategy",
           "allov2.MicroGrantsCommon",
         ],
       };

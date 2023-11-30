@@ -4,7 +4,7 @@
 id = 'allov2.Profile@0.0.1'
 
 [objects.Pool]
-id = 'allov2.Pool@0.0.4'
+id = 'allov2.Pool@0.0.5'
 
 [objects.Account]
 id = 'allov2.Account@0.0.1'
