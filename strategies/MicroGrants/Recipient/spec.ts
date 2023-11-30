@@ -45,7 +45,10 @@ class MicroGrantsRecipient extends LiveTable {
     // ====================
 
     @BeforeAll()
-    setCommonProperties(event: Event) {
+    async setCommonProperties(event: Event) {
+        const poolId = await this.contract.getPoolId()
+
+        this.poolId = poolId.toString()
         this.strategy = event.origin.contractAddress
         this.recipientId = event.data.recipientId
     }
@@ -69,7 +72,6 @@ class MicroGrantsRecipient extends LiveTable {
 
         const poolId = await this.contract.getPoolId()
         
-        this.poolId = poolId.toString()
         this.recipientAddress = recipientAddress
         this.isUsingRegistryAnchor = isNullAddress(registryAnchor)
         this.requestedAmount = requestedAmount

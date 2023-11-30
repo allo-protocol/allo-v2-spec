@@ -43,7 +43,10 @@ class RFP extends LiveTable {
     // ====================
 
     @BeforeAll()
-    setCommonProperties(event: Event) {
+    async setCommonProperties(event: Event) {
+        const poolId = await this.contract.getPoolId()
+
+        this.poolId = poolId.toString()
         this.strategy = event.origin.contractAddress;
     }
 
@@ -56,7 +59,6 @@ class RFP extends LiveTable {
         this.maxBid = maxBid
         this.useRegistryAnchor = useRegistryAnchor
         this.metadataRequired = metadataRequired
-        this.poolId = event.data.poolId.toString()
         this.voteThreshold = 1 // default to 1 for RFP Simple
         
         const strategyId = (await this.contract.getStrategyId()).toString()
@@ -73,7 +75,6 @@ class RFP extends LiveTable {
         this.useRegistryAnchor = useRegistryAnchor
         this.metadataRequired = metadataRequired
         this.voteThreshold = voteThreshold
-        this.poolId = event.data.poolId.toString()
 
         const strategyId = (await this.contract.getStrategyId()).toString()
         this.strategyId = strategyId
