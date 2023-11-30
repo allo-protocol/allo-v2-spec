@@ -69,8 +69,6 @@ class MicroGrantsRecipient extends LiveTable {
         } = decodeMicroGrantsRegistrationData(
             event.data.data
         );
-
-        const poolId = await this.contract.getPoolId()
         
         this.recipientAddress = recipientAddress
         this.isUsingRegistryAnchor = isNullAddress(registryAnchor)
