@@ -25,7 +25,7 @@ id = 'goerli.Transaction@0.0.1'
 id = 'allov2.MicroGrant@0.0.3'
 
 [objects.MicroGrantRecipient]
-id = 'allov2.MicroGrantRecipient@0.0.3'
+id = 'allov2.MicroGrantRecipient@0.0.4'
 
 [objects.Allocated]
 id = 'goerli.contracts.allov2.MicroGrantsStrategy.Allocated@0xb735720d94de3d169791e2f713cbac8da02eb4d5a344d5a6d5ef542fdf3b2438'
