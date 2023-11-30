@@ -61,7 +61,10 @@ class MicroGrants extends LiveTable {
     // ====================
 
     @BeforeAll()
-    setCommonProperties(event: Event) {
+    async setCommonProperties(event: Event) {
+        const poolId = await this.contract.getPoolId()
+
+        this.poolId = poolId.toString()
         this.strategy = event.origin.contractAddress;
     }
 
@@ -82,8 +85,6 @@ class MicroGrants extends LiveTable {
         this.allocationEndTime = allocationEndTime
         this.approvalThreshold = approvalThreshold
         this.maxRequestedAmount = maxRequestedAmount
-
-        this.poolId = event.data.poolId.toString()
         
         const strategyId = (await this.contract.getStrategyId()).toString()
         this.strategyId = strategyId
@@ -112,10 +113,6 @@ class MicroGrants extends LiveTable {
         this.gov = gov
         this.snapshotReference = snapshotReference
         this.minVotePower = minVotePower
-
-        // TODO: wire in other details
-
-        this.poolId = event.data.poolId.toString()
         
         const strategyId = (await this.contract.getStrategyId()).toString()
         this.strategyId = strategyId
@@ -144,8 +141,6 @@ class MicroGrants extends LiveTable {
 
         this.hats = hatsContract
         this.hatId = hatsId
-
-        this.poolId = event.data.poolId.toString()
         
         const strategyId = (await this.contract.getStrategyId()).toString()
         this.strategyId = strategyId

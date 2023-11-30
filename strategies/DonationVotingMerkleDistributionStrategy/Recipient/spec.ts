@@ -54,7 +54,10 @@ class DonationVotingMerkleDistributionRecipient extends LiveTable {
     // ====================
 
     @BeforeAll()
-    setCommonProperties(event: Event) {
+    async setCommonProperties(event: Event) {
+        const poolId = await this.contract.getPoolId()
+
+        this.poolId = poolId.toString()
         this.strategy = event.origin.contractAddress
         this.recipientId = event.data.recipientId
     }
@@ -63,7 +66,6 @@ class DonationVotingMerkleDistributionRecipient extends LiveTable {
     @OnEvent("allov2.DonationVotingMerkleDistributionVaultStrategy.Registered")
     async onRegistration(event: Event) {
         const useRegistryAnchor = await this.contract.useRegistryAnchor()
-        const poolId = await this.contract.getPoolId()
 
         // decode to get
         const {recipientIndex, encodedData } = decodeRecipientIndexDonationVotingMerkleDistribution(
@@ -72,7 +74,6 @@ class DonationVotingMerkleDistributionRecipient extends LiveTable {
 
         this.upsertRecipientOnRegistration(useRegistryAnchor, encodedData)
         this.status = getStatusFromInt(1)
-        this.poolId = poolId.toString()
         this.recipientIndex = recipientIndex
         this.sender = event.data.sender
     }

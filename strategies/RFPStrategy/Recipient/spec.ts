@@ -45,7 +45,10 @@ class RFPRecipient extends LiveTable {
     // ====================
 
     @BeforeAll()
-    setCommonProperties(event: Event) {
+    async setCommonProperties(event: Event) {
+        const poolId = await this.contract.getPoolId()
+
+        this.poolId = poolId.toString()
         this.strategy = event.origin.contractAddress
         this.recipientId = event.data.recipientId
     }
@@ -60,9 +63,6 @@ class RFPRecipient extends LiveTable {
             useRegistryAnchor, event.data.data
         );
 
-        const poolId = await this.contract.getPoolId()
-        
-        this.poolId = poolId.toString()
         this.recipientAddress = recipientAddress
         this.isUsingRegistryAnchor = isUsingRegistryAnchor
         this.proposalBid = proposalBid

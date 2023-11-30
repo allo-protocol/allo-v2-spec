@@ -54,7 +54,10 @@ class DonationVotingMerkleDistribution extends LiveTable {
     // ====================
 
     @BeforeAll()
-    setCommonProperties(event: Event) {
+    async setCommonProperties(event: Event) {
+        const poolId = await this.contract.getPoolId()
+
+        this.poolId = poolId.toString()
         this.strategy = event.origin.contractAddress
     }
 
@@ -79,9 +82,7 @@ class DonationVotingMerkleDistribution extends LiveTable {
         this.registrationEndTime = registrationEndTime
         this.allocationStartTime = allocationStartTime
         this.allocationEndTime = allocationEndTime
-        this.allowedTokens = allowedTokens
-        
-        this.poolId = event.data.poolId.toString()
+        this.allowedTokens = allowedTokens        
     }
 
     @OnEvent('allov2.DonationVotingMerkleDistributionDirectTransferStrategy.TimestampsUpdated')
