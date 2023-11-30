@@ -1,0 +1,10 @@
+{
+    "namespace": "allov2",
+    "name": "MicroGrantDistribution",
+    "version": "0.0.1",
+    "displayName": "MicroGrantDistributions",
+    "description": "index Distributed event from all MicroGrants strategy",
+    "chains": [
+        5
+    ]
+}

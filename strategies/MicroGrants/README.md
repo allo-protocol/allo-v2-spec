@@ -20,7 +20,8 @@ This section captures the live objects and the events which would be used to ind
 - `event Allocated(address indexed recipientId, Status status, address sender);`
 - `event Distributed(address indexed recipientId, address recipientAddress, uint256 amount, address sender);`
 
-## Events Auto Indexed
-This section lists out events which would auto indexed by spec and hence wouldn't require a custom live object to be created
+### Allocation
 - `event Allocated(address indexed recipientId, Status status, address sender);`
+
+### Distribution
 - `event Distributed(address indexed recipientId, address recipientAddress, uint256 amount, address sender);`

@@ -1,0 +1,10 @@
+{
+    "namespace": "allov2",
+    "name": "MicroGrantsAllocation",
+    "version": "0.0.1",
+    "displayName": "MicroGrantsAllocations",
+    "description": "index Allocation event from all MicroGrants strategy",
+    "chains": [
+        5
+    ]
+}
