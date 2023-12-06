@@ -3,8 +3,5 @@
     "name": "Pool",
     "version": "0.0.5",
     "displayName": "Allo Pools",
-    "description": "All Pools created on Allo",
-    "chains": [
-        5
-    ]
+    "description": "All Pools created on Allo"
 }

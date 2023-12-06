@@ -3,8 +3,5 @@
     "name": "RFP",
     "version": "0.0.1",
     "displayName": "RFP",
-    "description": "index base variable in RFPSimple",
-    "chains": [
-        5
-    ]
+    "description": "index base variable in RFPSimple"
 }

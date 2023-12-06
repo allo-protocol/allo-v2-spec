@@ -3,8 +3,5 @@
     "name": "MicroGrant",
     "version": "0.0.4",
     "displayName": "MicroGrants",
-    "description": "index base variables in MicroGrants strategy",
-    "chains": [
-        5
-    ]
+    "description": "index base variables in MicroGrants strategy"
 }

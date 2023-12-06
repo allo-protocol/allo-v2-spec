@@ -3,8 +3,5 @@
     "name": "Allo",
     "version": "0.0.1",
     "displayName": "Allo",
-    "description": "Global data",
-    "chains": [
-        5
-    ]
+    "description": "Global data"
 }

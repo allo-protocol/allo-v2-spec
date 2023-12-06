@@ -3,8 +3,5 @@
     "name": "DonationVotingMerkleDistribution",
     "version": "0.0.1",
     "displayName": "DonationVotingMerkleDistribution",
-    "description": "index base variables in DonationVotingMerkleDistribution strategy",
-    "chains": [
-        5
-    ]
+    "description": "index base variables in DonationVotingMerkleDistribution strategy"
 }

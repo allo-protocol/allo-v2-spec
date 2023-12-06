@@ -3,8 +3,5 @@
     "name": "Profile",
     "version": "0.0.1",
     "displayName": "Allo Profiles",
-    "description": "All Profiles created on Registry",
-    "chains": [
-        5
-    ]
+    "description": "All Profiles created on Registry"
 }
