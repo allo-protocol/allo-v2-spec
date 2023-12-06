@@ -1,0 +1,839 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_allo",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor",
+        "signature": "0x5bc6238b"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipientId",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "enum IStrategy.Status",
+                "name": "status",
+                "type": "uint8"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            }
+        ],
+        "name": "Allocated",
+        "type": "event",
+        "signature": "0xb735720d94de3d169791e2f713cbac8da02eb4d5a344d5a6d5ef542fdf3b2438"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipientId",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "token",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            }
+        ],
+        "name": "Allocated",
+        "type": "event",
+        "signature": "0x463ffc2cf8b1596445c417388ed30e53eb67cf6668cb2be7f0addf8a78c8441b"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "allocator",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "bool",
+                "name": "_flag",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            }
+        ],
+        "name": "AllocatorSet",
+        "type": "event",
+        "signature": "0xb50515ac68c6752ce8d118ee9c125360859a03dcb13a0cfb6b3faad68217f4bd"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "approvalThreshold",
+                "type": "uint256"
+            }
+        ],
+        "name": "ApprovalThresholdUpdated",
+        "type": "event",
+        "signature": "0x3105a3dc553e12034caac9827a83c245fe17eef4ee1eedb45238ac7449a5bbec"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipientId",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "recipientAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            }
+        ],
+        "name": "Distributed",
+        "type": "event",
+        "signature": "0xb5b51454adfa840bd593658325a60a50b0216f12eb5d2937efe6cea935675b7d"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "poolId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes",
+                "name": "data",
+                "type": "bytes"
+            }
+        ],
+        "name": "Initialized",
+        "type": "event",
+        "signature": "0x91efa3d50feccde0d0d202f8ae5c41ca0b2be614cebcb2bd2f4b019396e6568a"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "maxRequestedAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "MaxRequestedAmountIncreased",
+        "type": "event",
+        "signature": "0xbcd4e1b1c11d47ad4c6c51ad73d8e77d29313bc1a491330186316a74a1f995f4"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+            }
+        ],
+        "name": "PoolActive",
+        "type": "event",
+        "signature": "0xd94c9bc4d43c51d8dc345a016d8e3d994432fac68e72832e4cf3a616bd8efae0"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipientId",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes",
+                "name": "data",
+                "type": "bytes"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            }
+        ],
+        "name": "Registered",
+        "type": "event",
+        "signature": "0xa197306e3dd5494a61a695381aa809a53b8e377a685e84e404a85d5a8da6cc62"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint64",
+                "name": "allocationStartTime",
+                "type": "uint64"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint64",
+                "name": "allocationEndTime",
+                "type": "uint64"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            }
+        ],
+        "name": "TimestampsUpdated",
+        "type": "event",
+        "signature": "0x70d34c8836b996cffd8970ba5edf940d83ca7c8f30f738ea4fd8566a37d93359"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipientId",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes",
+                "name": "data",
+                "type": "bytes"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            }
+        ],
+        "name": "UpdatedRegistration",
+        "type": "event",
+        "signature": "0xaf5977db3aa7e6fc7d05e21c791ebd214afa76da27c8d8ddc8e4a9f742d7b236"
+    },
+    {
+        "inputs": [],
+        "name": "NATIVE",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xa0cf0aea"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes",
+                "name": "_data",
+                "type": "bytes"
+            },
+            {
+                "internalType": "address",
+                "name": "_sender",
+                "type": "address"
+            }
+        ],
+        "name": "allocate",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function",
+        "signature": "0xef2920fc"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "allocated",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x2b302cbd"
+    },
+    {
+        "inputs": [],
+        "name": "allocationEndTime",
+        "outputs": [
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x4533d678"
+    },
+    {
+        "inputs": [],
+        "name": "allocationStartTime",
+        "outputs": [
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xd2e17f59"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "allocators",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x084ea36e"
+    },
+    {
+        "inputs": [],
+        "name": "approvalThreshold",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x7d0eef61"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "_allocators",
+                "type": "address[]"
+            },
+            {
+                "internalType": "bool[]",
+                "name": "_flags",
+                "type": "bool[]"
+            }
+        ],
+        "name": "batchSetAllocator",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xa15acfd5"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "_recipientIds",
+                "type": "address[]"
+            },
+            {
+                "internalType": "bytes",
+                "name": "_data",
+                "type": "bytes"
+            },
+            {
+                "internalType": "address",
+                "name": "_sender",
+                "type": "address"
+            }
+        ],
+        "name": "distribute",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x0a6f0ee9"
+    },
+    {
+        "inputs": [],
+        "name": "getAllo",
+        "outputs": [
+            {
+                "internalType": "contract IAllo",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x15cc481e"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "_recipientIds",
+                "type": "address[]"
+            },
+            {
+                "internalType": "bytes[]",
+                "name": "_data",
+                "type": "bytes[]"
+            }
+        ],
+        "name": "getPayouts",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "recipientAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct IStrategy.PayoutSummary[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xb2b878d0"
+    },
+    {
+        "inputs": [],
+        "name": "getPoolAmount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x4ab4ba42"
+    },
+    {
+        "inputs": [],
+        "name": "getPoolId",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x38fff2d0"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_recipientId",
+                "type": "address"
+            }
+        ],
+        "name": "getRecipient",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "bool",
+                        "name": "useRegistryAnchor",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "recipientAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "requestedAmount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "enum IStrategy.Status",
+                        "name": "recipientStatus",
+                        "type": "uint8"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint256",
+                                "name": "protocol",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "pointer",
+                                "type": "string"
+                            }
+                        ],
+                        "internalType": "struct Metadata",
+                        "name": "metadata",
+                        "type": "tuple"
+                    }
+                ],
+                "internalType": "struct MicroGrantsStrategy.Recipient",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x62812a39"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_recipientId",
+                "type": "address"
+            }
+        ],
+        "name": "getRecipientStatus",
+        "outputs": [
+            {
+                "internalType": "enum IStrategy.Status",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xeb11af93"
+    },
+    {
+        "inputs": [],
+        "name": "getStrategyId",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x42fda9c7"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_maxRequestedAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "increaseMaxRequestedAmount",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xbfa80731"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "increasePoolAmount",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xf5b0dfb7"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_poolId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bytes",
+                "name": "_data",
+                "type": "bytes"
+            }
+        ],
+        "name": "initialize",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xedd146cc"
+    },
+    {
+        "inputs": [],
+        "name": "isPoolActive",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xdf868ed3"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_allocator",
+                "type": "address"
+            }
+        ],
+        "name": "isValidAllocator",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x4d31d087"
+    },
+    {
+        "inputs": [],
+        "name": "maxRequestedAmount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0xba539f8f"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "enum IStrategy.Status",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "name": "recipientAllocations",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x6f46ffb9"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes",
+                "name": "_data",
+                "type": "bytes"
+            },
+            {
+                "internalType": "address",
+                "name": "_sender",
+                "type": "address"
+            }
+        ],
+        "name": "registerRecipient",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "recipientId",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "payable",
+        "type": "function",
+        "signature": "0x2bbe0cae"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_allocator",
+                "type": "address"
+            },
+            {
+                "internalType": "bool",
+                "name": "_flag",
+                "type": "bool"
+            }
+        ],
+        "name": "setAllocator",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x80faddeb"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_approvalThreshold",
+                "type": "uint256"
+            }
+        ],
+        "name": "setApprovalThreshold",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0xa0016b8c"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint64",
+                "name": "_allocationStartTime",
+                "type": "uint64"
+            },
+            {
+                "internalType": "uint64",
+                "name": "_allocationEndTime",
+                "type": "uint64"
+            }
+        ],
+        "name": "updatePoolTimestamps",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x75777aaa"
+    },
+    {
+        "inputs": [],
+        "name": "useRegistryAnchor",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "signature": "0x57089739"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_token",
+                "type": "address"
+            }
+        ],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x51cff8d9"
+    }
+]

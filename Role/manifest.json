@@ -3,8 +3,5 @@
     "name": "Role",
     "version": "0.0.1",
     "displayName": "Allo Roles",
-    "description": "Role which is used in allo v2 core",
-    "chains": [
-        5
-    ]
+    "description": "Role which is used in allo v2 core"
 }

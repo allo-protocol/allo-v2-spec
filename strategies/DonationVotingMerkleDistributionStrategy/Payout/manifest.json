@@ -1,10 +1,7 @@
 {
     "namespace": "allov2",
-    "name": "DonationVotingMerkleDistribution_Payout",
+    "name": "DonationVotingMerkleDistributionPayout",
     "version": "0.0.1",
     "displayName": "DonationVotingMerkleDistribution Payout",
-    "description": "Index all payouts based on the merkle root",
-    "chains": [
-        5
-    ]
+    "description": "Index all payouts based on the merkle root"
 }

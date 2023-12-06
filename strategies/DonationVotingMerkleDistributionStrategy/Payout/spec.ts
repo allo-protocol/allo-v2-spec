@@ -65,7 +65,7 @@ class DonationVotingMerkleDistributionPayout extends LiveTable {
     @OnEvent('allov2.DonationVotingMerkleDistributionVaultStrategy.DistributionUpdated', { autoSave: false })
     async onDistributionUpdated(event: Event) {
 
-        const [protocol, pointer] = event.data.distributionMetadata
+        const [protocolId, pointer] = event.data.distributionMetadata
 
         await this._softDeleteExistingPayouts()
 
@@ -74,7 +74,7 @@ class DonationVotingMerkleDistributionPayout extends LiveTable {
 
         const poolId = await this.contract.getPoolId()
 
-        const payoutsMetadata = await resolveMetadata(pointer, { protocol })
+        const payoutsMetadata = await resolveMetadata(pointer, { protocolId })
         for (let i = 0; i <= payoutsMetadata.length; i++) {
             // create new payout record
             const payout = this.new(DonationVotingMerkleDistributionPayout, {

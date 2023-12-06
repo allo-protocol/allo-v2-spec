@@ -1,10 +1,7 @@
 {
     "namespace": "allov2",
-    "name": "QVSimple_Recipient",
+    "name": "QVSimpleRecipient",
     "version": "0.0.1",
     "displayName": "QVSimple Recipient",
-    "description": "Index Recipients on QVSimple strategy",
-    "chains": [
-        5
-    ]
+    "description": "Index Recipients on QVSimple strategy"
 }

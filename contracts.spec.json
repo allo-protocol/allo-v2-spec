@@ -1,0 +1,63 @@
+{
+  "namespace": "allov2",
+  "groups": [
+    {
+      "name": "Registry",
+      "contracts": [
+        {
+          "chainId": 5,
+          "address": "0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3"
+        }
+      ]
+    },
+    {
+      "name": "Allo",
+      "contracts": [
+        {
+          "chainId": 5,
+          "address": "0x1133ea7af70876e64665ecd07c0a0476d09465a1"
+        }
+      ]
+    },
+    {
+      "name": "MicroGrantsCommon",
+      "isFactoryGroup": true
+    },
+    {
+      "name": "MicroGrantsStrategy",
+      "isFactoryGroup": true
+    },
+    {
+      "name": "MicroGrantsGovStrategy",
+      "isFactoryGroup": true
+    },
+    {
+      "name": "MicroGrantsHatsStrategy",
+      "isFactoryGroup": true
+    },
+    {
+      "name": "QVSimpleStrategy",
+      "isFactoryGroup": true
+    },    
+    {
+      "name": "RFPSimpleStrategy",
+      "isFactoryGroup": true
+    },    
+    {
+      "name": "RFPCommitteeStrategy",
+      "isFactoryGroup": true
+    }, 
+    {
+      "name": "DonationVotingMerkleDistributionVaultStrategy",
+      "isFactoryGroup": true
+    },
+    {
+      "name": "DonationVotingMerkleDistributionDirectTransferStrategy",
+      "isFactoryGroup": true
+    },
+    {
+      "name": "MerkleDistributionStrategy",
+      "isFactoryGroup": true
+    }
+  ]
+}

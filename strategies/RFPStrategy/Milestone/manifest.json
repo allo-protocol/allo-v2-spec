@@ -1,10 +1,7 @@
 {
     "namespace": "allov2",
-    "name": "RFP_Milestone",
+    "name": "RFPMilestone",
     "version": "0.0.1",
     "displayName": "RFP Milestone",
-    "description": "Index Milestones on RFPSimple & RFPCommitee",
-    "chains": [
-        5
-    ]
+    "description": "Index Milestones on RFPSimple & RFPCommitee"
 }

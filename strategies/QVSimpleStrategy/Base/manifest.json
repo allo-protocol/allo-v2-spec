@@ -3,8 +3,5 @@
     "name": "QVSimple",
     "version": "0.0.1",
     "displayName": "QVSimple",
-    "description": "Index base variables in QVSimple strategy",
-    "chains": [
-        5
-    ]
+    "description": "Index base variables in QVSimple strategy"
 }

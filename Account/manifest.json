@@ -3,8 +3,5 @@
     "name": "Account",
     "version": "0.0.1",
     "displayName": "Allo Accounts",
-    "description": "Account which has roles associated with it on allo v2",
-    "chains": [
-        5
-    ]
+    "description": "Account which has roles associated with it on allo v2"
 }

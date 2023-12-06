@@ -28,10 +28,10 @@ id = 'allov2.MicroGrant@0.0.4'
 id = 'allov2.MicroGrantRecipient@0.0.5'
 
 [objects.Allocated]
-id = 'goerli.contracts.allov2.MicroGrantsCommon.Allocated@0xb735720d94de3d169791e2f713cbac8da02eb4d5a344d5a6d5ef542fdf3b2438'
+id = 'allov2.MicroGrantsCommon.Allocated@0xb735720d94de3d169791e2f713cbac8da02eb4d5a344d5a6d5ef542fdf3b2438'
 
 [objects.Distributed]
-id = 'goerli.contracts.allov2.MicroGrantsCommon.Distributed@0xb5b51454adfa840bd593658325a60a50b0216f12eb5d2937efe6cea935675b7d'
+id = 'allov2.MicroGrantsCommon.Distributed@0xb5b51454adfa840bd593658325a60a50b0216f12eb5d2937efe6cea935675b7d'
 
 # = Live Columns (Outputs) ------------------------------
 
@@ -243,8 +243,8 @@ uniqueBy = [ 'chainId', 'poolId', 'recipientId' ]
 
 [[objects.Allocated.links]]
 table = 'public.allocated'
-uniqueBy = [ 'transactionHash', 'logIndex' ]
+uniqueBy = [ 'transactionHash', 'logIndex', 'chainId' ]
 
 [[objects.Distributed.links]]
 table = 'public.distributed'
-uniqueBy = [ 'transactionHash', 'logIndex' ]
+uniqueBy = [ 'transactionHash', 'logIndex', 'chainId' ]

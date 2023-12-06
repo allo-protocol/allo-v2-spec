@@ -1,10 +1,7 @@
 {
     "namespace": "allov2",
-    "name": "DonationVotingMerkleDistribution_Recipient",
+    "name": "DonationVotingMerkleDistributionRecipient",
     "version": "0.0.1",
     "displayName": "DonationVotingMerkleDistribution Recipient",
-    "description": "Index Recipients on DonationVotingMerkleDistribution strategy",
-    "chains": [
-        5
-    ]
+    "description": "Index Recipients on DonationVotingMerkleDistribution strategy"
 }
