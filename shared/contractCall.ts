@@ -23,6 +23,17 @@ export async function getStrategyContractGroup(
   const strategyId = await contract.getStrategyId();
 
   switch (strategyId) {
+    // SQFSuperFluidv1
+    case "0xa4239b3afb0a22d50d8f6d73679c8c17981981efd0560bab07e4df07ddc8246a":
+      return {
+        strategyId: strategyId,
+        contractGroupName: "allov2.SQFSuperFluidStrategy",
+        contractGroups: [
+          "allov2.SQFSuperFluidStrategy"
+        ],
+      };
+
+    // MicroGrantsv1
     case "0x697f0592ebd05466d2d24454477e11d69c475d7a7c4134f15ddc1ea9811bb16f":
       return {
         strategyId: strategyId,
@@ -33,6 +44,7 @@ export async function getStrategyContractGroup(
         ],
       };
 
+    // MicroGrantsGovv1
     case "0x741ac1e2f387d83f219f6b5349d35ec34902cf94019d117335e0045d2e0ed912":
       return {
         strategyId: strategyId,
@@ -43,6 +55,7 @@ export async function getStrategyContractGroup(
         ],
       };
 
+    // MicroGrantsHatsv1
     case "0x5aa24dcfcd55a1e059a172e987b3456736b4856c71e57aaf52e9a965897318dd":
       return {
         strategyId: strategyId,
