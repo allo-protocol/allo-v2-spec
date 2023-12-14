@@ -61,7 +61,7 @@ class SQFSuperFluidRecipient extends LiveTable {
 
     @OnEvent('allov2.SQFSuperFluidStrategy.Registered')
     @OnEvent('allov2.SQFSuperFluidStrategy.UpdatedRegistration')
-    async onRegistration(event: Event) {
+    onRegistration(event: Event) {
 
         const  {
             registryAnchor,
@@ -91,8 +91,10 @@ class SQFSuperFluidRecipient extends LiveTable {
     }
 
     @OnEvent('allov2.SQFSuperFluidStrategy.Reviewed')
-    onReviewed(event: Event) {
+    async onReviewed(event: Event) {
         this.status = getStatusFromInt(event.data.recipientStatus)
+        const superApp = await this.contract.superApps(this.recipientId)
+        this.superApp = superApp
     }
 
     @OnEvent('allov2.SQFSuperFluidStrategy.Canceled')
