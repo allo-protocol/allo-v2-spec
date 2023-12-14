@@ -93,18 +93,11 @@ class SQFSuperFluidRecipient extends LiveTable {
     @OnEvent('allov2.SQFSuperFluidStrategy.Reviewed')
     onReviewed(event: Event) {
         this.status = getStatusFromInt(event.data.recipientStatus)
-        if (event.data.recipientStatus === 2) {
-            // Accepted
-            this.flowRate = 1
-            this.totalUnits = 1 // check
-        }
     }
 
     @OnEvent('allov2.SQFSuperFluidStrategy.Canceled')
     onCanceled(event: Event) {
-        this.totalUnits = 0
         this.flowRate = 0
-
         this.status = getStatusFromInt(6)
     }
 }
