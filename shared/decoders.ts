@@ -371,3 +371,19 @@ export function decodeSQFSuperFluidInitializedData(data: any) {
     initialSuperAppBalance
   }
 }
+
+export function decodeSQFSuperFluidRegistrationData(
+  data: any
+) {
+  const [registryAnchor, recipientAddress, metadata] = decodeAbi(data, [
+      "address",
+      "address",
+      "tuple(uint256, string)",
+  ])
+
+  return {
+    registryAnchor: registryAnchor.toLowerCase(),
+    recipientAddress: recipientAddress.toLowerCase(),
+    metadata: formatMetadataAsStruct(metadata),
+  }
+}

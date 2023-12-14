@@ -23,7 +23,7 @@ class SQFSuperFluidRecipient extends LiveTable {
     recipientAddress: Address;
 
     @Property()
-    totalUnits: BigInt
+    totalUnits: number
 
     @Property()
     flowRate: number
@@ -63,34 +63,50 @@ class SQFSuperFluidRecipient extends LiveTable {
     @OnEvent('allov2.SQFSuperFluidStrategy.UpdatedRegistration')
     async onRegistration(event: Event) {
 
-        // const  {
-        //     registryAnchor,
-        //     recipientAddress,
-        //     requestedAmount,
-        //     metadata
-        // } = decodeMicroGrantsRegistrationData(
-        //     event.data.data
-        // );
-        
-        // this.recipientAddress = recipientAddress
-        // this.isUsingRegistryAnchor = isNullAddress(registryAnchor)
-        // this.requestedAmount = requestedAmount
-        // this.metadataProtocol = metadata.protocol
-        // this.metadataPointer = metadata.pointer
-        // this.sender = event.data.sender
+        const  {
+            registryAnchor,
+            recipientAddress,
+            metadata
+        } = decodeSQFSuperFluidRegistrationData(
+            event.data.data
+        );
 
-        // // Note: Only possible status is Pending / Accepted
-        // this.status = getStatusFromInt(1)
+        this.recipientAddress = recipientAddress
+        this.isUsingRegistryAnchor = isNullAddress(registryAnchor)
+        this.metadataProtocol = metadata.protocol
+        this.metadataPointer = metadata.pointer
+        this.sender = event.data.sender
+
+        this.status = getStatusFromInt(1)
     }
 
-    // @OnEvent('allov2.MicroGrantsStrategy.Distributed')
-    // @OnEvent('allov2.MicroGrantsGovStrategy.Distributed')
-    // @OnEvent('allov2.MicroGrantsHatsStrategy.Distributed')
-    // onAllocation(event: Event) {
-    //     // Note: this means that the recipient has been allocated funds
-    //     this.status = getStatusFromInt(2)
-    // }
+    @OnEvent('allov2.SQFSuperFluidStrategy.Allocated')
+    onAllocated(event: Event) {
+        this.flowRate = event.data.amount
+    }
 
+    @OnEvent('allov2.SQFSuperFluidStrategy.TotalUnitsUpdated')
+    onTotalUnitsUpdated(event: Event) {
+        this.totalUnits = event.data.totalUnits
+    }
+
+    @OnEvent('allov2.SQFSuperFluidStrategy.Reviewed')
+    onReviewed(event: Event) {
+        this.status = getStatusFromInt(event.data.recipientStatus)
+        if (event.data.recipientStatus === 2) {
+            // Accepted
+            this.flowRate = 1
+            this.totalUnits = 1 // check
+        }
+    }
+
+    @OnEvent('allov2.SQFSuperFluidStrategy.Canceled')
+    onCanceled(event: Event) {
+        this.totalUnits = 0
+        this.flowRate = 0
+
+        this.status = getStatusFromInt(6)
+    }
 }
 
 export default SQFSuperFluidRecipient
