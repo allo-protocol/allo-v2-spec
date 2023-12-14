@@ -1,4 +1,4 @@
-import { Address, BeforeAll, BigInt, Event, LiveTable, OnEvent, Property, Spec, isNullAddress } from '@spec.dev/core'
+import { Address, BeforeAll, Event, LiveTable, OnEvent, Property, Spec, isNullAddress } from '@spec.dev/core'
 
 import { decodeSQFSuperFluidRegistrationData } from '../../../shared/decoders.ts'
 import { getStatusFromInt } from '../../../shared/status.ts'
