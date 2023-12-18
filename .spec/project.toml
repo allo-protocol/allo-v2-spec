@@ -19,7 +19,7 @@ id = 'allov2.RoleAccount@0.0.1'
 id = 'allov2.Allo@0.0.1'
 
 [objects.Transaction]
-id = 'goerli.Transaction@0.0.1'
+id = 'spec.Transaction@0.0.1'
 
 [objects.MicroGrant]
 id = 'allov2.MicroGrant@0.0.4'
@@ -223,14 +223,12 @@ uniqueBy = [ 'chainId' ]
 table = 'public.allo_transaction'
 uniqueBy = [ 'hash', 'chainId' ]
 filterBy = [
-	{ from = { op = 'in', value = [
-		'0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3',
-		'0x1133ea7af70876e64665ecd07c0a0476d09465a1',
-	] } },
-	{ to = { op = 'in', value = [
-		'0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3',
-		'0x1133ea7af70876e64665ecd07c0a0476d09465a1',
-	] } },
+	{ chainId = { op = '=', value = '5' }, from = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
+	{ chainId = { op = '=', value = '5' }, to = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
+	{ chainId = { op = '=', value = '42161' }, from = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
+	{ chainId = { op = '=', value = '42161' }, to = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
+	{ chainId = { op = '=', value = '421614' }, from = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
+	{ chainId = { op = '=', value = '421614' }, to = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
 ]
 
 [[objects.MicroGrant.links]]
