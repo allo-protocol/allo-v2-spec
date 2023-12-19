@@ -124,7 +124,9 @@ class SQFSuperFluids extends LiveTable {
         this.minPassportScore = event.data.minPassportScore
     }
 
-    @OnEvent('allov2.SQFSuperFluidStrategy.Distributed')
+    @OnEvent('allov2.SQFSuperFluidStrategy.Distributed', {
+        signature: '0x9772934ae0adf1472a2378a77824461cb25bc02429d3b2403f4c492a4d1187eb'
+    })
     onDistributionStarted(event: Event) {
         this.distributionFlowRate = event.data.flowRate
     }
