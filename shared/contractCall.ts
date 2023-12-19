@@ -23,14 +23,12 @@ export async function getStrategyContractGroup(
   const strategyId = await contract.getStrategyId();
 
   switch (strategyId) {
-    // SQFSuperFluidv1
-    case "0xa4239b3afb0a22d50d8f6d73679c8c17981981efd0560bab07e4df07ddc8246a":
+    // SQFSuperfluidv1
+    case "0xf8a14294e80ff012e54157ec9d1b2827421f1e7f6bde38c06730b1c031b3f935":
       return {
         strategyId: strategyId,
         contractGroupName: "allov2.SQFSuperFluidStrategy",
-        contractGroups: [
-          "allov2.SQFSuperFluidStrategy"
-        ],
+        contractGroups: ["allov2.SQFSuperFluidStrategy"],
       };
 
     // MicroGrantsv1
@@ -40,7 +38,7 @@ export async function getStrategyContractGroup(
         contractGroupName: "allov2.MicroGrantsStrategy",
         contractGroups: [
           "allov2.MicroGrantsStrategy",
-          "allov2.MicroGrantsCommon"
+          "allov2.MicroGrantsCommon",
         ],
       };
 
@@ -90,7 +88,8 @@ export async function getStrategyContractGroup(
     case "0xc5263e972c91d7ff40708bc71239a2b6cbc8768704e210ca3069e2e11fc195df":
       return {
         strategyId: strategyId,
-        contractGroupName: "allov2.DonationVotingMerkleDistributionDirectTransferStrategy",
+        contractGroupName:
+          "allov2.DonationVotingMerkleDistributionDirectTransferStrategy",
         contractGroups: [
           "allov2.DonationVotingMerkleDistributionDirectTransferStrategy",
         ],
@@ -99,7 +98,8 @@ export async function getStrategyContractGroup(
     case "0xecc48557f4826bd1181a4495232d6d07f248ef9cc0a650e64520f6c9f7458a8c":
       return {
         strategyId: strategyId,
-        contractGroupName: "allov2.DonationVotingMerkleDistributionVaultStrategy",
+        contractGroupName:
+          "allov2.DonationVotingMerkleDistributionVaultStrategy",
         contractGroups: [
           "allov2.DonationVotingMerkleDistributionVaultStrategy",
         ],
