@@ -112,11 +112,15 @@ class SQFSuperFluids extends LiveTable {
     }
 
     @OnEvent('allov2.SQFSuperFluidStrategy.TimestampsUpdated')
-    onPoolTimestampUpdate(event: Event) {
+    async onPoolTimestampUpdate(event: Event) {
         this.registrationStartTime = event.data.registrationStartTime
         this.registrationEndTime = event.data.registrationEndTime
         this.allocationStartTime = event.data.allocationStartTime
         this.allocationEndTime = event.data.allocationEndTime
+
+        // Adding this to set the strategyId when the contract is not initialized | before initialization.
+        const strategyId = (await this.contract.getStrategyId()).toString()
+        this.strategyId = strategyId
     }
 
     @OnEvent('allov2.SQFSuperFluidStrategy.MinPassportScoreUpdated')
