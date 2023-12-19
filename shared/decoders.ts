@@ -360,9 +360,9 @@ export function decodeSQFSuperFluidInitializedData(data: any) {
   return {
     useRegistryAnchor,
     metadataRequired,
-    passportDecoder,
-    superfluidHost,
-    allocationSuperToken,
+    passportDecoder: passportDecoder.toLowerCase(),
+    superfluidHost: superfluidHost.toLowerCase(),
+    allocationSuperToken: allocationSuperToken.toLowerCase(),
     registrationStartTime,
     registrationEndTime,
     allocationStartTime,

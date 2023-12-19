@@ -76,7 +76,7 @@ class SQFSuperFluids extends LiveTable {
     }
 
     @OnEvent('allov2.SQFSuperFluidStrategy.Initialized')
-    async onMicroGrantsInitalized(event: Event) {
+    async onInitalized(event: Event) {
         const {
             useRegistryAnchor,
             metadataRequired,
