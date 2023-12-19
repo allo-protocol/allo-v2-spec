@@ -34,7 +34,7 @@ id = 'allov2.MicroGrantsCommon.Allocated@0xb735720d94de3d169791e2f713cbac8da02eb
 id = 'allov2.MicroGrantsCommon.Distributed@0xb5b51454adfa840bd593658325a60a50b0216f12eb5d2937efe6cea935675b7d'
 
 [objects.SQFSuperFluid]
-id = 'allov2.SQFSuperFluid@0.0.1'
+id = 'allov2.SQFSuperFluid@0.0.2'
 
 [objects.SQFSuperFluidRecipient]
 id = 'allov2.SQFSuperFluidRecipient@0.0.1'
