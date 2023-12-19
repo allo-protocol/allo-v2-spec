@@ -23,16 +23,26 @@ export async function getStrategyContractGroup(
   const strategyId = await contract.getStrategyId();
 
   switch (strategyId) {
+    // SQFSuperfluidv1
+    case "0xf8a14294e80ff012e54157ec9d1b2827421f1e7f6bde38c06730b1c031b3f935":
+      return {
+        strategyId: strategyId,
+        contractGroupName: "allov2.SQFSuperFluidStrategy",
+        contractGroups: ["allov2.SQFSuperFluidStrategy"],
+      };
+
+    // MicroGrantsv1
     case "0x697f0592ebd05466d2d24454477e11d69c475d7a7c4134f15ddc1ea9811bb16f":
       return {
         strategyId: strategyId,
         contractGroupName: "allov2.MicroGrantsStrategy",
         contractGroups: [
           "allov2.MicroGrantsStrategy",
-          "allov2.MicroGrantsCommon"
+          "allov2.MicroGrantsCommon",
         ],
       };
 
+    // MicroGrantsGovv1
     case "0x741ac1e2f387d83f219f6b5349d35ec34902cf94019d117335e0045d2e0ed912":
       return {
         strategyId: strategyId,
@@ -43,6 +53,7 @@ export async function getStrategyContractGroup(
         ],
       };
 
+    // MicroGrantsHatsv1
     case "0x5aa24dcfcd55a1e059a172e987b3456736b4856c71e57aaf52e9a965897318dd":
       return {
         strategyId: strategyId,
@@ -77,7 +88,8 @@ export async function getStrategyContractGroup(
     case "0xc5263e972c91d7ff40708bc71239a2b6cbc8768704e210ca3069e2e11fc195df":
       return {
         strategyId: strategyId,
-        contractGroupName: "allov2.DonationVotingMerkleDistributionDirectTransferStrategy",
+        contractGroupName:
+          "allov2.DonationVotingMerkleDistributionDirectTransferStrategy",
         contractGroups: [
           "allov2.DonationVotingMerkleDistributionDirectTransferStrategy",
         ],
@@ -86,7 +98,8 @@ export async function getStrategyContractGroup(
     case "0xecc48557f4826bd1181a4495232d6d07f248ef9cc0a650e64520f6c9f7458a8c":
       return {
         strategyId: strategyId,
-        contractGroupName: "allov2.DonationVotingMerkleDistributionVaultStrategy",
+        contractGroupName:
+          "allov2.DonationVotingMerkleDistributionVaultStrategy",
         contractGroups: [
           "allov2.DonationVotingMerkleDistributionVaultStrategy",
         ],

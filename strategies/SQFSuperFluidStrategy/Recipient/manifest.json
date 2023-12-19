@@ -1,0 +1,7 @@
+{
+    "namespace": "allov2",
+    "name": "SQFSuperFluidRecipient",
+    "version": "0.0.1",
+    "displayName": "SQFSuperFluid Recipients",
+    "description": "Index Recipients on SQFSuperFluid"
+}

@@ -324,3 +324,66 @@ export function decodeMicroGrantsHatsInitializedData(
     hatsId
   }
 }
+
+
+// ===========================
+// = SQFSuperFluids Decoder  =
+// ===========================
+
+export function decodeSQFSuperFluidInitializedData(data: any) {
+  const [
+    useRegistryAnchor,
+    metadataRequired,
+    passportDecoder,
+    superfluidHost,
+    allocationSuperToken,
+    registrationStartTime,
+    registrationEndTime,
+    allocationStartTime,
+    allocationEndTime,
+    minPassportScore,
+    initialSuperAppBalance
+  ] = decodeAbi(data, [
+      "bool",
+      "bool",
+      "address",
+      "address",
+      "address",
+      "uint64",
+      "uint64",
+      "uint64",
+      "uint64",
+      "uint256",
+      "uint256",
+  ])
+
+  return {
+    useRegistryAnchor,
+    metadataRequired,
+    passportDecoder: passportDecoder.toLowerCase(),
+    superfluidHost: superfluidHost.toLowerCase(),
+    allocationSuperToken: allocationSuperToken.toLowerCase(),
+    registrationStartTime,
+    registrationEndTime,
+    allocationStartTime,
+    allocationEndTime,
+    minPassportScore,
+    initialSuperAppBalance
+  }
+}
+
+export function decodeSQFSuperFluidRegistrationData(
+  data: any
+) {
+  const [registryAnchor, recipientAddress, metadata] = decodeAbi(data, [
+      "address",
+      "address",
+      "tuple(uint256, string)",
+  ])
+
+  return {
+    registryAnchor: registryAnchor.toLowerCase(),
+    recipientAddress: recipientAddress.toLowerCase(),
+    metadata: formatMetadataAsStruct(metadata),
+  }
+}
