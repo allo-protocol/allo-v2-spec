@@ -82,6 +82,10 @@
     {
       "name": "MerkleDistributionStrategy",
       "isFactoryGroup": true
+    },
+    {
+      "name": "SQFSuperFluidStrategy",
+      "isFactoryGroup": true
     }
   ]
 }

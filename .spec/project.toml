@@ -1,10 +1,10 @@
-# = Live Objects (Sources) ------------------------------
+# = Data Sources -----------------------------
 
 [objects.Profile]
 id = 'allov2.Profile@0.0.1'
 
 [objects.Pool]
-id = 'allov2.Pool@0.0.5'
+id = 'allov2.Pool@0.0.6'
 
 [objects.Account]
 id = 'allov2.Account@0.0.1'
@@ -33,7 +33,13 @@ id = 'allov2.MicroGrantsCommon.Allocated@0xb735720d94de3d169791e2f713cbac8da02eb
 [objects.Distributed]
 id = 'allov2.MicroGrantsCommon.Distributed@0xb5b51454adfa840bd593658325a60a50b0216f12eb5d2937efe6cea935675b7d'
 
-# = Live Columns (Outputs) ------------------------------
+[objects.SQFSuperFluid]
+id = 'allov2.SQFSuperFluid@0.0.2'
+
+[objects.SQFSuperFluidRecipient]
+id = 'allov2.SQFSuperFluidRecipient@0.0.1'
+
+# = Live Tables ------------------------------
 
 [tables.public.profile]
 profile_id = 'Profile.profileId'
@@ -193,7 +199,47 @@ block_number = 'Distributed.blockNumber'
 block_timestamp = 'Distributed.blockTimestamp'
 chain_id = 'Distributed.chainId'
 
-# = Links & Filters --------------------------------------
+[tables.public.sqf_super_fluid]
+strategy = 'SQFSuperFluid.strategy'
+strategy_id = 'SQFSuperFluid.strategyId'
+pool_id = 'SQFSuperFluid.poolId'
+use_registry_anchor = 'SQFSuperFluid.useRegistryAnchor'
+metadata_required = 'SQFSuperFluid.metadataRequired'
+registration_start_time = 'SQFSuperFluid.registrationStartTime'
+registration_end_time = 'SQFSuperFluid.registrationEndTime'
+allocation_start_time = 'SQFSuperFluid.allocationStartTime'
+allocation_end_time = 'SQFSuperFluid.allocationEndTime'
+passport_decoder = 'SQFSuperFluid.passportDecoder'
+min_passport_score = 'SQFSuperFluid.minPassportScore'
+super_fluid_host = 'SQFSuperFluid.superFluidHost'
+allocation_super_token = 'SQFSuperFluid.allocationSuperToken'
+initial_super_app_balance = 'SQFSuperFluid.initialSuperAppBalance'
+gda_pool = 'SQFSuperFluid.gdaPool'
+distribution_flow_rate = 'SQFSuperFluid.distributionFlowRate'
+block_hash = 'SQFSuperFluid.blockHash'
+block_number = 'SQFSuperFluid.blockNumber'
+block_timestamp = 'SQFSuperFluid.blockTimestamp'
+chain_id = 'SQFSuperFluid.chainId'
+
+[tables.public.sqf_super_fluid_recipient]
+recipient_id = 'SQFSuperFluidRecipient.recipientId'
+strategy = 'SQFSuperFluidRecipient.strategy'
+pool_id = 'SQFSuperFluidRecipient.poolId'
+recipient_address = 'SQFSuperFluidRecipient.recipientAddress'
+total_units = 'SQFSuperFluidRecipient.totalUnits'
+flow_rate = 'SQFSuperFluidRecipient.flowRate'
+super_app = 'SQFSuperFluidRecipient.superApp'
+is_using_registry_anchor = 'SQFSuperFluidRecipient.isUsingRegistryAnchor'
+status = 'SQFSuperFluidRecipient.status'
+metadata_protocol = 'SQFSuperFluidRecipient.metadataProtocol'
+metadata_pointer = 'SQFSuperFluidRecipient.metadataPointer'
+sender = 'SQFSuperFluidRecipient.sender'
+block_hash = 'SQFSuperFluidRecipient.blockHash'
+block_number = 'SQFSuperFluidRecipient.blockNumber'
+block_timestamp = 'SQFSuperFluidRecipient.blockTimestamp'
+chain_id = 'SQFSuperFluidRecipient.chainId'
+
+# = Links & Filters --------------------------
 
 [[objects.Profile.links]]
 table = 'public.profile'
@@ -246,3 +292,11 @@ uniqueBy = [ 'transactionHash', 'logIndex', 'chainId' ]
 [[objects.Distributed.links]]
 table = 'public.distributed'
 uniqueBy = [ 'transactionHash', 'logIndex', 'chainId' ]
+
+[[objects.SQFSuperFluid.links]]
+table = 'public.sqf_super_fluid'
+uniqueBy = [ 'chainId', 'poolId' ]
+
+[[objects.SQFSuperFluidRecipient.links]]
+table = 'public.sqf_super_fluid_recipient'
+uniqueBy = [ 'chainId', 'poolId', 'recipientId' ]
