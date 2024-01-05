@@ -275,6 +275,8 @@ filterBy = [
 	{ chainId = { op = '=', value = '42161' }, to = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
 	{ chainId = { op = '=', value = '421614' }, from = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
 	{ chainId = { op = '=', value = '421614' }, to = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
+	{ chainId = { op = '=', value = '11155111' }, from = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
+	{ chainId = { op = '=', value = '11155111' }, to = { op = 'in', value = ['0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3', '0x1133ea7af70876e64665ecd07c0a0476d09465a1'] } },
 ]
 
 [[objects.MicroGrant.links]]

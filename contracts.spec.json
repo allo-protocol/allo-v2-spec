@@ -9,6 +9,10 @@
           "address": "0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3"
         },
         {
+          "chainId": 11155111,
+          "address": "0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3"
+        },
+        {
           "chainId": 42161,
           "address": "0x4aacca72145e1df2aec137e1f3c5e3d75db8b5f3"
         },
@@ -23,6 +27,10 @@
       "contracts": [
         {
           "chainId": 5,
+          "address": "0x1133ea7af70876e64665ecd07c0a0476d09465a1"
+        },
+        {
+          "chainId": 11155111,
           "address": "0x1133ea7af70876e64665ecd07c0a0476d09465a1"
         },
         {
