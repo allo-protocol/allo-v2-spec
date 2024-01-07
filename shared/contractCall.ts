@@ -64,32 +64,32 @@ export async function getStrategyContractGroup(
         ],
       };
       
-    // RFPSimplev1
-    case "0x0362c85758aca10c506ca07c8a16e387eae5f6e3ed0bbecd62ce420863550b17":
+    // RFPSimpleStrategyv1.0
+    case "0x0d459e12d9e91d2b2a8fa12be8c7eb2b4f1c35e74573990c34b436613bc2350f":
       return {
         strategyId: strategyId,
         contractGroupName: "allov2.RFPSimpleStrategy",
         contractGroups: ["allov2.RFPSimpleStrategy"],
       };
 
-    // RFPCommitteev1
-    case "0x77ebe7547cdda23b3167d8264ea3b591f19fd3dae29aa83630cc4ad5258a4ae5":
+    // RFPCommitteeStrategyv1.0
+    case "0x7d143166a83c6a8a303ae32a6ccd287e48d79818f5d15d89e185391199909803":
       return {
         strategyId: strategyId,
         contractGroupName: "allov2.RFPCommitteeStrategy",
         contractGroups: ["allov2.RFPCommitteeStrategy"],
       };
 
-    // QVSimplev1
-    case "0x791aa1afdfa967c276345b04f603ae73c0fa8e61c0173ca01cb4a4ec7e93d091":
+    // QVSimpleStrategyv1.0
+    case "0x22d006e191d6dc5ff1a25bb0733f47f64a9c34860b6703df88dea7cb3987b4c3":
       return {
         strategyId: strategyId,
         contractGroupName: "allov2.QVSimpleStrategy",
         contractGroups: ["allov2.QVSimpleStrategy"],
       };
 
-    // DonationVotingMerkleDistributionDirectTransferv1
-    case "0x8334c481ebbdc061855b23aff1e7419845efbd8a43321c692acdc270ae47e674":
+    // DonationVotingMerkleDistributionDirectTransferStrategyv1.0
+    case "0x6f9291df02b2664139cec5703c124e4ebce32879c74b6297faa1468aa5ff9ebf":
       return {
         strategyId: strategyId,
         contractGroupName:
@@ -99,8 +99,8 @@ export async function getStrategyContractGroup(
         ],
       };
 
-    // DonationVotingMerkleDistributionVaultv1
-    case "0xe5627de3d087fb2486828b06b5434ee857bc25b4eab1ce67aa3ba126dfbd5313":
+    // DonationVotingMerkleDistributionVaultStrategyv1.0
+    case "0x7e75375f0a7cd9f7ea159c8b065976e4f764f9dcef1edf692f31dd1842f70c87":
       return {
         strategyId: strategyId,
         contractGroupName:
