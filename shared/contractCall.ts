@@ -63,29 +63,33 @@ export async function getStrategyContractGroup(
           "allov2.MicroGrantsCommon",
         ],
       };
-
-    case "0xb87f34c0968bd74d43a6a5b72831a5ea733a4783a026b9fc9b1d17adf51214d2":
+      
+    // RFPSimpleStrategyv1.0
+    case "0x0d459e12d9e91d2b2a8fa12be8c7eb2b4f1c35e74573990c34b436613bc2350f":
       return {
         strategyId: strategyId,
         contractGroupName: "allov2.RFPSimpleStrategy",
         contractGroups: ["allov2.RFPSimpleStrategy"],
       };
 
-    case "0x414f2ea9b91b8ee2e35a380fa0af0e14079832cc93530a61a4893b3dbf0a9aba":
+    // RFPCommitteeStrategyv1.0
+    case "0x7d143166a83c6a8a303ae32a6ccd287e48d79818f5d15d89e185391199909803":
       return {
         strategyId: strategyId,
         contractGroupName: "allov2.RFPCommitteeStrategy",
         contractGroups: ["allov2.RFPCommitteeStrategy"],
       };
 
-    case "0xed28ce0387d1786c1a38404047e9eecc4d1dcaeff695b867e912483e36c3d770":
+    // QVSimpleStrategyv1.0
+    case "0x22d006e191d6dc5ff1a25bb0733f47f64a9c34860b6703df88dea7cb3987b4c3":
       return {
         strategyId: strategyId,
         contractGroupName: "allov2.QVSimpleStrategy",
         contractGroups: ["allov2.QVSimpleStrategy"],
       };
 
-    case "0xc5263e972c91d7ff40708bc71239a2b6cbc8768704e210ca3069e2e11fc195df":
+    // DonationVotingMerkleDistributionDirectTransferStrategyv1.0
+    case "0x6f9291df02b2664139cec5703c124e4ebce32879c74b6297faa1468aa5ff9ebf":
       return {
         strategyId: strategyId,
         contractGroupName:
@@ -95,7 +99,8 @@ export async function getStrategyContractGroup(
         ],
       };
 
-    case "0xecc48557f4826bd1181a4495232d6d07f248ef9cc0a650e64520f6c9f7458a8c":
+    // DonationVotingMerkleDistributionVaultStrategyv1.0
+    case "0x7e75375f0a7cd9f7ea159c8b065976e4f764f9dcef1edf692f31dd1842f70c87":
       return {
         strategyId: strategyId,
         contractGroupName:
