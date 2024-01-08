@@ -1,7 +1,7 @@
 {
     "namespace": "allov2",
-    "name": "RFPRegistration",
+    "name": "RFPRecipient",
     "version": "0.0.1",
-    "displayName": "RFP Registration",
-    "description": "Index Registation on RFPSimple"
+    "displayName": "RFP Recipients",
+    "description": "Index Recipients on RFPSimple"
 }
