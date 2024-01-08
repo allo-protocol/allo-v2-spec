@@ -239,6 +239,39 @@ block_number = 'SQFSuperFluidRecipient.blockNumber'
 block_timestamp = 'SQFSuperFluidRecipient.blockTimestamp'
 chain_id = 'SQFSuperFluidRecipient.chainId'
 
+[tables.public.rfp]
+strategy = 'RFP.strategy'
+strategy_id = 'RFP.strategyId'
+pool_id = 'RFP.poolId'
+active = 'RFP.active'
+max_bid = 'RFP.maxBid'
+use_registry_anchor = 'RFP.useRegistryAnchor'
+metadata_required = 'RFP.metadataRequired'
+vote_threshold = 'RFP.voteThreshold'
+accepted_recipient_id = 'RFP.acceptedRecipientId'
+
+[tables.public.rfp_recipient]
+recipient_id = 'RFPRecipient.recipientId'
+strategy = 'RFPRecipient.strategy'
+pool_id = 'RFPRecipient.poolId'
+recipient_address = 'RFPRecipient.recipientAddress'
+proposal_bid = 'RFPRecipient.proposalBid'
+is_using_registryAnchor = 'RFPRecipient.isUsingRegistryAnchor'
+status = 'RFPRecipient.status'
+metadata_protocol = 'RFPRecipient.metadataProtocol'
+metadata_pointer = 'RFPRecipient.metadataPointer'
+sender = 'RFPRecipient.sender'
+
+[tables.public.rfp_milestone]
+milestone_id = 'RFPMilestone.milestoneId'
+pool_id = 'RFPMilestone.poolId'
+strategy = 'RFPMilestone.strategy'
+recipient_id = 'RFPMilestone.recipientId'
+metadata_protocol = 'RFPMilestone.metadataProtocol'
+metadata_pointer = 'RFPMilestone.metadataPointer'
+amount_percentage = 'RFPMilestone.amountPercentage'
+status = 'RFPMilestone.status'
+
 # = Links & Filters --------------------------
 
 [[objects.Profile.links]]
