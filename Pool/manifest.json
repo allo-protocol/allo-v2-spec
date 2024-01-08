@@ -1,7 +1,7 @@
 {
     "namespace": "allov2",
     "name": "Pool",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "displayName": "Allo Pools",
     "description": "All Pools created on Allo"
 }
