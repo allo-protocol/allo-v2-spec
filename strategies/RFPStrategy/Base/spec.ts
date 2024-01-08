@@ -83,14 +83,14 @@ class RFP extends LiveTable {
     @OnEvent('allov2.RFPSimpleStrategy.PoolActive')
     @OnEvent('allov2.RFPCommitteeStrategy.PoolActive')
     onPoolStatusUpdate(event: Event) {
-        this.active = event.data.flag
+        this.active = event.data.active
     }
 
     @OnEvent('allov2.RFPSimpleStrategy.MaxBidIncreased')
     @OnEvent('allov2.RFPCommitteeStrategy.MaxBidIncreased')
     async onMaxBidIncreased(event: Event) {
         await this.load();
-        this.maxBid = this.maxBid.plus(event.data.amount)
+        this.maxBid = this.maxBid.plus(event.data.maxBid)
     }
 
     @OnEvent('allov2.RFPSimpleStrategy.Allocated')
